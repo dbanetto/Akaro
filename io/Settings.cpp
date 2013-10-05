@@ -4,7 +4,7 @@
     License: MIT License
 */
 #include "Settings.h"
-
+#include <iostream>
 using namespace IO;
 
 #include <stdlib.h>
@@ -46,19 +46,17 @@ bool Settings::exists (std::string header ,std::string  setting)
 {
     if (this->exists(header)) 
     {
-        if (this->stored_settings[header].loaded) {
-            if ( this->stored_settings[header].properties.find(setting) == this->stored_settings[header].properties.end() ) {
-                return false;
-            } else {
-                return true;
-            }
+    	INISection* section = &(this->stored_settings[header]);
+        if (section->loaded) {
+            return section->properties.find(setting) != section->properties.end();
         } else {
             //Load Header's properties?
             if ( this->loading_flag == SETTING_LOAD_ON_REQUEST ) {
                 this->load_section ( header , SETTINGS_DUPLICATES_INGORED );
                 return this->exists ( header , setting);
+            } else {
+            	return false;
             }
-            return false;
         }
     } else {
         return false;
@@ -67,12 +65,7 @@ bool Settings::exists (std::string header ,std::string  setting)
 
 bool Settings::exists (std::string header) 
 {
-    if(this->stored_settings.find(header) == this->stored_settings.end() )
-    {
-        return false;
-    } else {
-        return true;
-    }
+	return this->stored_settings.find(header) != this->stored_settings.end();
 }
 
 
@@ -106,16 +99,16 @@ void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
         line = trim(line);
 
         //Treat lines starting with ; as comments and do not process
-        if (line[0] == ';')
+        if ( startswith( line , ";" ) )
         {
             continue;
         }
         //Check if the line has the beginning of a section
-        if (line[0] == '[' && line[line.size() - 1] == ']')
+        if (startswith( line , "[" ) && endswith( line , "]" ))
         {
             
             //Close last section
-            section.end_index = start_pos;
+            section.end_index = start_pos - 1;
             this->stored_settings[section.header_name] = section;
             
             //Refresh section
@@ -152,8 +145,14 @@ void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
 
 void Settings::load_section ( std::string header , SettingsDuplicateFlags flag) {
     std::fstream file;
-    file.open( this->stored_settings[header].file_name.c_str() );
-    int file_pos_max = this->stored_settings[header].end_index;
+
+    if (this->exists(header) == false)
+    	return;
+
+    INISection* section = &(this->stored_settings[header]);
+
+    file.open( section->file_name.c_str() );
+    int file_pos_max = section->end_index;
     //Check if the file is open
     if (!(file.is_open()))
     {
@@ -161,7 +160,7 @@ void Settings::load_section ( std::string header , SettingsDuplicateFlags flag) 
     }
 
     //Seek to the beginning of the file
-    file.seekg( this->stored_settings[header].start_index , file.beg );
+    file.seekg( section->start_index , file.beg );
     std::string line;
     while ( file.tellg() <  file_pos_max && !file.eof() )
     {
@@ -172,16 +171,16 @@ void Settings::load_section ( std::string header , SettingsDuplicateFlags flag) 
         {
             continue;
         }
-        if (line[0] == ';')
-        {
-            continue;
-        }
+        if ( startswith( line , ";" ) )
+		{
+			continue;
+		}
         //Check if the line has the beginning of a section
-        if (line[0] == '[')
-        {
-            continue;
-        }
-        if (line[0] == '@')
+        if ( startswith( line , "[" ) )
+		{
+			continue;
+		}
+        if ( startswith( line , "@" ) )
         {
             continue;
         }
@@ -195,21 +194,21 @@ void Settings::load_section ( std::string header , SettingsDuplicateFlags flag) 
 
         
 
-        if (this->stored_settings[header].properties.count( key ) > 0 )
+        if ( section->properties.find( key ) !=  section->properties.end() )
         {
             //There is another copy of the key, check if it is OK to override
             if (flag == SETTINGS_DUPLICATES_OVERRIDE)
             {
-                this->stored_settings[header].properties[key] = value;
+            	section->properties[key] = value;
             }
         }
         else
         {
-            this->stored_settings[header].properties[key] = value;
+        	section->properties[key] = value;
         }
     }
     //Update loaded status
-    this->stored_settings[header].loaded = true;
+    section->loaded = true;
 }
 
 void Settings::unload_section (std::string header) 
