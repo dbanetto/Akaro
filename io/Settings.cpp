@@ -82,6 +82,11 @@ void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
 
     //Seek to the beginning of the file
     file.seekg( 0 , file.beg );
+    file.peek();
+
+    //Calculate the offset from the 1st byte to the 0th element
+    int sys_error = file.tellg();
+
     std::string line;
     INISection section;
     section.file_name = file_name;
@@ -91,11 +96,15 @@ void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
 
     while ( ! file.eof() )
     {
-        //Get the current line
-        int start_pos = file.tellg();
-        std::getline ( file, line );
+        //Get current position with the sys error offset
+    	int start_pos = (int)(file.tellg()) - sys_error;
+        int line_size = 0;
+        std::getline( file , line );
+
         if (line.length() == 0)
             continue;
+
+        line_size = line.length() + 1;
         line = trim(line);
 
         //Treat lines starting with ; as comments and do not process
@@ -106,15 +115,15 @@ void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
         //Check if the line has the beginning of a section
         if (startswith( line , "[" ) && endswith( line , "]" ))
         {
-            
-            //Close last section
-            section.end_index = start_pos - 1;
+        	//Close last section
+            section.end_index = (int)file.tellg() - sys_error;
             this->stored_settings[section.header_name] = section;
-            
+
             //Refresh section
             section = INISection();
             //Remove the brackets
             section.header_name = line.substr ( 1 , line.size() - 2 );
+            //-2 constant is to correct the position of the start index
             section.start_index = start_pos;
             section.loaded = false;
             section.file_name = file_name;
@@ -137,7 +146,7 @@ void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
     }
 
     file.seekg (0 , file.end);
-    section.end_index = file.tellg();
+    section.end_index = (int)file.tellg() - sys_error;
     this->stored_settings[section.header_name] = section;
 
     file.close();
@@ -160,11 +169,13 @@ void Settings::load_section ( std::string header , SettingsDuplicateFlags flag) 
     }
 
     //Seek to the beginning of the file
+    file.seekg( 0 , file.beg );
     file.seekg( section->start_index , file.beg );
-    std::string line;
-    while ( file.tellg() <  file_pos_max && !file.eof() )
+
+    while ( file.tellg() < file_pos_max && !file.eof() )
     {
-        std::getline ( file, line );
+    	std::string line;
+    	std::getline ( file, line );
         line = trim ( line );
         
         if (line == "")
@@ -176,7 +187,7 @@ void Settings::load_section ( std::string header , SettingsDuplicateFlags flag) 
 			continue;
 		}
         //Check if the line has the beginning of a section
-        if ( startswith( line , "[" ) )
+        if ( startswith( line , "[" ) || endswith( line , "]") )
 		{
 			continue;
 		}
@@ -209,6 +220,8 @@ void Settings::load_section ( std::string header , SettingsDuplicateFlags flag) 
     }
     //Update loaded status
     section->loaded = true;
+    file.close();
+
 }
 
 void Settings::unload_section (std::string header) 
@@ -326,4 +339,4 @@ char tolower(char in){
   if(in<='Z' && in>='A')
     return in-('Z'-'z');
   return in;
-} 
+}

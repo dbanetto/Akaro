@@ -8,7 +8,7 @@
 #include "etc/Timer.h"
 #include <string>
 #include <sstream>
-
+#include "etc/env.h"
 #include "GameWindow.h"
 
 /// <summary>
@@ -83,10 +83,20 @@ int GameWindow::Init(const char* TITLE ,int WIDTH, int HIEGHT , SDL_Color Backgr
     if (settings.exists ( "render.screen" , "fullscreen" )) {
         //Evaluate if the option is set on
         if (settings.getBool ( "render.screen" , "fullscreen" )) {
-            SDL_SCREEN_FLAGS |= SDL_WINDOW_FULLSCREEN_DESKTOP;  
+            SDL_SCREEN_FLAGS |=
+//Build option to use SDL_WINDOW_FULLSCREEN
+            		#ifdef GAME_WINDOW_USE_WINDOW_FULLSCREEN
+            		SDL_WINDOW_FULLSCREEN;
+#else
+            		SDL_WINDOW_FULLSCREEN_DESKTOP;
+#endif
         }
     }
 
+    if (settings.exists ( "render.screen" , "display" ))
+    {
+    	SDL_setenv( "SDL_VIDEO_FULLSCREEN_DISPLAY" , settings.get ( "render.screen" , "display" ).c_str() , 0 );
+    }
 
     //Start SDL
     if ( SDL_Init(SDL_INIT_EVERYTHING) == -1)
@@ -165,6 +175,7 @@ int GameWindow::Init(const char* TITLE ,int WIDTH, int HIEGHT , SDL_Color Backgr
 
     this->inited = true;
     //All done correctly
+    etc::printSystemInfo();
     return 0;
 }
 
@@ -289,7 +300,7 @@ void GameWindow::Event (SDL_Event e , double delta)
         this->quit = true;
         break;
     case (SDL_KEYDOWN):
-        if (e.key.keysym.sym == SDLK_ESCAPE)
+		if (e.key.keysym.sym == SDLK_ESCAPE)
         {
             this->quit = true;
         }
