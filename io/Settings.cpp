@@ -5,22 +5,21 @@
 */
 #include "Settings.h"
 #include <iostream>
+
 using namespace IO;
 
 #include <stdlib.h>
 #include <string.h>
+#include <sstream>
+#include <algorithm>
+#include <iterator>
+#include "../etc/string.h"
 #ifdef SETTINGS_REGEX_ENABLED
 #include <regex>
 #endif
 
-static const std::string& whitespace = " \t\0";
 
-std::string trim (std::string str);
-bool endswith (std::string str,std::string  suffix);
-bool startswith (std::string str,std::string  prefix);
-std::string toLower (std::string str);
-char tolower(char in);
-bool is_number (std::string s);
+
 
 Settings::Settings() {
     this->loading_flag = SETTING_LOAD_NOTHING;
@@ -104,15 +103,15 @@ void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
         if (line.length() == 0)
             continue;
 
-        line = trim(line);
+        line = etc::trim(line);
 
         //Treat lines starting with ; as comments and do not process
-        if ( startswith( line , ";" ) )
+        if ( etc::startswith( line , ";" ) )
         {
             continue;
         }
         //Check if the line has the beginning of a section
-        if (startswith( line , "[" ) && endswith( line , "]" ))
+        if (etc::startswith( line , "[" ) && etc::endswith( line , "]" ))
         {
         	//Close last section
             section.end_index = (int)file.tellg();
@@ -134,11 +133,11 @@ void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
         if (line[0] == '@')
         {
                //Check if key is @inlcude
-            if ( trim ( line.substr( 0 , line.find_first_of('=', 0) ) ) == "@include")
+            if ( etc::trim ( line.substr( 0 , line.find_first_of('=', 0) ) ) == "@include")
             {
                 //Include another file
                 //Get file name from the value
-                this->load ( trim ( line.substr( line.find_first_of('=', 0) + 1  , line.length() - 1 ) ) , flag );
+                this->load ( etc::trim ( line.substr( line.find_first_of('=', 0) + 1  , line.length() - 1 ) ) , flag );
                 continue;
             }
         }
@@ -175,22 +174,22 @@ void Settings::load_section ( std::string header , SettingsDuplicateFlags flag) 
     {
     	std::string line;
     	std::getline ( file, line );
-        line = trim ( line );
+        line = etc::trim ( line );
         
         if (line == "")
         {
             continue;
         }
-        if ( startswith( line , ";" ) )
+        if ( etc::startswith( line , ";" ) )
 		{
 			continue;
 		}
         //Check if the line has the beginning of a section
-        if ( startswith( line , "[" ) || endswith( line , "]") )
+        if ( etc::startswith( line , "[" ) || etc::endswith( line , "]") )
 		{
 			continue;
 		}
-        if ( startswith( line , "@" ) )
+        if ( etc::startswith( line , "@" ) )
         {
             continue;
         }
@@ -199,8 +198,8 @@ void Settings::load_section ( std::string header , SettingsDuplicateFlags flag) 
         //Find the equal part of the line
         std::size_t equal_pos = line.find_first_of('=', 0);
 
-        std::string key = trim ( line.substr( 0 , equal_pos ) );
-        std::string value = trim ( line.substr( equal_pos + 1  , line.length() - 1 ) );
+        std::string key = etc::trim ( line.substr( 0 , equal_pos ) );
+        std::string value = etc::trim ( line.substr( equal_pos + 1  , line.length() - 1 ) );
 
         
 
@@ -249,7 +248,7 @@ bool  Settings::getBool (std::string header , std::string  key , bool* bol)
     std::string b;
     if (this->get(header, key , &b) == false)
     	return false;
-    b = toLower(b);
+    b = etc::toLower(b);
     if (b != "")
     {
     	*bol = ( b == "true" ? true : false );
@@ -267,7 +266,7 @@ bool Settings::getInt (std::string header , std::string  key , int* num)
     if (this->get(header, key , &b) == false)
     	return false;
 
-    if ( is_number(b) )
+    if ( etc::is_number(b) )
     {
     	*num = atoi( b.c_str() );
         return true;
@@ -296,59 +295,4 @@ void Settings::set (std::string header , std::string key , std::string value)
      if (this->exists( header , key ) ) {
         this->stored_settings[header].properties[key] = value;
      }
-}
-
-std::string trim (std::string str)
-{
-    //Remove trailing whitespace
-    int strBegin = str.find_first_not_of(whitespace);
-    int strEnd = str.find_last_not_of(whitespace);
-    
-    if (str == "") {
-        return "";
-    }
-
-    return str.substr(strBegin,  strEnd - strBegin + 1);
-}
-
-bool endswith (std::string str,std::string  suffix)
-{
-    if( str == "" || suffix == "" )
-        return false;
-
-    if(suffix.length() > str.length())
-        return false;
-
-    return 0 == strncmp( str.c_str() + str.length() - suffix.length(), suffix.c_str() , suffix.length() );
-}
-bool startswith (std::string str,std::string  prefix)
-{
-    if( str == "" || prefix == "" )
-        return false;
-
-    if(prefix.length() > str.length())
-        return false;
-
-    return 0 == strncmp( str.c_str(), prefix.c_str() , prefix.length() );
-}
-
-std::string toLower (std::string str) 
-{
-    for ( unsigned int i = 0; i < str.size(); i++ ) {
-        if(str[i]<='Z' && str[i]>='A') {
-            str[i] =  tolower(str[i]);
-        }
-    }
-    return str;
-}
-
-char tolower(char in){
-  if(in<='Z' && in>='A')
-    return in-('Z'-'z');
-  return in;
-}
-
-bool is_number(const std::string s)
-{
-    return !s.empty() && s.find_first_not_of("0123456789") == std::string::npos;
 }

@@ -20,6 +20,8 @@
 namespace IO
 {
 
+
+
 /// <summary>
 /// A Flag to describe how duplicate are handled
 /// Either ignored new settings or override the old ones.
