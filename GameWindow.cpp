@@ -78,7 +78,8 @@ int GameWindow::Init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_F
     //Support for Resizable windows 
     //Check if the settings contain the option
     bool resizable;
-    if (settings.getBool ( "window" , "resizable" , &resizable ) == true) {
+    if (settings.getBool ( "window" , "resizable" , &resizable ) == true)
+    {
         //Evaluate if the option is set on
         if (resizable) {
             SDL_SCREEN_FLAGS |= SDL_WINDOW_RESIZABLE;
@@ -89,7 +90,8 @@ int GameWindow::Init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_F
     //Support for fullscreen windows 
     //Check if the settings contain the option
     bool fullscreen;
-    if (settings.getBool ( "window" , "fullscreen", &fullscreen ) == true) {
+    if (settings.getBool ( "window" , "fullscreen", &fullscreen ) == true)
+    {
         //Evaluate if the option is set on
         if (fullscreen) {
             SDL_SCREEN_FLAGS |=
@@ -140,41 +142,49 @@ int GameWindow::Init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_F
 
     //Set display to be rendered to
      SDL_DisplayMode display_mode;
- 	if ( SDL_GetDisplayMode( display , 0 , &display_mode ) != 0) {
+ 	if ( SDL_GetDisplayMode( display , 0 , &display_mode ) != 0)
+ 	{
  		std::cout << "An error has occurred" << std::endl << SDL_GetError() << std::endl;
  	}
 
     int WIDTH = 0;
-	if (this->settings.getInt( "window" , "width" , &WIDTH ) == false) {
+	if (this->settings.getInt( "window" , "width" , &WIDTH ) == false)
+	{
 		WIDTH = 800;
 		std::string native;
-		if (this->settings.get ("window" , "width" , &native) == true) {
+		if (this->settings.get ("window" , "width" , &native) == true)
+		{
 			if (native == "native") {
 				//Set height as native screen height
 				SDL_DisplayMode dm;
-				if ( SDL_GetDesktopDisplayMode(display , &dm ) == 0) {
+				if ( SDL_GetDesktopDisplayMode(display , &dm ) == 0)
+				{
 					WIDTH = dm.w;
 				}
 			}
 		}
 		if (WIDTH == 800) {
-			std::cout << "Warning! Window height is set to default, 600px" << std::endl;
+			std::cout << "Warning! Window width is set to default, 800px" << std::endl;
 		}
 	}
     int HIEGHT = 0;
-    if (this->settings.getInt( "window" , "height" , &HIEGHT ) == false) {
+    if (this->settings.getInt( "window" , "height" , &HIEGHT ) == false)
+    {
     	HIEGHT = 600;
     	std::string native;
-    	if (this->settings.get ("window" , "height" , &native) == true) {
+    	if (this->settings.get ("window" , "height" , &native) == true)
+    	{
     		if (native == "native") {
     			//Set height as native screen height
     			SDL_DisplayMode dm;
-    			if ( SDL_GetDesktopDisplayMode( 0 , &dm ) == 0) {
+    			if ( SDL_GetDesktopDisplayMode( 0 , &dm ) == 0)
+    			{
     				HIEGHT = dm.h;
     			}
     		}
     	}
-    	if (HIEGHT == 600) {
+    	if (HIEGHT == 600)
+    	{
     		std::cout << "Warning! Window height is set to default, 600px" << std::endl;
     	}
     }
@@ -205,9 +215,11 @@ int GameWindow::Init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_F
     //Support for SDL_Render VSync 
     //Check if the settings contain the option
     bool vsync;
-    if (settings.getBool ( "window" , "vsync" , &vsync)) {
+    if (settings.getBool ( "window" , "vsync" , &vsync))
+    {
         //Evaluate if the option is set on
-        if (vsync) {
+        if (vsync)
+        {
             render_flags |= SDL_RENDERER_PRESENTVSYNC;
         }
     }
