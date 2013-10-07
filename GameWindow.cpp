@@ -37,7 +37,10 @@ GameWindow::~GameWindow(void)
 {
     if (this->inited) 
     {
-        //Unload the Game Data
+    	//Clear Settings
+    	this->settings.clear();
+
+    	//Unload the Game Data
         this->Unload();
 
         //Destroy the window/renderer 
@@ -200,7 +203,6 @@ int GameWindow::Init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_F
     
     //Set minimum size of window (640x480)
     SDL_SetWindowMinimumSize( this->window ,640,480);
-    
     SDL_SetWindowDisplayMode( this->window , &display_mode );
 
     //Check if the window was created
