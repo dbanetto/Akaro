@@ -84,11 +84,11 @@ typedef  std::map< std::string , INISection >::iterator  INISectionIter;
         bool exists (std::string header , std::string  setting);
         bool exists (std::string header);
 
-        virtual std::string get (std::string header , std::string  key);
+        bool get (std::string header , std::string  key , std::string* out);
 
-        virtual bool getBool (std::string header ,  std::string  key);
+        bool getBool (std::string header ,  std::string  key , bool* out);
 
-        virtual int getInt (std::string header , std::string  key);
+        bool getInt (std::string header , std::string  key , int* out);
 
         virtual bool add (std::string header , std::string key , std::string value);
 

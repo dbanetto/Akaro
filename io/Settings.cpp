@@ -20,6 +20,7 @@ bool endswith (std::string str,std::string  suffix);
 bool startswith (std::string str,std::string  prefix);
 std::string toLower (std::string str);
 char tolower(char in);
+bool is_number (std::string s);
 
 Settings::Settings() {
     this->loading_flag = SETTING_LOAD_NOTHING;
@@ -98,13 +99,11 @@ void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
     {
         //Get current position with the sys error offset
     	int start_pos = (int)(file.tellg()) - sys_error;
-        int line_size = 0;
         std::getline( file , line );
 
         if (line.length() == 0)
             continue;
 
-        line_size = line.length() + 1;
         line = trim(line);
 
         //Treat lines starting with ; as comments and do not process
@@ -116,7 +115,7 @@ void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
         if (startswith( line , "[" ) && endswith( line , "]" ))
         {
         	//Close last section
-            section.end_index = (int)file.tellg() - sys_error;
+            section.end_index = (int)file.tellg();
             this->stored_settings[section.header_name] = section;
 
             //Refresh section
@@ -232,24 +231,12 @@ void Settings::unload_section (std::string header)
     }
 }
 
-std::string Settings::get (std::string header , std::string  setting)
+bool Settings::get (std::string header , std::string  setting, std::string* out)
 {
     if (this->exists(header ,setting))
     {
-        return this->stored_settings[header].properties[setting];
-    }
-    else
-    {
-        return "";
-    }
-}
-
-bool  Settings::getBool (std::string header , std::string  key)
-{
-    std::string b = this->get(header, key);
-    if (b != "")
-    {
-        return  ( b == "true" ? true : false );
+    	*out = this->stored_settings[header].properties[setting];
+    	return true;
     }
     else
     {
@@ -257,19 +244,39 @@ bool  Settings::getBool (std::string header , std::string  key)
     }
 }
 
-int Settings::getInt (std::string header , std::string  key)
+bool  Settings::getBool (std::string header , std::string  key , bool* bol)
 {
-    std::string b = this->get(header,key);
+    std::string b;
+    if (this->get(header, key , &b) == false)
+    	return false;
+    b = toLower(b);
     if (b != "")
     {
-        return atoi( this->get(header,key).c_str() );
+    	*bol = ( b == "true" ? true : false );
+    	return true;
     }
     else
     {
-        return -1;
+        return false;
     }
 }
 
+bool Settings::getInt (std::string header , std::string  key , int* num)
+{
+    std::string b;
+    if (this->get(header, key , &b) == false)
+    	return false;
+
+    if ( is_number(b) )
+    {
+    	*num = atoi( b.c_str() );
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
 
 bool Settings::add (std::string header , std::string key , std::string value)
 {
@@ -339,4 +346,9 @@ char tolower(char in){
   if(in<='Z' && in>='A')
     return in-('Z'-'z');
   return in;
+}
+
+bool is_number(const std::string s)
+{
+    return !s.empty() && s.find_first_not_of("0123456789") == std::string::npos;
 }

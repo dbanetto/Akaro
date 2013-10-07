@@ -35,7 +35,7 @@ public:
     GameWindow();
     virtual ~GameWindow();
 
-    int Init(const char* TITLE ,int WIDTH, int HEIGHT , SDL_Color BACKGROUND_COLOUR ,  int SDL_SCREEN_FLAGS );
+    int Init(const char* TITLE , SDL_Color BACKGROUND_COLOUR ,  int SDL_SCREEN_FLAGS );
 
     void Start(void);
 protected:

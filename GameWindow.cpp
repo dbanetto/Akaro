@@ -9,6 +9,7 @@
 #include <string>
 #include <sstream>
 #include "etc/env.h"
+#include "io/file.h"
 #include "GameWindow.h"
 
 /// <summary>
@@ -60,19 +61,26 @@ GameWindow::~GameWindow(void)
 /// <param name="Background">Set the background of the window.</param>
 /// <param name="SDL_SCREEN_FLAGS">Start the window with given flags.</param>
 /// <returns></returns>
-int GameWindow::Init(const char* TITLE ,int WIDTH, int HIEGHT , SDL_Color Background , int SDL_SCREEN_FLAGS )
+int GameWindow::Init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_FLAGS )
 {
     //If it already was inited, do not bother with it again
     if (this->inited)
         return 0;
+
+    if (IO::fileExists( SETTINGS_PATH ) == false) {
+    	std::cout << TITLE << " could not initialize due to the settings file " << SETTINGS_PATH << " does not exist." ;
+    	return -1;
+    }
+
     
     settings.load( SETTINGS_PATH , IO::SETTINGS_DUPLICATES_INGORED );
     
     //Support for Resizable windows 
     //Check if the settings contain the option
-    if (settings.exists ( "render.screen" , "resizable" )) {
+    bool resizable;
+    if (settings.getBool ( "window" , "resizable" , &resizable ) == true) {
         //Evaluate if the option is set on
-        if (settings.getBool ( "render.screen" , "resizable" )) {
+        if (resizable) {
             SDL_SCREEN_FLAGS |= SDL_WINDOW_RESIZABLE;
             
         }
@@ -80,9 +88,10 @@ int GameWindow::Init(const char* TITLE ,int WIDTH, int HIEGHT , SDL_Color Backgr
     
     //Support for fullscreen windows 
     //Check if the settings contain the option
-    if (settings.exists ( "render.screen" , "fullscreen" )) {
+    bool fullscreen;
+    if (settings.getBool ( "window" , "fullscreen", &fullscreen ) == true) {
         //Evaluate if the option is set on
-        if (settings.getBool ( "render.screen" , "fullscreen" )) {
+        if (fullscreen) {
             SDL_SCREEN_FLAGS |=
 //Build option to use SDL_WINDOW_FULLSCREEN
             		#ifdef GAME_WINDOW_USE_WINDOW_FULLSCREEN
@@ -91,11 +100,6 @@ int GameWindow::Init(const char* TITLE ,int WIDTH, int HIEGHT , SDL_Color Backgr
             		SDL_WINDOW_FULLSCREEN_DESKTOP;
 #endif
         }
-    }
-
-    if (settings.exists ( "render.screen" , "display" ))
-    {
-    	SDL_setenv( "SDL_VIDEO_FULLSCREEN_DISPLAY" , settings.get ( "render.screen" , "display" ).c_str() , 0 );
     }
 
     //Start SDL
@@ -130,10 +134,56 @@ int GameWindow::Init(const char* TITLE ,int WIDTH, int HIEGHT , SDL_Color Backgr
         return 1;
     }
     
+    int display = 0;
+    settings.getInt ( "window" , "display" , &display );
+
+
+    //Set display to be rendered to
+     SDL_DisplayMode display_mode;
+ 	if ( SDL_GetDisplayMode( display , 0 , &display_mode ) != 0) {
+ 		std::cout << "An error has occurred" << std::endl << SDL_GetError() << std::endl;
+ 	}
+
+    int WIDTH = 0;
+	if (this->settings.getInt( "window" , "width" , &WIDTH ) == false) {
+		WIDTH = 800;
+		std::string native;
+		if (this->settings.get ("window" , "width" , &native) == true) {
+			if (native == "native") {
+				//Set height as native screen height
+				SDL_DisplayMode dm;
+				if ( SDL_GetDesktopDisplayMode(display , &dm ) == 0) {
+					WIDTH = dm.w;
+				}
+			}
+		}
+		if (WIDTH == 800) {
+			std::cout << "Warning! Window height is set to default, 600px" << std::endl;
+		}
+	}
+    int HIEGHT = 0;
+    if (this->settings.getInt( "window" , "height" , &HIEGHT ) == false) {
+    	HIEGHT = 600;
+    	std::string native;
+    	if (this->settings.get ("window" , "height" , &native) == true) {
+    		if (native == "native") {
+    			//Set height as native screen height
+    			SDL_DisplayMode dm;
+    			if ( SDL_GetDesktopDisplayMode( 0 , &dm ) == 0) {
+    				HIEGHT = dm.h;
+    			}
+    		}
+    	}
+    	if (HIEGHT == 600) {
+    		std::cout << "Warning! Window height is set to default, 600px" << std::endl;
+    	}
+    }
+
+
     //Create the window
     this->window = SDL_CreateWindow (  TITLE
-                                     , SDL_WINDOWPOS_UNDEFINED
-                                     , SDL_WINDOWPOS_UNDEFINED
+                                     , SDL_WINDOWPOS_CENTERED_DISPLAY(display)
+                                     , SDL_WINDOWPOS_CENTERED_DISPLAY(display)
                                      , WIDTH
                                      , HIEGHT
                                      , SDL_SCREEN_FLAGS );
@@ -141,6 +191,8 @@ int GameWindow::Init(const char* TITLE ,int WIDTH, int HIEGHT , SDL_Color Backgr
     //Set minimum size of window (640x480)
     SDL_SetWindowMinimumSize( this->window ,640,480);
     
+    SDL_SetWindowDisplayMode( this->window , &display_mode );
+
     //Check if the window was created
     if (this->window == nullptr)
     {
@@ -152,15 +204,16 @@ int GameWindow::Init(const char* TITLE ,int WIDTH, int HIEGHT , SDL_Color Backgr
     int render_flags = SDL_RENDERER_ACCELERATED;
     //Support for SDL_Render VSync 
     //Check if the settings contain the option
-    if (settings.exists ( "render.screen" , "vsync" )) {
+    bool vsync;
+    if (settings.getBool ( "window" , "vsync" , &vsync)) {
         //Evaluate if the option is set on
-        if (settings.getBool ( "render.screen" , "vsync" )) {
+        if (vsync) {
             render_flags |= SDL_RENDERER_PRESENTVSYNC;
         }
     }
 
     //Create Renderer
-    this->renderer = SDL_CreateRenderer (this->window , -1 , render_flags );
+    this->renderer = SDL_CreateRenderer (this->window , display , render_flags );
 
     //Make sure it was created correctly
     if (this->renderer == nullptr)
@@ -173,9 +226,11 @@ int GameWindow::Init(const char* TITLE ,int WIDTH, int HIEGHT , SDL_Color Backgr
     //Set background colour
     this->background = Background;
 
+    //etc::printSystemInfo();
+
     this->inited = true;
     //All done correctly
-    etc::printSystemInfo();
+
     return 0;
 }
 
