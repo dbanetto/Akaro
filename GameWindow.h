@@ -25,6 +25,7 @@
 #endif
 
 #include "io/Settings.h"
+#include "input/InputHandler.h"
 
 /// <summary>
 /// GameWindow Class to handle Rendering, Updating and events
@@ -63,6 +64,8 @@ private:
 
     //Settings
     IO::Settings settings;
+    Input::InputHandler input;
+
 };
 
 #endif

@@ -11,7 +11,7 @@
 #include "etc/env.h"
 #include "io/file.h"
 #include "GameWindow.h"
-#include "input/InputHandler.h"
+
 
 /// <summary>
 /// Initializes a new instance of the <see cref="GameWindow"/> class.
@@ -28,6 +28,7 @@ GameWindow::GameWindow(void)
     this->CURRENT_FPS = 0;
 
     settings = IO::Settings ( IO::SETTING_LOAD_ON_REQUEST );
+    input.load( "input.ini" , IO::SETTINGS_DUPLICATES_INGORED );
 }
 
 
@@ -242,10 +243,9 @@ int GameWindow::Init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_F
     this->background = Background;
 
     //etc::printSystemInfo();
-    Input::Key k = Input::StringToKeys( "C+1" );
+    Input::Key k;
+    input.getKey("core" , "up", &k);
     std::cout << SDL_GetScancodeName ( k.scan_code ) << std::endl;
-
-    std::cout << Input::KeysToString(  Input::StringToKeys( "C+1" ) ) << std::endl;
 
     this->inited = true;
     //All done correctly

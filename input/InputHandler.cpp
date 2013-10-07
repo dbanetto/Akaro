@@ -14,7 +14,7 @@
 
 namespace Input {
 
-InputHandler::InputHandler() {
+InputHandler::InputHandler() : Settings(IO::SETTING_LOAD_ON_REQUEST) {
 	// TODO Auto-generated constructor stub
 
 }
@@ -25,18 +25,24 @@ InputHandler::~InputHandler() {
 
 
 
-bool getScanCode (std::string header , std::string  key , Key* sacncode)
+bool InputHandler::getKey (std::string header , std::string  key , Key* out)
 {
 	//All keys to be in a *.keys
-	key = key + ".keys";
-
-	return false;
+	key = key + ".key";
+	std::string outp;
+	bool result = this->get( header , key , &outp );
+	if (result) {
+		*out = StringToKeys( outp );
+		return true;
+	} else {
+		return false;
+	}
 }
 
-void setKeyCode (std::string header , std::string key , Key  value)
+void InputHandler::setKey (std::string header , std::string key , Key  value)
 {
-	key = key + ".keys";
-
+	key = key + ".key";
+	this->set( header , key , KeysToString(value) );
 }
 
 Key StringToKeys (std::string keys)
