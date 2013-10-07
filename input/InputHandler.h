@@ -18,10 +18,13 @@
 
 namespace Input {
 
-struct Keys {
-	std::vector<SDL_Scancode> key_codes;
+struct Key {
+	SDL_Scancode scan_code;
 	SDL_Keymod  keymod;
 };
+
+Key StringToKeys (std::string keys);
+std::string KeysToString (Key key);
 
 class InputHandler:
         public IO::Settings
@@ -30,11 +33,11 @@ public:
 	InputHandler();
 	virtual ~InputHandler();
 
-	SDL_Scancode getScanCode (std::string header , std::string  key);
-	SDL_Keycode  getKeyCode (std::string header , std::string  key);
 
-	void setScanCode (std::string header , std::string key , SDL_Scancode  value);
-	void setKeyCode (std::string header , std::string key , SDL_Keycode  value);
+	bool getKey (std::string header , std::string key , Key* keycode);
+	void setKey (std::string header , std::string key , Key  value);
+
+
 
 };
 

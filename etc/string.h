@@ -25,5 +25,7 @@ std::string toLower (std::string str);
 char tolower(char in);
 bool is_number (std::string s);
 
+std::string convInt (int num);
+
 }
 #endif /* STRING_H_ */

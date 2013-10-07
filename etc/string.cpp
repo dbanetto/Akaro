@@ -72,14 +72,23 @@ bool is_number(const std::string s)
     return !s.empty() && s.find_first_not_of("0123456789") == std::string::npos;
 }
 
-std::vector<std::string> split (std::string String , std::string token)
+std::vector<std::string> split (std::string String , std::string delimiter)
 {
-	std::istringstream iss (String);
 	std::vector<std::string> tokens;
-	std::copy(std::istream_iterator<std::string>(iss),
-			std::istream_iterator<std::string>(),
-			std::back_inserter<std::vector<std::string> >(tokens));
+	size_t pos = 0;
+	std::string token;
+	while ((pos = String.find(delimiter)) != std::string::npos) {
+	    token = String.substr(0, pos);
+	    tokens.push_back (token);
+	    String.erase(0, pos + delimiter.length());
+	}
 	return tokens;
+}
+
+std::string convInt (int num) {
+	std::stringstream ss;//create a stringstream
+	ss << num;//add number to the stream
+	return ss.str();//return a string with the contents of the stream
 }
 
 } /* Namespace etc  */
