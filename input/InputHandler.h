@@ -16,6 +16,8 @@
 #include "SDL.h"
 #endif
 
+#define INPUT_SETTINGS_FILE "input.ini"
+
 namespace Input {
 
 struct Key {
@@ -29,6 +31,12 @@ std::string KeysToString (Key key);
 class InputHandler:
         public IO::Settings
 {
+/*
+ * TODO: Add Mouse Support
+ * TODO: Add Game Controller Support (Xbox 360 and PS3 Controller)
+ * TODO: Multi-key Support
+ */
+
 public:
 	InputHandler();
 	virtual ~InputHandler();

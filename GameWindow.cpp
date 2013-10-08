@@ -28,7 +28,6 @@ GameWindow::GameWindow(void)
     this->CURRENT_FPS = 0;
 
     settings = IO::Settings ( IO::SETTING_LOAD_ON_REQUEST );
-    input.load( "input.ini" , IO::SETTINGS_DUPLICATES_INGORED );
 }
 
 
@@ -77,7 +76,12 @@ int GameWindow::Init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_F
     	return -1;
     }
 
-    
+    if (IO::fileExists( INPUT_SETTINGS_FILE ) == false) {
+    	std::cout << TITLE << " could not initialize due to the settings file " << INPUT_SETTINGS_FILE << " does not exist." ;
+    	return -1;
+    }
+
+    input.load( INPUT_SETTINGS_FILE , IO::SETTINGS_DUPLICATES_INGORED );
     settings.load( SETTINGS_PATH , IO::SETTINGS_DUPLICATES_INGORED );
     
     //Support for Resizable windows 
@@ -100,7 +104,7 @@ int GameWindow::Init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_F
         //Evaluate if the option is set on
         if (fullscreen) {
             SDL_SCREEN_FLAGS |=
-//Build option to use SDL_WINDOW_FULLSCREEN
+//Build option to use SDL_WINDOW_FULLSCREEN instead of DESKTOP
             		#ifdef GAME_WINDOW_USE_WINDOW_FULLSCREEN
             		SDL_WINDOW_FULLSCREEN;
 #else
@@ -243,9 +247,6 @@ int GameWindow::Init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_F
     this->background = Background;
 
     //etc::printSystemInfo();
-    Input::Key k;
-    input.getKey("core" , "up", &k);
-    std::cout << SDL_GetScancodeName ( k.scan_code ) << std::endl;
 
     this->inited = true;
     //All done correctly
