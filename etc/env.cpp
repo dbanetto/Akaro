@@ -148,7 +148,7 @@ void printSystemInfo()
 	std::cout << "Audio Devices" << std::endl;
 	int count = SDL_GetNumAudioDevices(0);
 	for (int i = 0; i < count; i++ ) {
-		std::cout << "Audio device " <<  i << " : " << std::string(SDL_GetAudioDeviceName(i, 0)) << std::endl;
+		std::cout << "Audio device " <<  i << " : " << SDL_GetAudioDeviceName(i, 0) << std::endl;
 	}
 }
 

@@ -63,12 +63,14 @@ struct INISection
 
 typedef  std::map< std::string , INISection >::iterator  INISectionIter;
 
+/* TODO: Add Saving support
+ */
 
-    /// <summary>
-    /// A collection of settings loaded from files
-    /// </summary>
-    class Settings
-    {
+/// <summary>
+/// A collection of settings loaded from files
+/// </summary>
+class Settings
+{
     public:
         Settings();
         Settings(SettingsLoadFlags flag);

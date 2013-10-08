@@ -27,13 +27,11 @@ Settings::Settings() {
 
 Settings::Settings(SettingsLoadFlags flag)
 {
-    // TODO Auto-generated constructor stub
     this->loading_flag = flag;
 }
 
 Settings::~Settings()
 {
-    // TODO Auto-generated destructor stub
     this->stored_settings.clear();
 }
 

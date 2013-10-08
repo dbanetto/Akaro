@@ -156,10 +156,9 @@ int GameWindow::Init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_F
  		std::cout << "An error has occurred" << std::endl << SDL_GetError() << std::endl;
  	}
 
-    int WIDTH = 0;
+    int WIDTH = 800;
 	if (this->settings.getInt( "window" , "width" , &WIDTH ) == false)
 	{
-		WIDTH = 800;
 		std::string native;
 		if (this->settings.get ("window" , "width" , &native) == true)
 		{
@@ -176,17 +175,17 @@ int GameWindow::Init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_F
 			std::cout << "Warning! Window width is set to default, 800px" << std::endl;
 		}
 	}
-    int HIEGHT = 0;
+
+	int HIEGHT = 600;
     if (this->settings.getInt( "window" , "height" , &HIEGHT ) == false)
     {
-    	HIEGHT = 600;
     	std::string native;
     	if (this->settings.get ("window" , "height" , &native) == true)
     	{
     		if (native == "native") {
     			//Set height as native screen height
     			SDL_DisplayMode dm;
-    			if ( SDL_GetDesktopDisplayMode( 0 , &dm ) == 0)
+    			if ( SDL_GetDesktopDisplayMode( display , &dm ) == 0)
     			{
     				HIEGHT = dm.h;
     			}
@@ -233,7 +232,7 @@ int GameWindow::Init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_F
     }
 
     //Create Renderer
-    this->renderer = SDL_CreateRenderer (this->window , display , render_flags );
+    this->renderer = SDL_CreateRenderer (this->window , -1 , render_flags );
 
     //Make sure it was created correctly
     if (this->renderer == nullptr)
@@ -246,7 +245,7 @@ int GameWindow::Init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_F
     //Set background colour
     this->background = Background;
 
-    //etc::printSystemInfo();
+    etc::printSystemInfo();
 
     this->inited = true;
     //All done correctly

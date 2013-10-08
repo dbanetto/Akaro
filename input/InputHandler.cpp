@@ -15,12 +15,11 @@
 namespace Input {
 
 InputHandler::InputHandler() : Settings(IO::SETTING_LOAD_ON_REQUEST) {
-	// TODO Auto-generated constructor stub
 
 }
 
 InputHandler::~InputHandler() {
-	// TODO Auto-generated destructor stub
+
 }
 
 
