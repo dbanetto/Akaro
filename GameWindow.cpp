@@ -11,6 +11,7 @@
 #include "etc/env.h"
 #include "io/file.h"
 #include "GameWindow.h"
+#include "etc/string.h"
 
 
 /// <summary>
@@ -28,6 +29,8 @@ GameWindow::GameWindow(void)
     this->CURRENT_FPS = 0;
 
     settings = IO::Settings ( IO::SETTING_LOAD_ON_REQUEST );
+
+    this->font = nullptr;
 }
 
 
@@ -245,7 +248,7 @@ int GameWindow::Init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_F
     //Set background colour
     this->background = Background;
 
-    etc::printSystemInfo();
+    //etc::printSystemInfo();
 
     this->inited = true;
     //All done correctly
@@ -322,7 +325,16 @@ void GameWindow::Start(void)
 /// </summary>
 void GameWindow::Load()
 {
-    
+	std::string str = "";
+	if ( this->settings.get("ui" , "font" , &str) )
+	{
+		if  ( IO::fileExists ( str ) ) {
+		this->font = TTF_OpenFont( str.c_str() , 16 );
+		lb = ui::Label ( "TEST" , this->font );
+		} else {
+			std::cout << "Font Failed to load " << str << std::endl;
+		}
+	}
 }
 
 /// <summary>
@@ -330,7 +342,7 @@ void GameWindow::Load()
 /// </summary>
 void GameWindow::Unload()
 {
-
+	TTF_CloseFont( this->font );
 }
 
 /// <summary>
@@ -339,7 +351,7 @@ void GameWindow::Unload()
 /// <param name="delta">Change in time between last render.</param>
 void GameWindow::Render(double delta)
 {
-
+	lb.render(delta, this->renderer);
 }
 
 /// <summary>
@@ -348,11 +360,7 @@ void GameWindow::Render(double delta)
 /// <param name="delta">Change in time between last update.</param>
 void GameWindow::Update(double delta)
 {
-
-    std::stringstream ss;
-    ss << "Akaro (FPS:" << this->CURRENT_FPS << ")";
-
-    SDL_SetWindowTitle ( this->window , ss.str().c_str() );
+    this->lb.setText( "FPS:" + etc::convInt (this->CURRENT_FPS) );
 
     SDL_Event event;
     while (SDL_PollEvent(&event))
@@ -378,5 +386,12 @@ void GameWindow::Event (SDL_Event e , double delta)
         {
             this->quit = true;
         }
+    	break;
+    case (SDL_MOUSEMOTION):
+		int x , y;
+		SDL_GetMouseState(&x , &y);
+
+		this->lb.setPosition( x, y - TTF_FontHeight(this->font));
+		break;
     }
 }

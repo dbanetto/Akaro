@@ -24,8 +24,11 @@
 #include "SDL_image.h"
 #endif
 
+#include "ui/Label.h"
 #include "io/Settings.h"
 #include "input/InputHandler.h"
+
+//TODO : Support Multiple 'Game States'
 
 /// <summary>
 /// GameWindow Class to handle Rendering, Updating and events
@@ -66,6 +69,8 @@ private:
     IO::Settings settings;
     Input::InputHandler input;
 
+    TTF_Font* font;
+    ui::Label lb;
 };
 
 #endif

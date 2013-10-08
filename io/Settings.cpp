@@ -19,8 +19,6 @@ using namespace IO;
 #endif
 
 
-
-
 Settings::Settings() {
     this->loading_flag = SETTING_LOAD_NOTHING;
 }

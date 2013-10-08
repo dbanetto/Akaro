@@ -10,6 +10,8 @@
 
 #include <string>
 
+// TODO : Add some SDL file operations
+
 namespace IO {
     bool fileExists(const std::string& filename);
 };
