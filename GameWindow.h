@@ -25,6 +25,7 @@
 #endif
 
 #include "ui/Label.h"
+#include "ui/Button.h"
 #include "io/Settings.h"
 #include "input/InputHandler.h"
 
@@ -71,6 +72,7 @@ private:
 
     TTF_Font* font;
     ui::Label lb;
+    ui::Button bt;
 };
 
 #endif

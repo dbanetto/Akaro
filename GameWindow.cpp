@@ -12,7 +12,7 @@
 #include "io/file.h"
 #include "GameWindow.h"
 #include "etc/string.h"
-
+#include "etc/colour.h"
 
 /// <summary>
 /// Initializes a new instance of the <see cref="GameWindow"/> class.
@@ -330,11 +330,18 @@ void GameWindow::Load()
 	{
 		if  ( IO::fileExists ( str ) ) {
 		this->font = TTF_OpenFont( str.c_str() , 16 );
-		lb = ui::Label ( "TEST" , this->font );
+		SDL_Point pt;
+		pt.x = 0; pt.y = 0;
+		lb = ui::Label ( "TEST" , this->font , pt );
 		} else {
 			std::cout << "Font Failed to load " << str << std::endl;
+			this->quit = true;
 		}
 	}
+	SDL_Rect pt;
+	pt.x = 100; pt.y = 100;
+	pt.w = 100; pt.h = 100;
+	this->bt = ui::Button(pt , etc::toColour( etc::WHITE) , etc::toColour( etc::RED) , 5 , ui::Button::ButtonCallBacks()  , ui::Label() );
 }
 
 /// <summary>
@@ -351,6 +358,7 @@ void GameWindow::Unload()
 /// <param name="delta">Change in time between last render.</param>
 void GameWindow::Render(double delta)
 {
+	bt.render(delta, this->renderer);
 	lb.render(delta, this->renderer);
 }
 
@@ -387,11 +395,8 @@ void GameWindow::Event (SDL_Event e , double delta)
             this->quit = true;
         }
     	break;
-    case (SDL_MOUSEMOTION):
-		int x , y;
-		SDL_GetMouseState(&x , &y);
-
-		this->lb.setPosition( x, y - TTF_FontHeight(this->font));
+    case (SDL_MOUSEBUTTONDOWN):
+		this->bt.update(delta);
 		break;
     }
 }

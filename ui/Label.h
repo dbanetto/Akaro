@@ -26,7 +26,7 @@ class Label {
 
 public:
 	Label();
-	Label(std::string label, TTF_Font* font);
+	Label(std::string label, TTF_Font* font , SDL_Point pos);
 	virtual ~Label();
 
 	void render (const double& delta , SDL_Renderer* renderer );

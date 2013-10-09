@@ -17,7 +17,7 @@ Label::Label() {
 	this->RENDER_TEXT = false;
 }
 
-Label::Label(std::string label, TTF_Font* font)
+Label::Label(std::string label, TTF_Font* font , SDL_Point pos)
 {
 	this->font = font;
 	this->text = label;
@@ -31,8 +31,8 @@ Label::Label(std::string label, TTF_Font* font)
 	//Set flag to update the texture
 	this->RENDER_TEXT = true;
 
-	this->clip.x = 0;
-	this->clip.y = 0;
+	this->clip.x = pos.x;
+	this->clip.y = pos.y;
 
 }
 
