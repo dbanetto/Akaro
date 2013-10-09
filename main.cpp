@@ -12,7 +12,7 @@
 int main (int argc, char* argv[]) 
 {
 
-	GameWindow gm;
+    GameWindow gm;
     //Background Colour
     SDL_Color bg;
     bg.r = 0; bg.g = 0; bg.b = 0; 

@@ -41,10 +41,10 @@ GameWindow::~GameWindow(void)
 {
     if (this->inited) 
     {
-    	//Clear Settings
-    	this->settings.clear();
+        //Clear Settings
+        this->settings.clear();
 
-    	//Unload the Game Data
+        //Unload the Game Data
         this->Unload();
 
         //Destroy the window/renderer 
@@ -75,13 +75,13 @@ int GameWindow::Init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_F
         return 0;
 
     if (IO::fileExists( SETTINGS_PATH ) == false) {
-    	std::cout << TITLE << " could not initialize due to the settings file " << SETTINGS_PATH << " does not exist." ;
-    	return -1;
+        std::cout << TITLE << " could not initialize due to the settings file " << SETTINGS_PATH << " does not exist." ;
+        return -1;
     }
 
     if (IO::fileExists( INPUT_SETTINGS_FILE ) == false) {
-    	std::cout << TITLE << " could not initialize due to the settings file " << INPUT_SETTINGS_FILE << " does not exist." ;
-    	return -1;
+        std::cout << TITLE << " could not initialize due to the settings file " << INPUT_SETTINGS_FILE << " does not exist." ;
+        return -1;
     }
 
     input.load( INPUT_SETTINGS_FILE , IO::SETTINGS_DUPLICATES_INGORED );
@@ -108,10 +108,10 @@ int GameWindow::Init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_F
         if (fullscreen) {
             SDL_SCREEN_FLAGS |=
 //Build option to use SDL_WINDOW_FULLSCREEN instead of DESKTOP
-            		#ifdef GAME_WINDOW_USE_WINDOW_FULLSCREEN
-            		SDL_WINDOW_FULLSCREEN;
+                    #ifdef GAME_WINDOW_USE_WINDOW_FULLSCREEN
+                    SDL_WINDOW_FULLSCREEN;
 #else
-            		SDL_WINDOW_FULLSCREEN_DESKTOP;
+                    SDL_WINDOW_FULLSCREEN_DESKTOP;
 #endif
         }
     }
@@ -154,50 +154,50 @@ int GameWindow::Init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_F
 
     //Set display to be rendered to
      SDL_DisplayMode display_mode;
- 	if ( SDL_GetDisplayMode( display , 0 , &display_mode ) != 0)
- 	{
- 		std::cout << "An error has occurred" << std::endl << SDL_GetError() << std::endl;
- 	}
+     if ( SDL_GetDisplayMode( display , 0 , &display_mode ) != 0)
+     {
+         std::cout << "An error has occurred" << std::endl << SDL_GetError() << std::endl;
+     }
 
     int WIDTH = 800;
-	if (this->settings.getInt( "window" , "width" , &WIDTH ) == false)
-	{
-		std::string native;
-		if (this->settings.get ("window" , "width" , &native) == true)
-		{
-			if (native == "native") {
-				//Set height as native screen height
-				SDL_DisplayMode dm;
-				if ( SDL_GetDesktopDisplayMode(display , &dm ) == 0)
-				{
-					WIDTH = dm.w;
-				}
-			}
-		}
-		if (WIDTH == 800) {
-			std::cout << "Warning! Window width is set to default, 800px" << std::endl;
-		}
-	}
+    if (this->settings.getInt( "window" , "width" , &WIDTH ) == false)
+    {
+        std::string native;
+        if (this->settings.get ("window" , "width" , &native) == true)
+        {
+            if (native == "native") {
+                //Set height as native screen height
+                SDL_DisplayMode dm;
+                if ( SDL_GetDesktopDisplayMode(display , &dm ) == 0)
+                {
+                    WIDTH = dm.w;
+                }
+            }
+        }
+        if (WIDTH == 800) {
+            std::cout << "Warning! Window width is set to default, 800px" << std::endl;
+        }
+    }
 
-	int HIEGHT = 600;
+    int HIEGHT = 600;
     if (this->settings.getInt( "window" , "height" , &HIEGHT ) == false)
     {
-    	std::string native;
-    	if (this->settings.get ("window" , "height" , &native) == true)
-    	{
-    		if (native == "native") {
-    			//Set height as native screen height
-    			SDL_DisplayMode dm;
-    			if ( SDL_GetDesktopDisplayMode( display , &dm ) == 0)
-    			{
-    				HIEGHT = dm.h;
-    			}
-    		}
-    	}
-    	if (HIEGHT == 600)
-    	{
-    		std::cout << "Warning! Window height is set to default, 600px" << std::endl;
-    	}
+        std::string native;
+        if (this->settings.get ("window" , "height" , &native) == true)
+        {
+            if (native == "native") {
+                //Set height as native screen height
+                SDL_DisplayMode dm;
+                if ( SDL_GetDesktopDisplayMode( display , &dm ) == 0)
+                {
+                    HIEGHT = dm.h;
+                }
+            }
+        }
+        if (HIEGHT == 600)
+        {
+            std::cout << "Warning! Window height is set to default, 600px" << std::endl;
+        }
     }
 
 
@@ -325,23 +325,23 @@ void GameWindow::Start(void)
 /// </summary>
 void GameWindow::Load()
 {
-	std::string str = "";
-	if ( this->settings.get("ui" , "font" , &str) )
-	{
-		if  ( IO::fileExists ( str ) ) {
-		this->font = TTF_OpenFont( str.c_str() , 16 );
-		SDL_Point pt;
-		pt.x = 0; pt.y = 0;
-		lb = ui::Label ( "TEST" , this->font , pt );
-		} else {
-			std::cout << "Font Failed to load " << str << std::endl;
-			this->quit = true;
-		}
-	}
-	SDL_Rect pt;
-	pt.x = 100; pt.y = 100;
-	pt.w = 100; pt.h = 100;
-	this->bt = ui::Button(pt , etc::toColour( etc::WHITE) , etc::toColour( etc::RED) , 5 , ui::Button::ButtonCallBacks()  , ui::Label() );
+    std::string str = "";
+    if ( this->settings.get("ui" , "font" , &str) )
+    {
+        if  ( IO::fileExists ( str ) ) {
+        this->font = TTF_OpenFont( str.c_str() , 16 );
+        SDL_Point pt;
+        pt.x = 0; pt.y = 0;
+        lb = ui::Label ( "TEST" , this->font , pt );
+        } else {
+            std::cout << "Font Failed to load " << str << std::endl;
+            this->quit = true;
+        }
+    }
+    SDL_Rect pt;
+    pt.x = 100; pt.y = 100;
+    pt.w = 100; pt.h = 100;
+    this->bt = ui::Button(pt , etc::toColour( etc::WHITE) , etc::toColour( etc::RED) , 5 , ui::Button::ButtonCallBacks()  , ui::Label() );
 }
 
 /// <summary>
@@ -349,7 +349,7 @@ void GameWindow::Load()
 /// </summary>
 void GameWindow::Unload()
 {
-	TTF_CloseFont( this->font );
+    TTF_CloseFont( this->font );
 }
 
 /// <summary>
@@ -358,8 +358,8 @@ void GameWindow::Unload()
 /// <param name="delta">Change in time between last render.</param>
 void GameWindow::Render(double delta)
 {
-	bt.render(delta, this->renderer);
-	lb.render(delta, this->renderer);
+    bt.render(delta, this->renderer);
+    lb.render(delta, this->renderer);
 }
 
 /// <summary>
@@ -390,13 +390,13 @@ void GameWindow::Event (SDL_Event e , double delta)
         this->quit = true;
         break;
     case (SDL_KEYDOWN):
-		if (e.key.keysym.sym == SDLK_ESCAPE)
+        if (e.key.keysym.sym == SDLK_ESCAPE)
         {
             this->quit = true;
         }
-    	break;
+        break;
     case (SDL_MOUSEBUTTONDOWN):
-		this->bt.update(delta);
-		break;
+        this->bt.update(delta);
+        break;
     }
 }

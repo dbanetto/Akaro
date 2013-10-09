@@ -42,7 +42,7 @@ bool Settings::exists (std::string header ,std::string  setting)
 {
     if (this->exists(header)) 
     {
-    	INISection* section = &(this->stored_settings[header]);
+        INISection* section = &(this->stored_settings[header]);
         if (section->loaded) {
             return section->properties.find(setting) != section->properties.end();
         } else {
@@ -51,7 +51,7 @@ bool Settings::exists (std::string header ,std::string  setting)
                 this->load_section ( header , SETTINGS_DUPLICATES_INGORED );
                 return this->exists ( header , setting);
             } else {
-            	return false;
+                return false;
             }
         }
     } else {
@@ -61,7 +61,7 @@ bool Settings::exists (std::string header ,std::string  setting)
 
 bool Settings::exists (std::string header) 
 {
-	return this->stored_settings.find(header) != this->stored_settings.end();
+    return this->stored_settings.find(header) != this->stored_settings.end();
 }
 
 
@@ -93,7 +93,7 @@ void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
     while ( ! file.eof() )
     {
         //Get current position with the sys error offset
-    	int start_pos = (int)(file.tellg()) - sys_error;
+        int start_pos = (int)(file.tellg()) - sys_error;
         std::getline( file , line );
 
         if (line.length() == 0)
@@ -109,7 +109,7 @@ void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
         //Check if the line has the beginning of a section
         if (etc::startswith( line , "[" ) && etc::endswith( line , "]" ))
         {
-        	//Close last section
+            //Close last section
             section.end_index = (int)file.tellg();
             this->stored_settings[section.header_name] = section;
 
@@ -150,7 +150,7 @@ void Settings::load_section ( std::string header , SettingsDuplicateFlags flag) 
     std::fstream file;
 
     if (this->exists(header) == false)
-    	return;
+        return;
 
     INISection* section = &(this->stored_settings[header]);
 
@@ -168,8 +168,8 @@ void Settings::load_section ( std::string header , SettingsDuplicateFlags flag) 
 
     while ( file.tellg() < file_pos_max && !file.eof() )
     {
-    	std::string line;
-    	std::getline ( file, line );
+        std::string line;
+        std::getline ( file, line );
         line = etc::trim ( line );
         
         if (line == "")
@@ -177,14 +177,14 @@ void Settings::load_section ( std::string header , SettingsDuplicateFlags flag) 
             continue;
         }
         if ( etc::startswith( line , ";" ) )
-		{
-			continue;
-		}
+        {
+            continue;
+        }
         //Check if the line has the beginning of a section
         if ( etc::startswith( line , "[" ) || etc::endswith( line , "]") )
-		{
-			continue;
-		}
+        {
+            continue;
+        }
         if ( etc::startswith( line , "@" ) )
         {
             continue;
@@ -204,12 +204,12 @@ void Settings::load_section ( std::string header , SettingsDuplicateFlags flag) 
             //There is another copy of the key, check if it is OK to override
             if (flag == SETTINGS_DUPLICATES_OVERRIDE)
             {
-            	section->properties[key] = value;
+                section->properties[key] = value;
             }
         }
         else
         {
-        	section->properties[key] = value;
+            section->properties[key] = value;
         }
     }
     //Update loaded status
@@ -230,8 +230,8 @@ bool Settings::get (std::string header , std::string  setting, std::string* out)
 {
     if (this->exists(header ,setting))
     {
-    	*out = this->stored_settings[header].properties[setting];
-    	return true;
+        *out = this->stored_settings[header].properties[setting];
+        return true;
     }
     else
     {
@@ -243,12 +243,12 @@ bool  Settings::getBool (std::string header , std::string  key , bool* bol)
 {
     std::string b;
     if (this->get(header, key , &b) == false)
-    	return false;
+        return false;
     b = etc::toLower(b);
     if (b != "")
     {
-    	*bol = ( b == "true" ? true : false );
-    	return true;
+        *bol = ( b == "true" ? true : false );
+        return true;
     }
     else
     {
@@ -260,11 +260,11 @@ bool Settings::getInt (std::string header , std::string  key , int* num)
 {
     std::string b;
     if (this->get(header, key , &b) == false)
-    	return false;
+        return false;
 
     if ( etc::is_number(b) )
     {
-    	*num = atoi( b.c_str() );
+        *num = atoi( b.c_str() );
         return true;
     }
     else

@@ -74,21 +74,21 @@ bool is_number(const std::string s)
 
 std::vector<std::string> split (std::string String , std::string delimiter)
 {
-	std::vector<std::string> tokens;
-	size_t pos = 0;
-	std::string token;
-	while ((pos = String.find(delimiter)) != std::string::npos) {
-	    token = String.substr(0, pos);
-	    tokens.push_back (token);
-	    String.erase(0, pos + delimiter.length());
-	}
-	return tokens;
+    std::vector<std::string> tokens;
+    size_t pos = 0;
+    std::string token;
+    while ((pos = String.find(delimiter)) != std::string::npos) {
+        token = String.substr(0, pos);
+        tokens.push_back (token);
+        String.erase(0, pos + delimiter.length());
+    }
+    return tokens;
 }
 
 std::string convInt (int num) {
-	std::stringstream ss;//create a stringstream
-	ss << num;//add number to the stream
-	return ss.str();//return a string with the contents of the stream
+    std::stringstream ss;//create a stringstream
+    ss << num;//add number to the stream
+    return ss.str();//return a string with the contents of the stream
 }
 
 } /* Namespace etc  */

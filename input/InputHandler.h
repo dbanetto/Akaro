@@ -21,8 +21,8 @@
 namespace Input {
 
 struct Key {
-	SDL_Scancode scan_code;
-	SDL_Keymod  keymod;
+    SDL_Scancode scan_code;
+    SDL_Keymod  keymod;
 };
 
 Key StringToKeys (std::string keys);
@@ -38,12 +38,12 @@ class InputHandler:
  */
 
 public:
-	InputHandler();
-	virtual ~InputHandler();
+    InputHandler();
+    virtual ~InputHandler();
 
 
-	bool getKey (std::string header , std::string key , Key* keycode);
-	void setKey (std::string header , std::string key , Key  value);
+    bool getKey (std::string header , std::string key , Key* keycode);
+    void setKey (std::string header , std::string key , Key  value);
 
 
 

@@ -14,14 +14,14 @@ namespace etc {
 
 class Point {
 public:
-	Point();
-	Point(const Point& p);
-	Point(double xy);
-	Point(double x, double y);
+    Point();
+    Point(const Point& p);
+    Point(double xy);
+    Point(double x, double y);
 
-	virtual ~Point();
+    virtual ~Point();
 
-	double x , y;
+    double x , y;
 };
 
 } /* namespace etc */
