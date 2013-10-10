@@ -75,12 +75,14 @@ int GameWindow::Init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_F
         return 0;
 
     if (IO::fileExists( SETTINGS_PATH ) == false) {
-        std::cout << TITLE << " could not initialize due to the settings file " << SETTINGS_PATH << " does not exist." ;
+        std::cout << TITLE << " could not initialize due to the settings file "
+            << SETTINGS_PATH << " does not exist." ;
         return -1;
     }
 
     if (IO::fileExists( INPUT_SETTINGS_FILE ) == false) {
-        std::cout << TITLE << " could not initialize due to the settings file " << INPUT_SETTINGS_FILE << " does not exist." ;
+        std::cout << TITLE << " could not initialize due to the settings file "
+            << INPUT_SETTINGS_FILE << " does not exist." ;
         return -1;
     }
 
@@ -341,7 +343,12 @@ void GameWindow::Load()
     SDL_Rect pt;
     pt.x = 100; pt.y = 100;
     pt.w = 100; pt.h = 100;
-    this->bt = ui::Button(pt , etc::toColour( etc::WHITE) , etc::toColour( etc::RED) , 5 , ui::Button::ButtonCallBacks()  , ui::Label() );
+    this->bt = ui::Button(pt
+                , etc::toColour( etc::WHITE)
+                , etc::toColour( etc::RED)
+                , 5
+                , ui::Button::ButtonCallBacks()
+                , ui::Label() );
 }
 
 /// <summary>

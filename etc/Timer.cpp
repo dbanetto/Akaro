@@ -7,7 +7,7 @@
 //Cross platform
 //SDL_timer.h is used instead of SDL.h due to build times
 #if __GNUC__
-#include "SDL2/SDL_timer.h"
+#include <SDL2/SDL_timer.h>
 #else
 #include "SDL_timer.h"
 #endif

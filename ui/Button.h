@@ -9,7 +9,7 @@
 #define BUTTON_H_
 
 #if __GNUC__
-#include "SDL2\SDL.h"
+#include <SDL2/SDL.h>
 #else
 #include "SDL.h"
 #endif
