@@ -69,8 +69,8 @@ void Button::render (const double& delta , SDL_Renderer* renderer )
     this->pos.w += this->border_width*2;
     this->pos.h += this->border_width*2;
 
-
-
+    CenterLabel( this->pos , &this->label );
+    this->label.render( delta, renderer);
 
 }
 

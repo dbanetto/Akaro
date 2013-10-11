@@ -20,8 +20,6 @@
 
 namespace ui {
 
-SDL_Texture* GenerateTextTexture ( std::string text , SDL_Renderer* renderer , TTF_Font* font , SDL_Color fg , SDL_Rect* size );
-
 class Label {
 
 public:
@@ -37,6 +35,9 @@ public:
 	void setPosition (SDL_Point pos);
 	void setPosition (int x , int y);
 
+	SDL_Rect getArea ();
+	SDL_Point getPosition ();
+
 private:
 	SDL_Rect  clip;
 	TTF_Font* font;
@@ -47,6 +48,10 @@ private:
 	bool RENDER_TEXT;
 
 };
+
+//Other Label related Functions
+SDL_Texture* GenerateTextTexture ( std::string text , SDL_Renderer* renderer , TTF_Font* font , SDL_Color fg , SDL_Rect* size );
+void CenterLabel (SDL_Rect area , Label* label);
 
 } /* namespace ui */
 

@@ -85,6 +85,18 @@ void Label::setPosition (int x , int y) {
 	this->clip.y = y;
 }
 
+SDL_Rect Label::getArea ()
+{
+  return this->clip;
+}
+SDL_Point Label::getPosition ()
+{
+  SDL_Point pt;
+  pt.x = this->clip.x;
+  pt.y = this->clip.y;
+  return pt;
+}
+
 SDL_Texture* GenerateTextTexture ( std::string text , SDL_Renderer* renderer , TTF_Font* font , SDL_Color fg , SDL_Rect* size )
 {
 	//Render the font
@@ -102,6 +114,21 @@ SDL_Texture* GenerateTextTexture ( std::string text , SDL_Renderer* renderer , T
 
 	//return the texture pointer
 	return tex;
+}
+
+void CenterLabel (SDL_Rect area , Label* label)
+{
+  //Get the center of the area
+  int area_center_x = area.x + area.w/2;
+  int area_center_y = area.y + area.h/2;
+  SDL_Rect lb = label->getArea();
+  //Subtract half of the width and height of the label
+  // So it is off setted to be the correct position
+  area_center_x -= lb.w/2;
+  area_center_y -= lb.h/2;
+
+  //Set the label to the new position
+  label->setPosition(area_center_x , area_center_y);
 }
 
 } /* namespace ui */

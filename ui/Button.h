@@ -20,17 +20,18 @@ namespace ui {
 
 class Button {
 public:
-	typedef void (*ButtonClickedCallBack)  (Button* btn);
-	typedef void (*ButtonUnclickedCallBack)(Button* btn);
-	typedef void (*ButtonHoverCallBack)    (Button* btn);
-	typedef void (*ButtonUnhoverCallBack)  (Button* btn);
-
-	struct ButtonCallBacks {
-		ButtonClickedCallBack button_clicked = nullptr;
-		ButtonUnclickedCallBack button_unclicked = nullptr;
-		ButtonHoverCallBack   button_hover   = nullptr;
-		ButtonUnhoverCallBack button_unhover = nullptr;
-	};
+//Tydefs of Call back functions for the button
+typedef void (*ButtonClickedCallBack)  (Button* btn);
+typedef void (*ButtonUnclickedCallBack)(Button* btn);
+typedef void (*ButtonHoverCallBack)    (Button* btn);
+typedef void (*ButtonUnhoverCallBack)  (Button* btn);
+// A struct will all the required callback functions
+struct ButtonCallBacks {
+    ButtonClickedCallBack button_clicked = nullptr;
+    ButtonUnclickedCallBack button_unclicked = nullptr;
+    ButtonHoverCallBack   button_hover   = nullptr;
+    ButtonUnhoverCallBack button_unhover = nullptr;
+};
 
 
 	Button ();
