@@ -25,8 +25,8 @@ struct Key {
     SDL_Keymod  keymod;
 };
 
-Key StringToKeys (std::string keys);
-std::string KeysToString (Key key);
+Key stringToKeys (std::string keys);
+std::string keysToString (Key key);
 
 class InputHandler:
         public IO::Settings
@@ -45,7 +45,8 @@ public:
     bool getKey (std::string header , std::string key , Key* keycode);
     void setKey (std::string header , std::string key , Key  value);
 
-
+private:
+    SDL_GameController* controller;
 
 };
 

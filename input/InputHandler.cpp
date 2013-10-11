@@ -15,7 +15,7 @@
 namespace Input {
 
 InputHandler::InputHandler() : Settings(IO::SETTING_LOAD_ON_REQUEST) {
-
+  this->controller = nullptr;
 }
 
 InputHandler::~InputHandler() {
@@ -31,7 +31,7 @@ bool InputHandler::getKey (std::string header , std::string  key , Key* out)
     std::string outp;
     bool result = this->get( header , key , &outp );
     if (result) {
-        *out = StringToKeys( outp );
+        *out = stringToKeys( outp );
         return true;
     } else {
         return false;
@@ -41,10 +41,10 @@ bool InputHandler::getKey (std::string header , std::string  key , Key* out)
 void InputHandler::setKey (std::string header , std::string key , Key  value)
 {
     key = key + ".key";
-    this->set( header , key , KeysToString(value) );
+    this->set( header , key , keysToString(value) );
 }
 
-Key StringToKeys (std::string keys)
+Key stringToKeys (std::string keys)
 {
     Key out;
     std::string key = keys.substr( 0 , keys.find( "+" ) );
@@ -64,7 +64,7 @@ Key StringToKeys (std::string keys)
 
     return out;
 }
-std::string KeysToString (Key key)
+std::string keysToString (Key key)
 {
     std::string out;
 
