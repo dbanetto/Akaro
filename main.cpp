@@ -11,7 +11,6 @@
 
 int main (int argc, char* argv[]) 
 {
-
     GameWindow gm;
     //Background Colour
     SDL_Color bg;
