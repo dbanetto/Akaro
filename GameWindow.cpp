@@ -343,12 +343,13 @@ void GameWindow::load()
     SDL_Rect pt;
     pt.x = 100; pt.y = 100;
     pt.w = 100; pt.h = 100;
+    SDL_Point lb_pt; lb_pt.x = 0; lb_pt.y = 0;
     this->bt = ui::Button(pt
                 , etc::toColour( etc::COLOUR_GREEN)
                 , etc::toColour( etc::COLOUR_BLUE)
                 , 5
                 , ui::Button::ButtonCallBacks()
-                , ui::Label( "Button" , this->font , SDL_Point() ) );
+                , ui::Label( "Button" , this->font , lb_pt ) );
 }
 
 /// <summary>

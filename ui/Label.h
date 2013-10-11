@@ -40,6 +40,8 @@ public:
 	SDL_Rect getArea ();
 	SDL_Point getPosition ();
 
+    bool RENDER_TEXTURE;
+    bool UPDATE_POSITION;
 private:
 	SDL_Rect  clip;
 	TTF_Font* font;
@@ -47,7 +49,7 @@ private:
 	std::string text;
 	SDL_Color fg;
 
-	bool RENDER_TEXTURE;
+
 
 };
 

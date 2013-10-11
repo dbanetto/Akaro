@@ -69,27 +69,26 @@ void Button::render (const double& delta , SDL_Renderer* renderer )
         this->RENDER_TEXTURE = false;
     }
 
-
-    //Render the Label
-    this->label.render(delta,renderer);
-
     SDL_RenderCopy( renderer , this->texture , NULL , &(this->pos) );
 
     this->label.render(delta,renderer);
-
-
-
 }
 
 void Button::update (const double& delta )
 {
+    //Check if the Button needs an update
     if (this->UPDATE_POSITION == true) {
         centerLabel( this->pos , &this->label );
         this->UPDATE_POSITION = false;
     }
+    //Check if Label needed an update
+    if (this->label.UPDATE_POSITION == true) {
+        centerLabel( this->pos , &this->label );
+        this->label.UPDATE_POSITION = false;
+    }
 }
 
-
+//Byte Order
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
 Uint32 rmask = 0xff000000;
 Uint32 gmask = 0x00ff0000;

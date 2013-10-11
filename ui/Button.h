@@ -42,6 +42,9 @@ struct ButtonCallBacks {
 	void render (const double& delta , SDL_Renderer* renderer );
 	void update (const double& delta );
 
+    //Flags for updating rendered texture or position
+    bool RENDER_TEXTURE;
+    bool UPDATE_POSITION;
 private:
 	Label label;
 
@@ -52,10 +55,6 @@ private:
 	SDL_Color border;
 
 	int border_width;
-
-	//Flags for updating rendered texture or position
-	bool RENDER_TEXTURE;
-	bool UPDATE_POSITION;
 	ButtonCallBacks button_events;
 };
 

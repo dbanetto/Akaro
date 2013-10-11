@@ -15,6 +15,7 @@ Label::Label() {
 	this->font = nullptr;
 	this->texture = nullptr;
 	this->RENDER_TEXTURE = false;
+	this->UPDATE_POSITION = false;
 }
 
 Label::Label(std::string label, TTF_Font* font , SDL_Point pos)
@@ -30,6 +31,7 @@ Label::Label(std::string label, TTF_Font* font , SDL_Point pos)
 
 	//Set flag to update the texture
 	this->RENDER_TEXTURE = true;
+	this->UPDATE_POSITION = true;
 
 	this->clip.x = pos.x;
 	this->clip.y = pos.y;
@@ -52,6 +54,7 @@ void Label::render (const double& delta , SDL_Renderer* renderer )
 		}
 		this->texture = GenerateLabelTexture( this->text , renderer , this->font , this->fg, &(this->clip));
 		this->RENDER_TEXTURE = false;
+		this->UPDATE_POSITION = true;
 	}
 
 	SDL_RenderCopy( renderer , this->texture , NULL , &(this->clip) );
