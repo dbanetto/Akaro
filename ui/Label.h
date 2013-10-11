@@ -22,6 +22,8 @@ namespace ui {
 
 class Label {
 
+
+
 public:
 	Label();
 	Label(std::string label, TTF_Font* font , SDL_Point pos);
@@ -50,7 +52,7 @@ private:
 };
 
 //Other Label related Functions
-SDL_Texture* GenerateTextTexture ( std::string text , SDL_Renderer* renderer , TTF_Font* font , SDL_Color fg , SDL_Rect* size );
+SDL_Texture* GenerateLabelTexture ( std::string text , SDL_Renderer* renderer , TTF_Font* font , SDL_Color fg , SDL_Rect* size );
 void CenterLabel (SDL_Rect area , Label* label);
 
 } /* namespace ui */

@@ -18,10 +18,10 @@ int main (int argc, char* argv[])
     bg.r = 0; bg.g = 0; bg.b = 0; 
 
     //Make sure the window init'ed properly
-    if ( gm.Init ( "Akaro" , bg, SDL_WINDOW_OPENGL ) == 0 )
+    if ( gm.init ( "Akaro" , bg, SDL_WINDOW_OPENGL ) == 0 )
     {
         //14 - Start the game already!
-        gm.Start();
+        gm.start();
     }
     return 0;
 }

@@ -40,16 +40,16 @@ public:
     GameWindow();
     virtual ~GameWindow();
 
-    int Init(const char* TITLE , SDL_Color BACKGROUND_COLOUR ,  int SDL_SCREEN_FLAGS );
+    int init(const char* TITLE , SDL_Color BACKGROUND_COLOUR ,  int SDL_SCREEN_FLAGS );
 
-    void Start(void);
+    void start(void);
 protected:
-    void Render(double delta);
-    void Update(double delta);
-    void Event (SDL_Event e , double delta);
+    void render(const double& delta);
+    void update(const double& delta);
+    void event (SDL_Event e , const double& delta);
 
-    void Load();
-    void Unload();
+    void load();
+    void unload();
 private:
     
     //Private variables

@@ -50,7 +50,7 @@ void Label::render (const double& delta , SDL_Renderer* renderer )
 		if (this->texture != nullptr) {
 			SDL_DestroyTexture(this->texture);
 		}
-		this->texture = GenerateTextTexture( this->text , renderer , this->font , this->fg, &(this->clip));
+		this->texture = GenerateLabelTexture( this->text , renderer , this->font , this->fg, &(this->clip));
 		this->RENDER_TEXT = false;
 	}
 
@@ -97,7 +97,7 @@ SDL_Point Label::getPosition ()
   return pt;
 }
 
-SDL_Texture* GenerateTextTexture ( std::string text , SDL_Renderer* renderer , TTF_Font* font , SDL_Color fg , SDL_Rect* size )
+SDL_Texture* GenerateLabelTexture ( std::string text , SDL_Renderer* renderer , TTF_Font* font , SDL_Color fg , SDL_Rect* size )
 {
 	//Render the font
 	SDL_Surface* sf = TTF_RenderText_Blended( font , text.c_str() , fg );

@@ -26,7 +26,7 @@ GameWindow::GameWindow(void)
     this->renderer = nullptr;
 
     this->quit = false;
-    this->CURRENT_FPS = 0;
+    this->CURRENT_FPS = -1;
 
     settings = IO::Settings ( IO::SETTING_LOAD_ON_REQUEST );
 
@@ -45,7 +45,7 @@ GameWindow::~GameWindow(void)
         this->settings.clear();
 
         //Unload the Game Data
-        this->Unload();
+        this->unload();
 
         //Destroy the window/renderer 
         SDL_DestroyRenderer ( this->renderer );
@@ -68,7 +68,7 @@ GameWindow::~GameWindow(void)
 /// <param name="Background">Set the background of the window.</param>
 /// <param name="SDL_SCREEN_FLAGS">Start the window with given flags.</param>
 /// <returns></returns>
-int GameWindow::Init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_FLAGS )
+int GameWindow::init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_FLAGS )
 {
     //If it already was inited, do not bother with it again
     if (this->inited)
@@ -261,10 +261,10 @@ int GameWindow::Init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_F
 /// <summary>
 /// Starts the game loop.
 /// </summary>
-void GameWindow::Start(void)
+void GameWindow::start(void)
 {
     //Load Content
-    this->Load();
+    this->load();
 
     SDL_SetRenderDrawColor(this->renderer, this->background.r, this->background.g, this->background.b, this->background.a);
     SDL_RenderClear       (this->renderer);
@@ -292,7 +292,7 @@ void GameWindow::Start(void)
         //RENDERS HERE
         //Change in time in seconds with game-time multiplier to edit game speed
         double s_delta = (((double)(delta.get_ticks()) * GAMETIME_MULTIPLIER) / 1000.0);
-        this->Update(s_delta);
+        this->update(s_delta);
         
         //Mid frame Check for exit
         if (this->quit)
@@ -300,7 +300,7 @@ void GameWindow::Start(void)
 
         //Render delta for post-render
         s_delta = (((double)(delta.get_ticks()) * GAMETIME_MULTIPLIER) / 1000.0);
-        this->Render(s_delta);
+        this->render(s_delta);
         SDL_RenderPresent(this->renderer);
 
         SDL_SetRenderDrawColor(this->renderer, this->background.r, this->background.g, this->background.b, this->background.a);
@@ -325,7 +325,7 @@ void GameWindow::Start(void)
 /// <summary>
 /// Loads the Game Window Data.
 /// </summary>
-void GameWindow::Load()
+void GameWindow::load()
 {
     std::string str = "";
     if ( this->settings.get("ui" , "font" , &str) )
@@ -354,7 +354,7 @@ void GameWindow::Load()
 /// <summary>
 /// Unloads the Game Window Data.
 /// </summary>
-void GameWindow::Unload()
+void GameWindow::unload()
 {
     TTF_CloseFont( this->font );
 }
@@ -363,7 +363,7 @@ void GameWindow::Unload()
 /// Renders the frame.
 /// </summary>
 /// <param name="delta">Change in time between last render.</param>
-void GameWindow::Render(double delta)
+void GameWindow::render(const double& delta)
 {
     bt.render(delta, this->renderer);
     lb.render(delta, this->renderer);
@@ -373,14 +373,14 @@ void GameWindow::Render(double delta)
 /// Updates the frame.
 /// </summary>
 /// <param name="delta">Change in time between last update.</param>
-void GameWindow::Update(double delta)
+void GameWindow::update(const double& delta)
 {
     this->lb.setText( "FPS:" + etc::convInt (this->CURRENT_FPS) );
-
+    this->bt.update(delta);
     SDL_Event event;
     while (SDL_PollEvent(&event))
     {
-        this->Event(event , delta);
+        this->event(event , delta);
     }
 }
 
@@ -389,7 +389,7 @@ void GameWindow::Update(double delta)
 /// </summary>
 /// <param name="e">The SDL_Event.</param>
 /// <param name="delta">Change in time between last update.</param>
-void GameWindow::Event (SDL_Event e , double delta)
+void GameWindow::event (SDL_Event e , const double& delta)
 {
     switch (e.type)
     {
@@ -403,7 +403,8 @@ void GameWindow::Event (SDL_Event e , double delta)
         }
         break;
     case (SDL_MOUSEBUTTONDOWN):
-        this->bt.update(delta);
+        //Fire Click Event
+        //this->bt.update(delta);
         break;
     }
 }

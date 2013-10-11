@@ -37,7 +37,12 @@ Button::Button( SDL_Rect pos , SDL_Color fg, SDL_Color border , int border_width
     this->fg = fg;
     this->border = border;
     this->border_width = border_width;
-    this->button_events = callbacks;
+
+    this->button_events.button_clicked = callbacks.button_clicked;
+    this->button_events.button_unclicked = callbacks.button_unclicked;
+    this->button_events.button_hover = callbacks.button_hover;
+    this->button_events.button_unhover = callbacks.button_unhover;
+
     this->label = label;
 
     this->texture = nullptr;
@@ -51,32 +56,33 @@ Button::~Button() {
 
 void Button::render (const double& delta , SDL_Renderer* renderer )
 {
-    this->label.render(delta,renderer);
-
+    //Render the Border
     SDL_SetRenderDrawColor( renderer , this->border.r , this->border.g ,  this->border.b ,  this->border.a );
     SDL_RenderFillRect(renderer , &this->pos );
 
+    //Create offset for the filler with the border
     this->pos.x += this->border_width;
     this->pos.y += this->border_width;
     this->pos.w -= this->border_width*2;
     this->pos.h -= this->border_width*2;
 
+    //Render the filler
     SDL_SetRenderDrawColor( renderer , this->fg.r , this->fg.g ,  this->fg.b ,  this->fg.a );
     SDL_RenderFillRect(renderer , &this->pos );
 
+    //Undo the offsets
     this->pos.x -= this->border_width;
     this->pos.y -= this->border_width;
     this->pos.w += this->border_width*2;
     this->pos.h += this->border_width*2;
 
-    CenterLabel( this->pos , &this->label );
-    this->label.render( delta, renderer);
-
+    //Render the Label
+    this->label.render(delta,renderer);
 }
 
 void Button::update (const double& delta )
 {
-
+    CenterLabel( this->pos , &this->label );
 }
 
 } /* namespace ui */

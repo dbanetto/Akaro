@@ -59,8 +59,6 @@ private:
 
 
 
-
-
 } /* namespace ui */
 
 #endif /* BUTTON_H_ */
