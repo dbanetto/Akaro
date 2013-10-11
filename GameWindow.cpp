@@ -344,11 +344,11 @@ void GameWindow::Load()
     pt.x = 100; pt.y = 100;
     pt.w = 100; pt.h = 100;
     this->bt = ui::Button(pt
-                , etc::toColour( etc::WHITE)
-                , etc::toColour( etc::RED)
+                , etc::toColour( etc::COLOUR_GREEN)
+                , etc::toColour( etc::COLOUR_BLUE)
                 , 5
                 , ui::Button::ButtonCallBacks()
-                , ui::Label() );
+                , ui::Label( "Button" , this->font , SDL_Point() ) );
 }
 
 /// <summary>

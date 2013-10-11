@@ -18,11 +18,11 @@ namespace etc {
 
 // TODO : Add more colours
 enum Colour {
-    BLACK,
-    WHITE,
-    GREEN,
-    RED,
-    BLUE
+  COLOUR_BLACK,
+  COLOUR_WHITE,
+  COLOUR_GREEN,
+  COLOUR_RED,
+  COLOUR_BLUE
 };
 
 SDL_Color toColour (Colour colour);

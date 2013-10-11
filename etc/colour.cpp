@@ -13,19 +13,19 @@ SDL_Color toColour (Colour colour)
 {
     SDL_Color out;
     switch (colour) {
-        case(BLACK):
+        case(COLOUR_BLACK):
             out.r = 0; out.b = 0; out.g = 0;
             break;
-        case (WHITE):
+        case (COLOUR_WHITE):
             out.r = 255; out.b = 255; out.g = 255;
             break;
-        case (BLUE):
+        case (COLOUR_BLUE):
             out.r = 0; out.b = 255; out.g = 0;
             break;
-        case (GREEN):
+        case (COLOUR_GREEN):
             out.r = 0; out.b = 0; out.g = 255;
             break;
-        case (RED):
+        case (COLOUR_RED):
             out.r = 255; out.b = 0; out.g = 0;
             break;
 
