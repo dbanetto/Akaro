@@ -20,6 +20,7 @@ namespace ui {
 
 class Button {
 public:
+
 //Tydefs of Call back functions for the button
 typedef void (*ButtonClickedCallBack)  (Button* btn);
 typedef void (*ButtonUnclickedCallBack)(Button* btn);
@@ -52,12 +53,14 @@ private:
 
 	int border_width;
 
-	bool RENDER_BUTTON;
-
+	//Flags for updating rendered texture or position
+	bool RENDER_TEXTURE;
+	bool UPDATE_POSITION;
 	ButtonCallBacks button_events;
 };
 
-
+//Util Functions for Button
+SDL_Texture* GenerateButtonTexture ( SDL_Renderer* renderer , SDL_Color fg , SDL_Color border, int border_width , SDL_Rect area );
 
 } /* namespace ui */
 

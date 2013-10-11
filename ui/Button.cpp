@@ -6,13 +6,14 @@
  */
 
 #include "Button.h"
+#include "../etc/colour.h"
 #include <iostream>
 namespace ui {
 
 Button::Button() {
     // TODO Auto-generated constructor stub
     this->texture = nullptr;
-    this->RENDER_BUTTON = true;
+    this->RENDER_TEXTURE = true;
     this->pos.w = 100; this->pos.h = 100;
     this->pos.x = 100; this->pos.y = 100;
 
@@ -29,6 +30,8 @@ Button::Button() {
     this->button_events.button_unclicked = nullptr;
     this->button_events.button_hover = nullptr;
     this->button_events.button_unhover = nullptr;
+
+    this->UPDATE_POSITION = true;
 }
 
 Button::Button( SDL_Rect pos , SDL_Color fg, SDL_Color border , int border_width , ButtonCallBacks callbacks , Label label )
@@ -46,7 +49,8 @@ Button::Button( SDL_Rect pos , SDL_Color fg, SDL_Color border , int border_width
     this->label = label;
 
     this->texture = nullptr;
-    this->RENDER_BUTTON = true;
+    this->RENDER_TEXTURE = true;
+    this->UPDATE_POSITION = true;
 }
 
 
@@ -56,33 +60,98 @@ Button::~Button() {
 
 void Button::render (const double& delta , SDL_Renderer* renderer )
 {
-    //Render the Border
-    SDL_SetRenderDrawColor( renderer , this->border.r , this->border.g ,  this->border.b ,  this->border.a );
-    SDL_RenderFillRect(renderer , &this->pos );
+    if (this->RENDER_TEXTURE == true) {
+        //If the Label has a texture destroy it FOR SAFETY! border
+        if (this->texture != nullptr) {
+            SDL_DestroyTexture(this->texture);
+        }
+        this->texture = GenerateButtonTexture( renderer , this->fg , this->border , this->border_width, this->pos );
+        this->RENDER_TEXTURE = false;
+    }
 
-    //Create offset for the filler with the border
-    this->pos.x += this->border_width;
-    this->pos.y += this->border_width;
-    this->pos.w -= this->border_width*2;
-    this->pos.h -= this->border_width*2;
-
-    //Render the filler
-    SDL_SetRenderDrawColor( renderer , this->fg.r , this->fg.g ,  this->fg.b ,  this->fg.a );
-    SDL_RenderFillRect(renderer , &this->pos );
-
-    //Undo the offsets
-    this->pos.x -= this->border_width;
-    this->pos.y -= this->border_width;
-    this->pos.w += this->border_width*2;
-    this->pos.h += this->border_width*2;
 
     //Render the Label
     this->label.render(delta,renderer);
+
+    SDL_RenderCopy( renderer , this->texture , NULL , &(this->pos) );
+
+    this->label.render(delta,renderer);
+
+
+
 }
 
 void Button::update (const double& delta )
 {
-    CenterLabel( this->pos , &this->label );
+    if (this->UPDATE_POSITION == true) {
+        centerLabel( this->pos , &this->label );
+        this->UPDATE_POSITION = false;
+    }
+}
+
+
+#if SDL_BYTEORDER == SDL_BIG_ENDIAN
+Uint32 rmask = 0xff000000;
+Uint32 gmask = 0x00ff0000;
+Uint32 bmask = 0x0000ff00;
+Uint32 amask = 0x000000ff;
+#else
+Uint32 rmask = 0x000000ff;
+Uint32 gmask = 0x0000ff00;
+Uint32 bmask = 0x00ff0000;
+Uint32 amask = 0xff000000;
+#endif
+
+SDL_Texture* GenerateButtonTexture (SDL_Renderer* renderer , SDL_Color fg , SDL_Color border, int border_width , SDL_Rect area )
+{
+    SDL_Surface* surface = SDL_CreateRGBSurface(0, area.w, area.h, 32,
+                             rmask, gmask, bmask, amask);
+    if (surface == NULL) {
+        std::cout << "SDL Render Error : " << SDL_GetError() << std::endl;
+        return nullptr;
+    }
+
+    //Create a software Render with target of surface
+    SDL_Renderer* swRender = SDL_CreateSoftwareRenderer(surface);
+
+    if (swRender == NULL) {
+        std::cout << "SDL Render Error : " << SDL_GetError() << std::endl;
+        return nullptr;
+    }
+
+    SDL_SetRenderDrawColor( swRender , border.r , border.g ,  border.b ,  border.a );
+    //Clear the texture with the border colour
+    SDL_RenderClear ( swRender );
+
+/* GENERAL BUTTON RENDER  */
+
+    //Create offset for the filler with the border
+    area.x =  border_width;
+    area.y =  border_width;
+    area.w -= border_width*2;
+    area.h -= border_width*2;
+
+    //Render the filler
+    SDL_SetRenderDrawColor( swRender , fg.r , fg.g ,  fg.b ,  fg.a );
+
+    SDL_RenderFillRect(swRender , &area );
+
+/* GENERAL BUTTON RENDER  */
+
+    SDL_Texture* texture = SDL_CreateTextureFromSurface( renderer , surface);
+
+    if (texture == 0) {
+        std::cout << "SDL Render Error : " << SDL_GetError() << std::endl;
+        return nullptr;
+    }
+
+    //Delete render
+    SDL_DestroyRenderer(swRender);
+
+    //Free surface
+    SDL_FreeSurface(surface);
+
+    return texture;
 }
 
 } /* namespace ui */

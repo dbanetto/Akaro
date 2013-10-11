@@ -14,7 +14,7 @@ Label::Label() {
 	// TODO Auto-generated constructor stub
 	this->font = nullptr;
 	this->texture = nullptr;
-	this->RENDER_TEXT = false;
+	this->RENDER_TEXTURE = false;
 }
 
 Label::Label(std::string label, TTF_Font* font , SDL_Point pos)
@@ -29,7 +29,7 @@ Label::Label(std::string label, TTF_Font* font , SDL_Point pos)
 	this->fg.b = 255;
 
 	//Set flag to update the texture
-	this->RENDER_TEXT = true;
+	this->RENDER_TEXTURE = true;
 
 	this->clip.x = pos.x;
 	this->clip.y = pos.y;
@@ -45,13 +45,13 @@ Label::~Label() {
 void Label::render (const double& delta , SDL_Renderer* renderer )
 {
 	//Check if the text needs to be rendered
-	if (this->RENDER_TEXT) {
+	if (this->RENDER_TEXTURE) {
 		//If the Label has a texture destroy it FOR SAFETY!
 		if (this->texture != nullptr) {
 			SDL_DestroyTexture(this->texture);
 		}
 		this->texture = GenerateLabelTexture( this->text , renderer , this->font , this->fg, &(this->clip));
-		this->RENDER_TEXT = false;
+		this->RENDER_TEXTURE = false;
 	}
 
 	SDL_RenderCopy( renderer , this->texture , NULL , &(this->clip) );
@@ -73,7 +73,7 @@ void Label::setText (std::string Text) {
 
 	//Flag prevents multiple edits in a frame
 	//and only need to render once
-	this->RENDER_TEXT = true;
+	this->RENDER_TEXTURE = true;
 }
 
 void Label::setPosition (SDL_Point pos) {
@@ -103,8 +103,11 @@ SDL_Texture* GenerateLabelTexture ( std::string text , SDL_Renderer* renderer , 
 	SDL_Surface* sf = TTF_RenderText_Blended( font , text.c_str() , fg );
 
 	//Return width and height of rendered text
-	size->w = sf->w;
-	size->h = sf->h;
+	//Only if the rect is not null
+	if (size != nullptr) {
+      size->w = sf->w;
+      size->h = sf->h;
+	}
 
 	//Convert the rendered font to a texture
 	SDL_Texture* tex = SDL_CreateTextureFromSurface ( renderer , sf );
@@ -115,8 +118,11 @@ SDL_Texture* GenerateLabelTexture ( std::string text , SDL_Renderer* renderer , 
 	//return the texture pointer
 	return tex;
 }
+SDL_Texture* GenerateLabelTexture ( std::string text , SDL_Renderer* renderer , TTF_Font* font , SDL_Color fg ) {
+  return GenerateLabelTexture (text , renderer , font , fg , nullptr);
+}
 
-void CenterLabel (SDL_Rect area , Label* label)
+void centerLabel (SDL_Rect area , Label* label)
 {
   //Get the center of the area
   int area_center_x = area.x + area.w/2;

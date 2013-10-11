@@ -47,13 +47,14 @@ private:
 	std::string text;
 	SDL_Color fg;
 
-	bool RENDER_TEXT;
+	bool RENDER_TEXTURE;
 
 };
 
 //Other Label related Functions
 SDL_Texture* GenerateLabelTexture ( std::string text , SDL_Renderer* renderer , TTF_Font* font , SDL_Color fg , SDL_Rect* size );
-void CenterLabel (SDL_Rect area , Label* label);
+SDL_Texture* GenerateLabelTexture ( std::string text , SDL_Renderer* renderer , TTF_Font* font , SDL_Color fg );
+void centerLabel (SDL_Rect area , Label* label);
 
 } /* namespace ui */
 
