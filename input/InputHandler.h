@@ -8,7 +8,7 @@
 #ifndef INPUTHANDLER_H_
 #define INPUTHANDLER_H_
 
-#include "../io/settings.h"
+#include "../io/Settings.h"
 
 #if __GNUC__
 #include <SDL2/SDL.h>
