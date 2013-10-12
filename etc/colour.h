@@ -26,6 +26,7 @@ enum Colour {
 };
 
 SDL_Color toColour (Colour colour);
+SDL_Color toColour (Colour colour, Uint8 a);
 SDL_Color toColour (Uint8 r , Uint8 g , Uint8 b , Uint8 a );
 
 } /* namespace etc */
