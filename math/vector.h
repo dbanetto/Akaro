@@ -22,6 +22,10 @@ namespace math
   void translatept (std::vector<SDL_Point>* points, SDL_Point center , double angleDeg , SDL_Point OffSet);
 
   double distance (SDL_Point p1 , SDL_Point p2);
+
+  bool isPointInsidePolygon(SDL_Point pt , std::vector<SDL_Point>* polygon);
+
+  bool isPolygonInsidePolygon(std::vector<SDL_Point>* polygon1 , std::vector<SDL_Point>* polygon2);
 } /* namespace math */
 
 #endif /* VECTOR_H_ */

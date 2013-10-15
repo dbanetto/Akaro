@@ -117,4 +117,40 @@ namespace math
       return SDL_sqrt ( SDL_pow(p2.x - p1.x, 2) + SDL_pow(p2.y - p1.y, 2) );
   }
 
+  /*
+   * Tests if a given point is within a polygon
+   * Using ray casting algorithm http://en.wikipedia.org/wiki/Point_in_polygon
+  */
+  bool isPointInsidePolygon (SDL_Point point , std::vector<SDL_Point>* points)
+  {
+      //Code converted from pseudo code from http://stackoverflow.com/questions/11716268/point-in-polygon-algorithm
+      //Credit for this snippet goes to http://stackoverflow.com/users/1830407/josh
+      int i, j, nvert = points->size();
+      bool c = false;
+
+      for(i = 0, j = nvert - 1; i < nvert; j = i++)
+      {
+          if(  ( ( (*points)[i].y ) >= point.y) != ( ((*points)[j].y >= point.y) ) &&
+                  (point.x <= ((*points)[j].x - (*points)[i].x) * (point.y - (*points)[i].y) / ((*points)[j].y - (*points)[i].y) + (*points)[i].x))
+
+              c = !c;
+      }
+
+      return c;
+
+  }
+
+  bool isPolygonInsidePolygon(std::vector<SDL_Point>* pt , std::vector<SDL_Point>* polygon)
+  {
+      //Cycle through all the points of one polygon
+      for (unsigned int i = 0; i < (*pt).size(); i++)
+      {
+          if ( isPointInsidePolygon( (*pt)[i] , polygon) )
+          {
+              return true;
+          }
+      }
+      return false;
+  }
+
 } /* namespace math */
