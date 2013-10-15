@@ -1,0 +1,28 @@
+/*
+ * rect.h
+ *
+ *  Created on: 15/10/2013
+ *      Author: drb
+ */
+
+#ifndef RECT_H_
+#define RECT_H_
+
+#if __GNUC__
+#include <SDL2/SDL.h>
+#else
+#include "SDL.h"
+#endif
+
+namespace math
+{
+
+  bool isRectTouching (SDL_Rect* rect1, SDL_Rect* rect2);
+  bool isWholeRectInside (SDL_Rect* small, SDL_Rect* big );
+
+  void rectSubtract (SDL_Rect* rect, SDL_Point pt );
+  void rectSubtract (SDL_Rect* rect, SDL_Rect pt );
+
+} /* namespace math */
+
+#endif /* RECT_H_ */
