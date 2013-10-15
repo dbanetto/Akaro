@@ -25,6 +25,7 @@ struct Key {
     SDL_Keymod  keymod;
 };
 
+
 Key stringToKeys (std::string keys);
 std::string keysToString (Key key);
 
@@ -35,6 +36,9 @@ class InputHandler:
  * TODO: Add Mouse Support
  * TODO: Add Game Controller Support (Xbox 360 and PS3 Controller)
  * TODO: Multi-key Support
+ * TODO: Add support for calculating duration of a button press
+ * TODO: Add callback functions to key down, key up
+ * TODO: Manage all input from an update() then push out input events via callback functions
  */
 
 public:
