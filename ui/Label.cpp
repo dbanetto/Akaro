@@ -33,8 +33,8 @@ Label::Label(std::string label, TTF_Font* font , SDL_Point pos)
 	this->RENDER_TEXTURE = true;
 	this->UPDATE_POSITION = true;
 
-	this->clip.x = pos.x;
-	this->clip.y = pos.y;
+	this->pos.x = pos.x;
+	this->pos.y = pos.y;
 
 }
 
@@ -52,12 +52,12 @@ void Label::render (const double& delta , SDL_Renderer* renderer )
 		if (this->texture != nullptr) {
 			SDL_DestroyTexture(this->texture);
 		}
-		this->texture = GenerateLabelTexture( this->text , renderer , this->font , this->fg, &(this->clip));
+		this->texture = generateLabelTexture( this->text , renderer , this->font , this->fg, &(this->pos));
 		this->RENDER_TEXTURE = false;
 		this->UPDATE_POSITION = true;
 	}
 
-	SDL_RenderCopy( renderer , this->texture , NULL , &(this->clip) );
+	SDL_RenderCopy( renderer , this->texture , NULL , &(this->pos) );
 }
 
 void Label::update (const double& delta )
@@ -79,28 +79,7 @@ void Label::setText (std::string Text) {
 	this->RENDER_TEXTURE = true;
 }
 
-void Label::setPosition (SDL_Point pos) {
-	this->clip.x = pos.x;
-	this->clip.y = pos.y;
-}
-void Label::setPosition (int x , int y) {
-	this->clip.x = x;
-	this->clip.y = y;
-}
-
-SDL_Rect Label::getArea ()
-{
-  return this->clip;
-}
-SDL_Point Label::getPosition ()
-{
-  SDL_Point pt;
-  pt.x = this->clip.x;
-  pt.y = this->clip.y;
-  return pt;
-}
-
-SDL_Texture* GenerateLabelTexture ( std::string text , SDL_Renderer* renderer , TTF_Font* font , SDL_Color fg , SDL_Rect* size )
+SDL_Texture* generateLabelTexture ( std::string text , SDL_Renderer* renderer , TTF_Font* font , SDL_Color fg , SDL_Rect* size )
 {
 	//Render the font
 	SDL_Surface* sf = TTF_RenderText_Blended( font , text.c_str() , fg );
@@ -121,8 +100,8 @@ SDL_Texture* GenerateLabelTexture ( std::string text , SDL_Renderer* renderer , 
 	//return the texture pointer
 	return tex;
 }
-SDL_Texture* GenerateLabelTexture ( std::string text , SDL_Renderer* renderer , TTF_Font* font , SDL_Color fg ) {
-  return GenerateLabelTexture (text , renderer , font , fg , nullptr);
+SDL_Texture* generateLabelTexture ( std::string text , SDL_Renderer* renderer , TTF_Font* font , SDL_Color fg ) {
+  return generateLabelTexture (text , renderer , font , fg , nullptr);
 }
 
 void centerLabel (SDL_Rect area , Label* label)
@@ -130,7 +109,7 @@ void centerLabel (SDL_Rect area , Label* label)
   //Get the center of the area
   int area_center_x = area.x + area.w/2;
   int area_center_y = area.y + area.h/2;
-  SDL_Rect lb = label->getArea();
+  SDL_Rect lb = label->getRect();
   //Subtract half of the width and height of the label
   // So it is off setted to be the correct position
   area_center_x -= lb.w/2;

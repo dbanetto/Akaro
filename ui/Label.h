@@ -17,10 +17,11 @@
 #endif
 
 #include <string>
+#include "../graphics/drawable.h"
 
 namespace ui {
 
-class Label {
+class Label : public graphics::drawable {
 
 
 
@@ -34,16 +35,10 @@ public:
 
 
 	void setText (std::string text);
-	void setPosition (SDL_Point pos);
-	void setPosition (int x , int y);
-
-	SDL_Rect getArea ();
-	SDL_Point getPosition ();
 
     bool RENDER_TEXTURE;
     bool UPDATE_POSITION;
 private:
-	SDL_Rect  clip;
 	TTF_Font* font;
 	SDL_Texture* texture;
 	std::string text;
@@ -54,8 +49,8 @@ private:
 };
 
 //Other Label related Functions
-SDL_Texture* GenerateLabelTexture ( std::string text , SDL_Renderer* renderer , TTF_Font* font , SDL_Color fg , SDL_Rect* size );
-SDL_Texture* GenerateLabelTexture ( std::string text , SDL_Renderer* renderer , TTF_Font* font , SDL_Color fg );
+SDL_Texture* generateLabelTexture ( std::string text , SDL_Renderer* renderer , TTF_Font* font , SDL_Color fg , SDL_Rect* size );
+SDL_Texture* generateLabelTexture ( std::string text , SDL_Renderer* renderer , TTF_Font* font , SDL_Color fg );
 void centerLabel (SDL_Rect area , Label* label);
 
 } /* namespace ui */
