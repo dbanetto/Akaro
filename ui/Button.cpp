@@ -65,7 +65,7 @@ void Button::render (const double& delta , SDL_Renderer* renderer )
         if (this->texture != nullptr) {
             SDL_DestroyTexture(this->texture);
         }
-        this->texture = GenerateButtonTexture( renderer , this->fg , this->border , this->border_width, this->pos );
+        this->texture = generateButtonTexture( renderer , this->fg , this->border , this->border_width, this->pos );
         this->RENDER_TEXTURE = false;
     }
 
@@ -101,7 +101,7 @@ Uint32 bmask = 0x00ff0000;
 Uint32 amask = 0xff000000;
 #endif
 
-SDL_Texture* GenerateButtonTexture (SDL_Renderer* renderer , SDL_Color fg , SDL_Color border, int border_width , SDL_Rect area )
+SDL_Texture* generateButtonTexture (SDL_Renderer* renderer , SDL_Color fg , SDL_Color border, int border_width , SDL_Rect area )
 {
     SDL_Surface* surface = SDL_CreateRGBSurface(0, area.w, area.h, 32,
                              rmask, gmask, bmask, amask);

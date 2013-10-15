@@ -15,10 +15,11 @@
 #endif
 
 #include "Label.h"
+#include "../graphics/drawable.h"
 
 namespace ui {
 
-class Button {
+class Button : public graphics::drawable {
 public:
 
 //Tydefs of Call back functions for the button
@@ -49,7 +50,6 @@ private:
 	Label label;
 
 	SDL_Texture* texture;
-	SDL_Rect pos;
 
 	SDL_Color fg;
 	SDL_Color border;
@@ -59,7 +59,7 @@ private:
 };
 
 //Util Functions for Button
-SDL_Texture* GenerateButtonTexture ( SDL_Renderer* renderer , SDL_Color fg , SDL_Color border, int border_width , SDL_Rect area );
+SDL_Texture* generateButtonTexture ( SDL_Renderer* renderer , SDL_Color fg , SDL_Color border, int border_width , SDL_Rect area );
 
 } /* namespace ui */
 
