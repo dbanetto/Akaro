@@ -46,6 +46,10 @@ Maths
 
 * Additional functions
 
+* Add probability distribution functions to scale items
+
+* Add normal, triangular, bimodal and poisson distribution ( + more )
+
 Logic
 -----
 
