@@ -112,9 +112,31 @@ namespace math
       }
   }
 
-  double distance (SDL_Point p1 , SDL_Point p2)
+  double distance (const SDL_Point& p1 , const SDL_Point& p2)
   {
-      return SDL_sqrt ( SDL_pow(p2.x - p1.x, 2) + SDL_pow(p2.y - p1.y, 2) );
+    //If the x values are equal
+    if (p1.x == p2.x)
+      {
+        double d = p1.y - p2.y;
+        //Make sure it is positive
+        if (d < 0)
+          d *= -1;
+        //Return distance
+        return d;
+      }
+
+    //If the y values are equal
+    if (p1.y == p2.y)
+      {
+        double d = p1.x - p2.x;
+        //Make sure it is positive
+        if (d < 0)
+          d *= -1;
+        //Return distance
+        return d;
+      }
+
+    return SDL_sqrt ( SDL_pow(p2.x - p1.x, 2) + SDL_pow(p2.y - p1.y, 2) );
   }
 
   /*
