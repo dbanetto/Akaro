@@ -19,8 +19,8 @@
 namespace math
 {
 
-  double area_triangle (double base , double height);
-  double area_triangle ( SDL_Point a , SDL_Point b,  SDL_Point c);
+  double area_triangle (const double& base , const double& height);
+  double area_triangle (const SDL_Point& a , const SDL_Point& b,  const SDL_Point& c);
 
   double area_points ( std::vector<SDL_Point> points , SDL_Point center );
   double area_rect   (SDL_Rect rect);

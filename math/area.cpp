@@ -45,12 +45,12 @@ double area_rect (SDL_Rect rect)
   return rect.w * rect.h;
 }
 
-double area_triangle (double base , double height)
+double area_triangle (const double& base , const double& height)
 {
   return 0.5 * base * height;
 }
 
-double area_triangle ( SDL_Point a , SDL_Point b,  SDL_Point c)
+double area_triangle ( const SDL_Point& a , const SDL_Point& b,  const SDL_Point& c)
 {
   std::vector<double> lengths;
   lengths.reserve(3);
