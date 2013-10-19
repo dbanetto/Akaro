@@ -1,11 +1,11 @@
 /*
- * disttri.cpp
+ * triangular.cpp
  *
  *  Created on: 18/10/2013
  *      Author: drb
  */
 
-#include "disttri.h"
+#include "triangular.h"
 #include <random>
 
 namespace math

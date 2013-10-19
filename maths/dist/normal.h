@@ -1,5 +1,5 @@
 /*
- * distnorm.h
+ * normal.h
  *
  *  Created on: 18/10/2013
  *      Author: drb

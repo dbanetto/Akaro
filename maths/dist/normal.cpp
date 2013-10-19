@@ -1,11 +1,11 @@
 /*
- * distnorm.cpp
+ * normal.cpp
  *
  *  Created on: 18/10/2013
  *      Author: drb
  */
 
-#include "distnorm.h"
+#include "normal.h"
 
 namespace math
 {
