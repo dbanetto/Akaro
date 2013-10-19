@@ -50,6 +50,9 @@ protected:
 
     void load();
     void unload();
+
+    //util functions
+    void screenshot();
 private:
     
     //Private variables

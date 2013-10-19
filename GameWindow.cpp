@@ -299,12 +299,16 @@ void GameWindow::start(void)
             break;
 
         //Render delta for post-render
+        SDL_SetRenderDrawColor(this->renderer, this->background.r, this->background.g, this->background.b, this->background.a);
+        SDL_RenderClear  (this->renderer);
+
         s_delta = (((double)(delta.get_ticks()) * GAMETIME_MULTIPLIER) / 1000.0);
+
         this->render(s_delta);
         SDL_RenderPresent(this->renderer);
 
-        SDL_SetRenderDrawColor(this->renderer, this->background.r, this->background.g, this->background.b, this->background.a);
-        SDL_RenderClear  (this->renderer);
+
+
 
         //Restart Delta
         delta.start();
@@ -402,10 +406,43 @@ void GameWindow::event (SDL_Event e , const double& delta)
         {
             this->quit = true;
         }
+        if (e.key.keysym.sym == SDLK_F12)
+        {
+            this->screenshot();
+        }
         break;
     case (SDL_MOUSEBUTTONDOWN):
         //Fire Click Event
         //this->bt.update(delta);
         break;
     }
+}
+
+void GameWindow::screenshot()
+{
+    if(this->inited == false)
+    {
+        return;
+    }
+
+    SDL_Rect clip;
+    clip.x = 0; clip.y = 0;
+
+    SDL_GetWindowSize(this->window , &clip.w , &clip.h );
+
+    SDL_Surface* surface = SDL_GetWindowSurface(this->window);
+    if (surface == NULL) {
+        std::cout << "SDL Render Error : " << SDL_GetError() << std::endl;
+        return;
+    }
+
+    SDL_RenderReadPixels(this->renderer , &clip , SDL_GetWindowPixelFormat(this->window) , surface->pixels , surface->pitch );
+
+    SDL_SaveBMP( surface , (etc::convInt(SDL_GetTicks()) + "screenshot.bmp").c_str() );
+
+    std::cout << SDL_GetError() << std::endl;
+
+    SDL_FreeSurface( surface );
+
+
 }
