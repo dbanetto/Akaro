@@ -85,7 +85,7 @@ class Settings
         void load_section (std::string header , SettingsDuplicateFlags flag);
         void unload_section (std::string header);
 
-        bool exists (std::string header , std::string  setting);
+        bool exists (std::string header , std::string  key);
         bool exists (std::string header);
 
         bool get (std::string header , std::string  key , std::string* out);

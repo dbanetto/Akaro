@@ -23,7 +23,14 @@ InputHandler::~InputHandler() {
 }
 
 
-
+/**
+ *
+ * @param Header of INI section.
+ * @note  root is empty string
+ * @param key name of the variable to accessed
+ * @param out a pointer to be written to
+ * @return True on success
+ */
 bool InputHandler::getKey (std::string header , std::string  key , Key* out)
 {
     //All keys to be in a *.keys

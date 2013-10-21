@@ -4,6 +4,8 @@
     License: MIT License
 */
 #include "Settings.h"
+
+#include <iosfwd>
 #include <iostream>
 
 using namespace IO;
@@ -32,24 +34,31 @@ Settings::~Settings()
 {
     this->stored_settings.clear();
 }
-
+/**
+ * @brief removes all currently loaded settings
+ */
 void Settings::clear()
 {
     this->stored_settings.clear();
 }
-
-bool Settings::exists (std::string header ,std::string  setting)
+/**
+ * @brief Checks if a given setting exists, and loads it if flags permit
+ * @param header section header
+ * @param key name of the setting to be accessed
+ * @return true on exists
+ */
+bool Settings::exists (std::string header ,std::string  key)
 {
     if (this->exists(header)) 
     {
         INISection* section = &(this->stored_settings[header]);
         if (section->loaded) {
-            return section->properties.find(setting) != section->properties.end();
+            return section->properties.find(key) != section->properties.end();
         } else {
             //Load Header's properties?
             if ( this->loading_flag == SETTING_LOAD_ON_REQUEST ) {
                 this->load_section ( header , SETTINGS_DUPLICATES_INGORED );
-                return this->exists ( header , setting);
+                return this->exists ( header , key);
             } else {
                 return false;
             }
@@ -58,13 +67,21 @@ bool Settings::exists (std::string header ,std::string  setting)
         return false;
     }
 }
-
+/**
+ * @brief Checks if a header exits
+ * @param header Name of section
+ * @return true on success
+ */
 bool Settings::exists (std::string header) 
 {
     return this->stored_settings.find(header) != this->stored_settings.end();
 }
 
-
+/**
+ * @brief Loads settings from a file
+ * @param file_name
+ * @param flag
+ */
 void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
 {
     std::fstream file;
@@ -145,7 +162,11 @@ void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
 
     file.close();
 }
-
+/**
+ * @brief Loads a section's data into memory
+ * @param header Section name
+ * @param flag Settings Duplicate Flags
+ */
 void Settings::load_section ( std::string header , SettingsDuplicateFlags flag) {
     std::fstream file;
 
@@ -217,7 +238,10 @@ void Settings::load_section ( std::string header , SettingsDuplicateFlags flag) 
     file.close();
 
 }
-
+/**
+ * @brief Unloads a specified section
+ * @param header a section name
+ */
 void Settings::unload_section (std::string header) 
 {
     if (this->exists(header)) {
@@ -225,12 +249,18 @@ void Settings::unload_section (std::string header)
         this->stored_settings[header].loaded = false;
     }
 }
-
-bool Settings::get (std::string header , std::string  setting, std::string* out)
+/**
+ * @brief Gets the string of the given setting and copies it into the out string
+ * @param header the name of the section
+ * @param key the name of setting
+ * @param out A string to be written to
+ * @return true on successful copy
+ */
+bool Settings::get (std::string header , std::string  key, std::string* out)
 {
-    if (this->exists(header ,setting))
+    if (this->exists(header ,key))
     {
-        *out = this->stored_settings[header].properties[setting];
+        *out = this->stored_settings[header].properties[key];
         return true;
     }
     else
