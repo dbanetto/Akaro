@@ -32,7 +32,7 @@ Point::Point(double x , double y) {
 
 
 /**
- * @param Value to added
+ * @param in Value to added
  * @return sum of two points
  */
 Point Point::operator+(const Point& in) const

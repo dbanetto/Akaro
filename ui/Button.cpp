@@ -34,6 +34,14 @@ Button::Button() {
     this->UPDATE_POSITION = true;
 }
 
+/**
+ * @param pos Position of button
+ * @param fg Foreground colour
+ * @param border Border colour
+ * @param border_width Border width
+ * @param callbacks A collection of callback functions
+ * @param label Label to be rendered in the button (can be null)
+ */
 Button::Button( SDL_Rect pos , SDL_Color fg, SDL_Color border , int border_width , ButtonCallBacks callbacks , Label label )
 {
     this->pos = pos;
@@ -57,7 +65,11 @@ Button::Button( SDL_Rect pos , SDL_Color fg, SDL_Color border , int border_width
 Button::~Button() {
     // TODO Auto-generated destructor stub
 }
-
+/**
+ * @brief
+ * @param delta
+ * @param renderer
+ */
 void Button::render (const double& delta , SDL_Renderer* renderer )
 {
     if (this->RENDER_TEXTURE == true) {
