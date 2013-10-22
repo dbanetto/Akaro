@@ -16,7 +16,9 @@
 
 namespace graphics
 {
-
+/**
+ * @brief Base class of all object to be rendered on-screen
+ */
   class drawable
   {
   public:

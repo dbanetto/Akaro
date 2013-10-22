@@ -45,7 +45,7 @@ Point Point::operator+(const Point& in) const
 }
 
 /**
- * @param Value to minus
+ * @param in Value to minus
  * @return subtraction of two Points
  */
 Point Point::operator-(const Point& in) const
@@ -57,8 +57,7 @@ Point Point::operator-(const Point& in) const
 }
 
 /**
- * \Brief Converts Point to a String in (x,y) format
- *
+ * @brief Converts Point to a String in (x,y) format
  * @return String of Point (x,y) format
  */
 std::string Point::str()

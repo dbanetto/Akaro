@@ -25,7 +25,7 @@ InputHandler::~InputHandler() {
 
 /**
  *
- * @param Header of INI section.
+ * @param header of INI section.
  * @note  root is empty string
  * @param key name of the variable to accessed
  * @param out a pointer to be written to

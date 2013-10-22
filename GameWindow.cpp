@@ -14,9 +14,9 @@
 #include "etc/string.h"
 #include "etc/colour.h"
 
-/// <summary>
-/// Initializes a new instance of the <see cref="GameWindow"/> class.
-/// </summary>
+/**
+ * @brief Initializes a new instance of the GameWindow class.
+ */
 GameWindow::GameWindow(void)
 {
     this->inited = false;
@@ -34,9 +34,9 @@ GameWindow::GameWindow(void)
 }
 
 
-/// <summary>
-/// Finalizes an instance of the <see cref="GameWindow"/> class.
-/// </summary>
+/**
+ * @brief Finalizes an instance of the <see cref="GameWindow"/> class.
+ */
 GameWindow::~GameWindow(void)
 {
     if (this->inited) 
@@ -59,15 +59,14 @@ GameWindow::~GameWindow(void)
     }
 }
 
-/// <summary>
-/// Initializes Game Window.
-/// </summary>
-/// <param name="TITLE">Set the title of the Window.</param>
-/// <param name="WIDTH">Set the width of the window.</param>
-/// <param name="HIEGHT">Set the height of the window.</param>
-/// <param name="Background">Set the background of the window.</param>
-/// <param name="SDL_SCREEN_FLAGS">Start the window with given flags.</param>
-/// <returns></returns>
+
+/**
+ * @brief Initializes Game Window.
+ * @param TITLE Set the title of the Window.
+ * @param Background Set the background of the window.
+ * @param SDL_SCREEN_FLAGS Start the window with given flags.
+ * @return Returns 0 on success.
+ */
 int GameWindow::init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_FLAGS )
 {
     //If it already was inited, do not bother with it again
@@ -258,9 +257,9 @@ int GameWindow::init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_F
     return 0;
 }
 
-/// <summary>
-/// Starts the game loop.
-/// </summary>
+/**
+ * @brief Starts the game loop.
+ */
 void GameWindow::start(void)
 {
     //Load Content
@@ -326,9 +325,10 @@ void GameWindow::start(void)
     }
 }
 
-/// <summary>
-/// Loads the Game Window Data.
-/// </summary>
+
+/**
+ * @brief Loads the Game Window Data.
+ */
 void GameWindow::load()
 {
     std::string str = "";
@@ -356,28 +356,28 @@ void GameWindow::load()
                 , ui::Label( "Button" , this->font , lb_pt ) );
 }
 
-/// <summary>
-/// Unloads the Game Window Data.
-/// </summary>
+/**
+ * @brief Unloads the Game Window Data.
+ */
 void GameWindow::unload()
 {
     TTF_CloseFont( this->font );
 }
 
-/// <summary>
-/// Renders the frame.
-/// </summary>
-/// <param name="delta">Change in time between last render.</param>
+/**
+ * @brief Renders the frame.
+ * @param delta Change in time between last render.
+ */
 void GameWindow::render(const double& delta)
 {
     bt.render(delta, this->renderer);
     lb.render(delta, this->renderer);
 }
 
-/// <summary>
-/// Updates the frame.
-/// </summary>
-/// <param name="delta">Change in time between last update.</param>
+/**
+ * @brief Updates the Game for the frame.
+ * @param delta Change in time between last update.
+ */
 void GameWindow::update(const double& delta)
 {
     this->lb.setText( "FPS:" + etc::convInt (this->CURRENT_FPS) );
@@ -389,11 +389,11 @@ void GameWindow::update(const double& delta)
     }
 }
 
-/// <summary>
-/// Handles event.
-/// </summary>
-/// <param name="e">The SDL_Event.</param>
-/// <param name="delta">Change in time between last update.</param>
+/**
+ * @brief Handles SDL events
+ * @param e The SDL_Event.
+ * @param delta Change in time between last update.
+ */
 void GameWindow::event (SDL_Event e , const double& delta)
 {
     switch (e.type)
@@ -418,8 +418,12 @@ void GameWindow::event (SDL_Event e , const double& delta)
     }
 }
 
+/**
+ * @brief Takes a screenshot of the current rendered screen and then saves it to a .bmp
+ */
 void GameWindow::screenshot()
 {
+    //Skip the screenshot if the Game Window is not inited
     if(this->inited == false)
     {
         return;
@@ -428,20 +432,25 @@ void GameWindow::screenshot()
     SDL_Rect clip;
     clip.x = 0; clip.y = 0;
 
+    //Get the size of the screen to be taken
     SDL_GetWindowSize(this->window , &clip.w , &clip.h );
 
+    //Get the window surface
     SDL_Surface* surface = SDL_GetWindowSurface(this->window);
+
+    //Make sire you have the surface
     if (surface == NULL) {
         std::cout << "SDL Render Error : " << SDL_GetError() << std::endl;
         return;
     }
 
+    //Copy the pixels in the renderer to the surface's pixels
     SDL_RenderReadPixels(this->renderer , &clip , SDL_GetWindowPixelFormat(this->window) , surface->pixels , surface->pitch );
 
+    //Save the bitmap
     SDL_SaveBMP( surface , (etc::convInt(SDL_GetTicks()) + "screenshot.bmp").c_str() );
 
-    std::cout << SDL_GetError() << std::endl;
-
+    //Tidy up surface
     SDL_FreeSurface( surface );
 
 

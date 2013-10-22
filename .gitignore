@@ -12,3 +12,9 @@
 *.la
 *.a
 /Debug
+
+# Doxygen Generated Doc
+/doc/html/*
+/doc/man/*
+/doc/latex/*
+
