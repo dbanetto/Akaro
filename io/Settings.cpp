@@ -150,7 +150,9 @@ void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
             {
                 //Include another file
                 //Get file name from the value
-                this->load ( etc::trim ( line.substr( line.find_first_of('=', 0) + 1  , line.length() - 1 ) ) , flag );
+
+                //@include disabled
+                // this->load ( etc::trim ( line.substr( line.find_first_of('=', 0) + 1  , line.length() - 1 ) ) , flag );
                 continue;
             }
         }
