@@ -135,12 +135,14 @@ void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
             section = INISection();
             //Remove the brackets
             section.header_name = line.substr ( 1 , line.size() - 2 );
+
             if ( this->exists(section.header_name)) {
                 //Warning text
                 std::cout << "WARNING ANOTHER " << section.header_name << " HAS BEEN DEFINED! THIS CAN BE DEADLY" << std::endl;
             }
+
             //-2 constant is to correct the position of the start index
-            section.start_index = start_pos;
+            section.start_index = start_pos ;
             section.loaded = false;
             section.file_name = file_name;
             section.properties = SettingsMap();
@@ -193,8 +195,13 @@ void Settings::load_section ( std::string header , SettingsDuplicateFlags flag) 
 
     //Seek to the beginning of the file
     file.seekg( 0 , file.beg );
+    file.peek();
+
+
     file.seekg( section->start_index , file.beg );
 
+    std::cout << "Loading " << section->header_name << std::endl;
+    bool start = false;
     while ( file.tellg() < file_pos_max && !file.eof() )
     {
         std::string line;
@@ -212,6 +219,14 @@ void Settings::load_section ( std::string header , SettingsDuplicateFlags flag) 
         //Check if the line has the beginning of a section
         if ( etc::startswith( line , "[" ) || etc::endswith( line , "]") )
         {
+            std::string header_name = line.substr ( 1 , line.size() - 2 );
+            //If another section is in contact, LEAVE NOW
+            if (header_name != section->header_name) {
+                break;
+            } else {
+                //Found the start of the section we are looking for
+                start = true;
+            }
             continue;
         }
         if ( etc::startswith( line , "@" ) )
@@ -219,14 +234,24 @@ void Settings::load_section ( std::string header , SettingsDuplicateFlags flag) 
             continue;
         }
 
+        if (start == false)
+        {
+            continue;
+        }
         
         //Find the equal part of the line
         std::size_t equal_pos = line.find_first_of('=', 0);
 
+        if (equal_pos == line.npos) {
+            continue;
+        }
+
         std::string key = etc::trim ( line.substr( 0 , equal_pos ) );
         std::string value = etc::trim ( line.substr( equal_pos + 1  , line.length() - 1 ) );
 
-        
+        if (key == "") {
+            continue;
+        }
 
         if ( section->properties.find( key ) !=  section->properties.end() )
         {
