@@ -16,9 +16,6 @@ using namespace IO;
 #include <algorithm>
 #include <iterator>
 #include "../etc/string.h"
-#ifdef SETTINGS_REGEX_ENABLED
-#include <regex>
-#endif
 
 
 Settings::Settings() {
@@ -34,6 +31,7 @@ Settings::~Settings()
 {
     this->stored_settings.clear();
 }
+
 /**
  * @brief removes all currently loaded settings
  */
@@ -41,6 +39,7 @@ void Settings::clear()
 {
     this->stored_settings.clear();
 }
+
 /**
  * @brief Checks if a given setting exists, and loads it if flags permit
  * @param header section header
@@ -67,6 +66,7 @@ bool Settings::exists (std::string header ,std::string  key)
         return false;
     }
 }
+
 /**
  * @brief Checks if a header exits
  * @param header Name of section
@@ -162,6 +162,7 @@ void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
 
     file.close();
 }
+
 /**
  * @brief Loads a section's data into memory
  * @param header Section name
@@ -238,6 +239,7 @@ void Settings::load_section ( std::string header , SettingsDuplicateFlags flag) 
     file.close();
 
 }
+
 /**
  * @brief Unloads a specified section
  * @param header a section name
@@ -249,6 +251,7 @@ void Settings::unload_section (std::string header)
         this->stored_settings[header].loaded = false;
     }
 }
+
 /**
  * @brief Gets the string of the given setting and copies it into the out string
  * @param header the name of the section
@@ -269,7 +272,13 @@ bool Settings::get (std::string header , std::string  key, std::string* out)
     }
 }
 
-bool  Settings::getBool (std::string header , std::string  key , bool* bol)
+/**
+ * @brief Gets the value and converts it to a bool
+ * @see Settings::get
+ * @param bol Returns the value
+ * @return
+ */
+bool Settings::getBool (std::string header , std::string  key , bool* bol)
 {
     std::string b;
     if (this->get(header, key , &b) == false)

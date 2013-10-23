@@ -20,29 +20,26 @@
 namespace IO
 {
 
-
-
-/// <summary>
-/// A Flag to describe how duplicate are handled
-/// Either ignored new settings or override the old ones.
-/// </summary>
+/**
+ * @brief A Flag to describe how duplicate are handled . Either ignored new settings or override the old ones
+ */
 enum SettingsDuplicateFlags {
     SETTINGS_DUPLICATES_INGORED = 0
    ,SETTINGS_DUPLICATES_OVERRIDE = 1
 };
 
-/// <summary>
-/// A Flag to describe which search method is used in split()
-/// </summary>
+/**
+ * @brief A Flag to describe which search method is used in loading of files
+ */
 enum SettingsLoadFlags {
-    /// <summary>
-    /// Do not load properties when it is not loaded and requested
-    /// </summary>
-    SETTING_LOAD_NOTHING = 0
-    /// <summary>
-    /// Do load properties when it is not loaded and requested 
-    /// </summary>
-    ,SETTING_LOAD_ON_REQUEST = 1
+    /**
+     * @brief Do not load properties when it is not loaded and requested
+     */
+    SETTING_LOAD_NOTHING = 0    //!< SETTING_LOAD_NOTHING
+    /**
+     * @brief Do load properties when it is not loaded and requested
+     */
+    ,SETTING_LOAD_ON_REQUEST = 1//!< SETTING_LOAD_ON_REQUEST
 };
 
 // SettingsList which is a map of string, string
@@ -66,9 +63,9 @@ typedef  std::map< std::string , INISection >::iterator  INISectionIter;
 /* TODO: Add Saving support
  */
 
-/// <summary>
-/// A collection of settings loaded from files
-/// </summary>
+/**
+ * @brief A collection of settings loaded from files
+ */
 class Settings
 {
     public:
