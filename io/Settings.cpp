@@ -11,6 +11,7 @@
 using namespace IO;
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 #include <sstream>
 #include <algorithm>
@@ -86,7 +87,7 @@ void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
 {
     std::fstream file;
     file.open(file_name.c_str());
-    
+
     //Check if the file is open
     if (!(file.is_open()))
     {
@@ -134,6 +135,10 @@ void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
             section = INISection();
             //Remove the brackets
             section.header_name = line.substr ( 1 , line.size() - 2 );
+            if ( this->exists(section.header_name)) {
+                //Warning text
+                std::cout << "WARNING ANOTHER " << section.header_name << " HAS BEEN DEFINED! THIS CAN BE DEADLY" << std::endl;
+            }
             //-2 constant is to correct the position of the start index
             section.start_index = start_pos;
             section.loaded = false;
@@ -327,9 +332,122 @@ bool Settings::add (std::string header , std::string key , std::string value)
     }
 }
 
-void Settings::set (std::string header , std::string key , std::string value)
+bool Settings::set (std::string header , std::string key , std::string value)
 {
      if (this->exists( header , key ) ) {
         this->stored_settings[header].properties[key] = value;
+        return true;
      }
+     return false;
+}
+
+/**
+ * @brief Saves all the sections of a given file
+ * @param filename Saves all headers that belong to a file
+ * @return bool true on success
+ */
+bool Settings::save (std::string filename)
+{
+    //The File to be read from
+    std::ifstream file_in;
+    //The File to be written to
+    std::fstream file_out;
+    //Stream are separate to prevent cross-contamination
+
+    //Open the input file
+    file_in.open( filename.c_str() );
+
+    //Check for errors
+    if (file_in.is_open() == false) {
+        std::cout << "Error input file : " << filename.c_str() << " could not be opened." << std::endl;
+        return false;
+    }
+
+    //Open the output file
+    file_out.open( ("temp~" + filename).c_str() , std::ofstream::out );
+
+    //Check for errors
+    if (file_out.is_open() == false) {
+        std::cout << "Error output file : " << ("temp~" + filename).c_str() << " could not be opened." << std::endl;
+        return false;
+    }
+
+    //Go through whole file
+    INISection* current_section = nullptr;
+    while ( file_in.eof() == false )
+    {
+        std::string line;
+        std::getline ( file_in , line );
+        line = etc::trim ( line );
+
+        std::size_t equal_pos = line.find_first_of('=', 0);
+
+        if (line == "")
+        {
+
+        }
+        else if ( etc::startswith( line , ";" ) )
+        {
+
+        }
+        else if ( etc::startswith( line , "[" ) || etc::endswith( line , "]") )
+        {
+            //Check if the line has the beginning of a section
+            //Update current_section
+            if (current_section != nullptr)
+            {
+                current_section->end_index = file_out.tellg();
+            }
+
+            current_section = &( this->stored_settings[ line.substr ( 1 , line.size() - 2 )] );
+            current_section->start_index = (int)file_out.tellg() - 1;
+        }
+        else if ( etc::startswith( line , "@" ) )
+        {
+
+        }
+        else if (equal_pos != line.npos) {
+            std::string key = etc::trim ( line.substr( 0 , equal_pos ) );
+            std::string value = current_section->properties[key];
+            if (value == "") {
+                value = etc::trim ( line.substr( equal_pos + 1  , line.length() - 1 ) );
+            }
+
+            file_out << key << '=' << value << std::endl;
+            continue;
+        }
+
+
+        //Standard copy line out
+        file_out << line << std::endl;
+    }
+
+    file_out.close();
+    file_in.close();
+
+
+    //File operations
+    //File operation return value
+    int file_op = 0;
+
+    //Remove old version
+    file_op = std::remove( filename.c_str() );
+
+    //Check if there was an error
+    if (file_op != 0) {
+        std::cout << "Error while removing the file " << filename.c_str() << std::endl;
+        return false;
+    }
+
+    //Rename the temp version to replace the deleted version
+    file_op = std::rename( ("temp~" + filename).c_str()  , filename.c_str() );
+
+    //Check if there was an error
+    if (file_op != 0) {
+        std::cout << "Error while renaming the file from " << ("temp~" + filename).c_str() << " to " << filename.c_str() << std::endl;
+        return false;
+    }
+    std::cout << "Saving of " << filename << " successful." << std::endl;
+
+    return true;
 }

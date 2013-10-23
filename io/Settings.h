@@ -94,10 +94,13 @@ class Settings
         virtual bool add (std::string header , std::string key , std::string value);
 
         //Implies overriding is OK
-        virtual void set (std::string header , std::string key , std::string value);
+        virtual bool set (std::string header , std::string key , std::string value);
+
+        bool save (std::string header);
 
     private:
         std::map<std::string , INISection > stored_settings;
+
         SettingsLoadFlags loading_flag;
 
     };
