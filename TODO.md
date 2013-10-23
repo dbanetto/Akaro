@@ -4,7 +4,7 @@ Todo List
 Core
 ----
 
-* Add saving to Settings class
+* ~~Add saving to Settings class~~
 * Area map class to sort items by area of which they are in
 
 Graphics

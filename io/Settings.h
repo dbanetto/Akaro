@@ -60,11 +60,9 @@ struct INISection
 
 typedef  std::map< std::string , INISection >::iterator  INISectionIter;
 
-/* TODO: Add Saving support
- */
-
 /**
  * @brief A collection of settings loaded from files
+ * @warning Cannot handle same name sections from different files
  */
 class Settings
 {

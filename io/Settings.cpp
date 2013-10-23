@@ -368,6 +368,7 @@ bool Settings::set (std::string header , std::string key , std::string value)
 
 /**
  * @brief Saves all the sections of a given file
+ * @warning Deletes original file and then renames a temp file to replace it
  * @param filename Saves all headers that belong to a file
  * @return bool true on success
  */
