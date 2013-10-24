@@ -87,7 +87,7 @@ void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
 {
     std::fstream file;
     file.open(file_name.c_str());
-
+    this->file_name = file_name;
     //Check if the file is open
     if (!(file.is_open()))
     {
@@ -103,7 +103,6 @@ void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
 
     std::string line;
     INISection section;
-    section.file_name = file_name;
     section.header_name = "";
     section.loaded = false;
     section.start_index = 0;
@@ -138,30 +137,14 @@ void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
 
             if ( this->exists(section.header_name)) {
                 //Warning text
-                std::cout << "WARNING ANOTHER " << section.header_name << " HAS BEEN DEFINED! THIS CAN BE DEADLY" << std::endl;
+                std::cout << "ERROR : Another " << this->file_name << "::" << section.header_name << " has been defined!\nSections will be damaged." << std::endl;
+            } else {
+                //-2 constant is to correct the position of the start index
+                section.start_index = start_pos ;
+                section.loaded = false;
+                section.properties = SettingsMap();
             }
-
-            //-2 constant is to correct the position of the start index
-            section.start_index = start_pos ;
-            section.loaded = false;
-            section.file_name = file_name;
-            section.properties = SettingsMap();
             continue;
-        }
-
-        //Include other files
-        if (line[0] == '@')
-        {
-               //Check if key is @inlcude
-            if ( etc::trim ( line.substr( 0 , line.find_first_of('=', 0) ) ) == "@include")
-            {
-                //Include another file
-                //Get file name from the value
-
-                //@include disabled
-                // this->load ( etc::trim ( line.substr( line.find_first_of('=', 0) + 1  , line.length() - 1 ) ) , flag );
-                continue;
-            }
         }
     }
 
@@ -185,7 +168,7 @@ void Settings::load_section ( std::string header , SettingsDuplicateFlags flag) 
 
     INISection* section = &(this->stored_settings[header]);
 
-    file.open( section->file_name.c_str() );
+    file.open( this->file_name.c_str() );
     int file_pos_max = section->end_index;
     //Check if the file is open
     if (!(file.is_open()))
@@ -200,7 +183,6 @@ void Settings::load_section ( std::string header , SettingsDuplicateFlags flag) 
 
     file.seekg( section->start_index , file.beg );
 
-    std::cout << "Loading " << section->header_name << std::endl;
     bool start = false;
     while ( file.tellg() < file_pos_max && !file.eof() )
     {
@@ -227,10 +209,6 @@ void Settings::load_section ( std::string header , SettingsDuplicateFlags flag) 
                 //Found the start of the section we are looking for
                 start = true;
             }
-            continue;
-        }
-        if ( etc::startswith( line , "@" ) )
-        {
             continue;
         }
 
@@ -264,6 +242,7 @@ void Settings::load_section ( std::string header , SettingsDuplicateFlags flag) 
         else
         {
             section->properties[key] = value;
+            std::cout << this->file_name << "::" << key << "=" << value << std::endl;
         }
     }
     //Update loaded status
@@ -372,7 +351,7 @@ bool Settings::set (std::string header , std::string key , std::string value)
  * @param filename Saves all headers that belong to a file
  * @return bool true on success
  */
-bool Settings::save (std::string filename)
+bool Settings::save ()
 {
     //The File to be read from
     std::ifstream file_in;
@@ -381,25 +360,25 @@ bool Settings::save (std::string filename)
     //Stream are separate to prevent cross-contamination
 
     //Open the input file
-    file_in.open( filename.c_str() );
+    file_in.open( this->file_name.c_str() );
 
     //Check for errors
     if (file_in.is_open() == false) {
-        std::cout << "Error input file : " << filename.c_str() << " could not be opened." << std::endl;
+        std::cout << "Error input file : " << this->file_name.c_str() << " could not be opened." << std::endl;
         return false;
     }
 
     //Open the output file
-    file_out.open( ("temp~" + filename).c_str() , std::ofstream::out );
+    file_out.open( ("temp~" + this->file_name).c_str() , std::ofstream::out );
 
     //Check for errors
     if (file_out.is_open() == false) {
-        std::cout << "Error output file : " << ("temp~" + filename).c_str() << " could not be opened." << std::endl;
+        std::cout << "Error output file : " << ("temp~" + this->file_name).c_str() << " could not be opened." << std::endl;
         return false;
     }
 
     //Go through whole file
-    INISection* current_section = nullptr;
+    INISection* current_section = &(this->stored_settings[""]);
     while ( file_in.eof() == false )
     {
         std::string line;
@@ -428,10 +407,6 @@ bool Settings::save (std::string filename)
             current_section = &( this->stored_settings[ line.substr ( 1 , line.size() - 2 )] );
             current_section->start_index = (int)file_out.tellg() - 1;
         }
-        else if ( etc::startswith( line , "@" ) )
-        {
-
-        }
         else if (equal_pos != line.npos) {
             std::string key = etc::trim ( line.substr( 0 , equal_pos ) );
             std::string value = current_section->properties[key];
@@ -457,23 +432,22 @@ bool Settings::save (std::string filename)
     int file_op = 0;
 
     //Remove old version
-    file_op = std::remove( filename.c_str() );
+    file_op = std::remove( this->file_name.c_str() );
 
     //Check if there was an error
     if (file_op != 0) {
-        std::cout << "Error while removing the file " << filename.c_str() << std::endl;
+        std::cout << "Error while removing the file " << this->file_name.c_str() << std::endl;
         return false;
     }
 
     //Rename the temp version to replace the deleted version
-    file_op = std::rename( ("temp~" + filename).c_str()  , filename.c_str() );
+    file_op = std::rename( ("temp~" + this->file_name).c_str()  , this->file_name.c_str() );
 
     //Check if there was an error
     if (file_op != 0) {
-        std::cout << "Error while renaming the file from " << ("temp~" + filename).c_str() << " to " << filename.c_str() << std::endl;
+        std::cout << "Error while renaming the file from " << ("temp~" + this->file_name).c_str() << " to " << this->file_name.c_str() << std::endl;
         return false;
     }
-    std::cout << "Saving of " << filename << " successful." << std::endl;
 
     return true;
 }

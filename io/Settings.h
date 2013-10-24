@@ -51,7 +51,6 @@ struct INISection
 {
     std::string header_name;
     SettingsMap properties;
-    std::string file_name;
     int start_index;
     int end_index;
 
@@ -94,12 +93,13 @@ class Settings
         //Implies overriding is OK
         virtual bool set (std::string header , std::string key , std::string value);
 
-        bool save (std::string header);
+        bool save ();
 
     private:
         std::map<std::string , INISection > stored_settings;
 
         SettingsLoadFlags loading_flag;
+        std::string file_name;
 
     };
 }
