@@ -242,7 +242,6 @@ void Settings::load_section ( std::string header , SettingsDuplicateFlags flag) 
         else
         {
             section->properties[key] = value;
-            std::cout << this->file_name << "::" << key << "=" << value << std::endl;
         }
     }
     //Update loaded status

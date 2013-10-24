@@ -354,12 +354,6 @@ void GameWindow::load()
                 , 5
                 , ui::Button::ButtonCallBacks()
                 , ui::Label( "Button" , this->font , lb_pt ) );
-
-    bool is_set = this->settings.set("window" , "width" , "butts");
-    bool save_out = this->settings.save("settings.ini");
-    if (save_out == false || is_set == false) {
-        std::cout << "An Error has occurred" << std::endl;
-    }
 }
 
 /**
