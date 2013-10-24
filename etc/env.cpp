@@ -26,11 +26,31 @@ void printSystemInfo()
     SDL_GetVersion( &ver );
     std::cout << "SDL Version : " << (int)(ver.major) << "." << (int)(ver.minor) << "." << (int)(ver.patch) << std::endl;
 
-    std::cout << std::endl;
 
-    //CPU
+
+    //CPU and RAM
     std::cout << "CPU Cache Size : " << SDL_GetCPUCacheLineSize() << std::endl;
     std::cout << "CPU Cache Size : " << SDL_GetCPUCount() << std::endl;
+    std::cout << "RAM : " << SDL_GetSystemRAM() << "MiB" << std::endl;
+
+    std::cout << std::endl;
+
+    //Other has checks
+    std::cout << "Has 3DNow : " << SDL_Has3DNow() << std::endl;
+    std::cout << "Has Alti Vec : " << SDL_HasAltiVec() << std::endl;
+    std::cout << "Has MMX : " << SDL_HasMMX() << std::endl;
+    std::cout << "Has RDTSC : " << SDL_HasRDTSC() << std::endl;
+
+    std::cout << std::endl;
+
+    //SSE Check
+    std::cout << "Has SSE : " << SDL_HasSSE() << std::endl;
+    std::cout << "Has SSE 2 : " << SDL_HasSSE2() << std::endl;
+    std::cout << "Has SSE 3 : " << SDL_HasSSE3() << std::endl;
+    std::cout << "Has SSE 4.1 : " << SDL_HasSSE41() << std::endl;
+    std::cout << "Has SSE 4.2 : " << SDL_HasSSE42() << std::endl;
+
+
 
     std::cout << std::endl;
 
