@@ -13,6 +13,7 @@
 
 #if __GNUC__
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_version.h>
 #else
 #include "SDL.h"
 #endif
@@ -31,8 +32,9 @@ void printSystemInfo()
     //CPU and RAM
     std::cout << "CPU Cache Size : " << SDL_GetCPUCacheLineSize() << std::endl;
     std::cout << "CPU Cache Size : " << SDL_GetCPUCount() << std::endl;
+#if SDL_PATCHLEVEL >= 1 && SDL_MAJOR_VERSION == 2
     std::cout << "RAM : " << SDL_GetSystemRAM() << "MiB" << std::endl;
-
+#endif
     std::cout << std::endl;
 
     //Other has checks
