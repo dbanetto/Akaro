@@ -16,7 +16,7 @@ namespace etc
         //Minimum percentage left to warn
         int warning_percent = 20;
         //Minimum time left to warn (in seconds)
-        int warning_time = 30*60*1000;
+        int warning_time = 30*60;
         //Time between checks
         int check_interval = 60000;
 
