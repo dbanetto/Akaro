@@ -13,6 +13,7 @@
 
 #if __GNUC__
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_version.h>
 #else
 #include "SDL.h"
 #endif
@@ -37,6 +38,7 @@ void printSystemInfo()
     pref_path = SDL_GetPrefPath( "blb" , "akaro" );
     std::cout << "Preferred Path : " << pref_path << std::endl;
     delete pref_path;
+
     std::cout << std::endl;
 
     //CPU and RAM
@@ -63,7 +65,8 @@ void printSystemInfo()
         case (SDL_POWERSTATE_NO_BATTERY):
             std::cout << "Battery Status : No Battery " << std::endl;
             break;
-
+        case (SDL_POWERSTATE_UNKNOWN):
+            std::cout << "Battery Status : Unknown" << std::endl;
     }
 
 
