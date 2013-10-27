@@ -27,5 +27,7 @@ bool is_number (std::string s);
 
 std::string convInt (int num);
 
+int timeToInt (std::string time);
+
 }
 #endif /* STRING_H_ */

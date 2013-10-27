@@ -14,6 +14,8 @@
 #include <algorithm>
 #include <iterator>
 
+#include <iostream>
+
 namespace etc
 {
 
@@ -89,6 +91,45 @@ std::string convInt (int num) {
     std::stringstream ss;//create a stringstream
     ss << num;//add number to the stream
     return ss.str();//return a string with the contents of the stream
+}
+
+/**
+ * @brief Reads the format of 5m (Five Minutes) to seconds or 5s (Five Seconds) to seconds
+ * @note Supports h hour, m minute, s seconds. Must be in order
+ * @param time String in the short-hand time format
+ * @return Time in seconds
+ */
+int timeToInt (std::string time)
+{
+    int _time = 0;
+    //First find all the h, m ,s
+    std::string tmp;
+
+    if (time.find('h') != time.npos) {
+        //There is hour
+        tmp = time.substr( 0 , time.find('h') );
+        std::cout << tmp << std::endl;
+        _time += atoi ( tmp.c_str() ) * 60 * 60;
+        time = trim( time.substr( time.find('h') + 1 ));
+    }
+
+    if (time.find('m') != time.npos) {
+        //There is hour
+        tmp = time.substr( 0 , time.find('m'));
+        std::cout << tmp << std::endl;
+        _time += atoi ( tmp.c_str() ) * 60;
+        time = trim( time.substr( time.find('m') + 1 ) );
+    }
+    if (time.find('s') != time.npos) {
+        //There is hour
+        tmp = time.substr( 0 , time.find('s') );
+        std::cout << tmp << std::endl;
+        _time += atoi ( tmp.c_str() );
+        time = trim( time.substr( time.find('s') + 1 ) );
+    }
+
+
+    return _time;
 }
 
 } /* Namespace etc  */
