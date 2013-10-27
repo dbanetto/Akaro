@@ -50,6 +50,20 @@ Logic
 * AI Logic
 * Path finding
 
+Tools
+-----
+
+* In-game console
+* Map editor
+* sprite texture generator
+
+Other
+-----
+
+* Particle system
+* Lighting system
+* "Game States", such as : menu, battle, etc.
+
 Documentation
 -------------
 

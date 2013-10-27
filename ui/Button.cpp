@@ -11,7 +11,6 @@
 namespace ui {
 
 Button::Button() {
-    // TODO Auto-generated constructor stub
     this->texture = nullptr;
     this->RENDER_TEXTURE = true;
     this->pos.w = 100; this->pos.h = 100;
@@ -63,7 +62,6 @@ Button::Button( SDL_Rect pos , SDL_Color fg, SDL_Color border , int border_width
 
 
 Button::~Button() {
-    // TODO Auto-generated destructor stub
 }
 /**
  * @brief

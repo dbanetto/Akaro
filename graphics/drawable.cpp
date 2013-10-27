@@ -47,7 +47,6 @@ namespace graphics
 
   drawable::~drawable()
   {
-    // TODO Auto-generated destructor stub
   }
 
 } /* namespace graphics */

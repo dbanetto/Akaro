@@ -11,7 +11,6 @@
 namespace ui {
 
 Label::Label() {
-	// TODO Auto-generated constructor stub
 	this->font = nullptr;
 	this->texture = nullptr;
 	this->RENDER_TEXTURE = false;
