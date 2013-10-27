@@ -11,7 +11,7 @@ Graphics
 --------
 
 * Sprite class
-* Shaders
+* GL Shaders
 * ~~Screen shot support~~
 
 Map
@@ -26,8 +26,7 @@ Audio
 -----
 
 * Support selecting audio device
-* On the fly changing of audio
-* Repeating music track
+* Repeating music track / one off plays
 * Audio options (play, stop, pause, audio up or down)
 
 Input
@@ -36,6 +35,7 @@ Input
 * Mouse support
 * Game pad/Controller support (mainly PS3 and Xbox 360 controller)
 * Input schemes
+* Input unification
 
 Maths
 -----
@@ -63,6 +63,7 @@ Other
 * Particle system
 * Lighting system
 * "Game States", such as : menu, battle, etc.
+* Battery Management
 
 Documentation
 -------------
