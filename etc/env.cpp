@@ -25,17 +25,51 @@ void printSystemInfo()
     SDL_version ver;
     SDL_GetVersion( &ver );
     std::cout << "SDL Version : " << (int)(ver.major) << "." << (int)(ver.minor) << "." << (int)(ver.patch) << std::endl;
+    std::cout << "Platform : " << SDL_GetPlatform() << std::endl;
 
+    char* base_path;
+    base_path = SDL_GetBasePath ();
+    std::cout << "Base Path : " << base_path << std::endl;
+    delete base_path;
 
+    char* pref_path;
+    //ORG and APP names are subject to change
+    pref_path = SDL_GetPrefPath( "blb" , "akaro" );
+    std::cout << "Preferred Path : " << pref_path << std::endl;
+    delete pref_path;
+    std::cout << std::endl;
 
     //CPU and RAM
     std::cout << "CPU Cache Size : " << SDL_GetCPUCacheLineSize() << std::endl;
-    std::cout << "CPU Cache Size : " << SDL_GetCPUCount() << std::endl;
+    std::cout << "CPU Count : " << SDL_GetCPUCount() << std::endl;
     std::cout << "RAM : " << SDL_GetSystemRAM() << "MiB" << std::endl;
 
     std::cout << std::endl;
 
-    //Other has checks
+    //Power
+    int secs  = 0, pct = 0;
+    SDL_PowerState state = SDL_GetPowerInfo(&secs , &pct);
+    switch (state)
+    {
+        case (SDL_POWERSTATE_ON_BATTERY):
+            std::cout << "Battery Status : Discharging " << pct << "% " << secs/60 << "mins" << std::endl;
+            break;
+        case (SDL_POWERSTATE_CHARGING):
+            std::cout << "Battery Status : Charging " << pct << "% " << secs/60 << "mins" << std::endl;
+            break;
+        case (SDL_POWERSTATE_CHARGED):
+            std::cout << "Battery Status : Charged " << pct << "% " << secs/60 << "mins" << std::endl;
+            break;
+        case (SDL_POWERSTATE_NO_BATTERY):
+            std::cout << "Battery Status : No Battery " << std::endl;
+            break;
+
+    }
+
+
+    std::cout << std::endl;
+
+    //Other has (CPU) checks
     std::cout << "Has 3DNow : " << SDL_Has3DNow() << std::endl;
     std::cout << "Has Alti Vec : " << SDL_HasAltiVec() << std::endl;
     std::cout << "Has MMX : " << SDL_HasMMX() << std::endl;
@@ -84,7 +118,7 @@ void printSystemInfo()
                 break;
         }
         std::cout << std::endl;
-
+#ifdef PRINT_ALL_DISPLAY_MODES
         for (int n =0; n < SDL_GetNumDisplayModes( i ); n++) {
             SDL_DisplayMode dm;
             SDL_GetDisplayMode( i , n , &dm );
@@ -104,14 +138,12 @@ void printSystemInfo()
             }
             std::cout << std::endl;
         }
-
+#endif
         std::cout << std::endl;
 
     }
 
     //Video Drivers
-
-
     std::cout << "Current Video Driver : " << SDL_GetCurrentVideoDriver() << std::endl;
     int vid_drivers = SDL_GetNumVideoDrivers();
     for (int n =0; n < vid_drivers; n++) {
