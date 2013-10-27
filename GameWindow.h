@@ -28,7 +28,7 @@
 #include "ui/Button.h"
 #include "io/Settings.h"
 #include "input/InputHandler.h"
-
+#include "etc/battery.h"
 //TODO : Support Multiple 'Game States'
 
 /// <summary>
@@ -73,6 +73,12 @@ private:
     IO::Settings settings;
     Input::InputHandler input;
 
+    //Battery
+    bool has_battery;
+    //Measured in milliseconds
+    double last_battery_check;
+
+    //TESTING OBJECTS
     TTF_Font* font;
     ui::Label lb;
     ui::Button bt;

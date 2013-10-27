@@ -7,6 +7,7 @@
 #include <iostream>
 #include "etc/Timer.h"
 #include <string>
+#include <stdlib.h>
 #include <sstream>
 #include "etc/env.h"
 #include "io/file.h"
@@ -31,6 +32,10 @@ GameWindow::GameWindow(void)
     settings = IO::Settings ( IO::SETTING_LOAD_ON_REQUEST );
 
     this->font = nullptr;
+
+    //battery
+    this->has_battery = false;
+    this->last_battery_check = 0;
 }
 
 
@@ -249,7 +254,8 @@ int GameWindow::init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_F
     //Set background colour
     this->background = Background;
 
-    //etc::printSystemInfo();
+    //Check if the System has a battery
+    this->has_battery = etc::has_battery();
 
     this->inited = true;
     //All done correctly
@@ -331,6 +337,43 @@ void GameWindow::start(void)
  */
 void GameWindow::load()
 {
+    if (this->has_battery && this->settings.exists("battery")) {
+        //Load Battery Settings
+
+        //Set the warning level
+        if ( this->settings.exists("battery" , "warn") ) {
+            std::string warn_amount;
+            this->settings.get("battery" , "warn" , &warn_amount);
+            //If it is a percentage
+            if (etc::endswith(warn_amount , "%")) {
+                //Remove the %
+                warn_amount = warn_amount.substr( 0 , warn_amount.length() - 2 );
+                int perc = atoi (warn_amount.c_str());
+                etc::batterySetWarningPercent( perc );
+            } else {
+                //Time amount
+                etc::batterySetWarningTime( etc::timeToInt( warn_amount ) );
+            }
+        }
+
+        //Set the check interval
+        if ( this->settings.exists("battery" , "interval") ) {
+            std::string warn_interval;
+            this->settings.get("battery" , "interval" , &warn_interval);
+            etc::batterySetCheckInterval( etc::timeToInt( warn_interval ) );
+        }
+
+        //Check if this feature is wanted to be enabled
+        if ( this->settings.exists("battery" , "enable") ) {
+            bool enable_bat = false;
+            this->settings.getBool( "battery" , "enable" , &enable_bat );
+            //If the settings say disable, the battery check in GameWindow is disabled
+            this->has_battery = enable_bat;
+        }
+
+    }
+
+    //TESTING ZONE
     std::string str = "";
     if ( this->settings.get("ui" , "font" , &str) )
     {
@@ -380,6 +423,18 @@ void GameWindow::render(const double& delta)
  */
 void GameWindow::update(const double& delta)
 {
+    if (this->last_battery_check >= etc::batteryGetCheckInterval())
+    {
+        this->last_battery_check = 0;
+        if (etc::batteryStatus() == BATTERY_WARNING) {
+            //BATTERY WARNING! DO SOMETHING ABOUT IT!!!
+            std::cout << "Warning! Battery is about to run out!" << std::endl ;
+        }
+
+    } else {
+        this->last_battery_check += delta;
+    }
+
     this->lb.setText( "FPS:" + etc::convInt (this->CURRENT_FPS) );
     this->bt.update(delta);
     SDL_Event event;
