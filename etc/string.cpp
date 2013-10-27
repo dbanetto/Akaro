@@ -108,7 +108,6 @@ int timeToInt (std::string time)
     if (time.find('h') != time.npos) {
         //There is hour
         tmp = time.substr( 0 , time.find('h') );
-        std::cout << tmp << std::endl;
         _time += atoi ( tmp.c_str() ) * 60 * 60;
         time = trim( time.substr( time.find('h') + 1 ));
     }
@@ -116,14 +115,12 @@ int timeToInt (std::string time)
     if (time.find('m') != time.npos) {
         //There is hour
         tmp = time.substr( 0 , time.find('m'));
-        std::cout << tmp << std::endl;
         _time += atoi ( tmp.c_str() ) * 60;
         time = trim( time.substr( time.find('m') + 1 ) );
     }
     if (time.find('s') != time.npos) {
         //There is hour
         tmp = time.substr( 0 , time.find('s') );
-        std::cout << tmp << std::endl;
         _time += atoi ( tmp.c_str() );
         time = trim( time.substr( time.find('s') + 1 ) );
     }

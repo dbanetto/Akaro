@@ -337,15 +337,20 @@ void GameWindow::start(void)
  */
 void GameWindow::load()
 {
-    if (this->has_battery && this->settings.exists("battery")) {
+    if (this->has_battery && this->settings.exists("battery"))
+    {
         //Load Battery Settings
+        this->settings.load_section( "battery" , IO::SETTINGS_DUPLICATES_INGORED );
 
         //Set the warning level
-        if ( this->settings.exists("battery" , "warn") ) {
+        if ( this->settings.exists("battery" , "warn") )
+        {
             std::string warn_amount;
             this->settings.get("battery" , "warn" , &warn_amount);
+
             //If it is a percentage
-            if (etc::endswith(warn_amount , "%")) {
+            if (etc::endswith(warn_amount , "%"))
+            {
                 //Remove the %
                 warn_amount = warn_amount.substr( 0 , warn_amount.length() - 2 );
                 int perc = atoi (warn_amount.c_str());
@@ -357,14 +362,16 @@ void GameWindow::load()
         }
 
         //Set the check interval
-        if ( this->settings.exists("battery" , "interval") ) {
+        if ( this->settings.exists("battery" , "interval") )
+        {
             std::string warn_interval;
             this->settings.get("battery" , "interval" , &warn_interval);
             etc::batterySetCheckInterval( etc::timeToInt( warn_interval ) );
         }
 
         //Check if this feature is wanted to be enabled
-        if ( this->settings.exists("battery" , "enable") ) {
+        if ( this->settings.exists("battery" , "enable") )
+        {
             bool enable_bat = false;
             this->settings.getBool( "battery" , "enable" , &enable_bat );
             //If the settings say disable, the battery check in GameWindow is disabled
@@ -423,16 +430,18 @@ void GameWindow::render(const double& delta)
  */
 void GameWindow::update(const double& delta)
 {
-    if (this->last_battery_check >= etc::batteryGetCheckInterval())
-    {
-        this->last_battery_check = 0;
-        if (etc::batteryStatus() == BATTERY_WARNING) {
-            //BATTERY WARNING! DO SOMETHING ABOUT IT!!!
-            std::cout << "Warning! Battery is about to run out!" << std::endl ;
-        }
+    if (this->has_battery == true) {
+        if (this->last_battery_check >= etc::batteryGetCheckInterval())
+        {
+            this->last_battery_check = 0;
+            if (etc::batteryStatus() == BATTERY_WARNING) {
+                //BATTERY WARNING! DO SOMETHING ABOUT IT!!!
+                std::cout << "Warning! Battery is about to run out!" << std::endl ;
+            }
 
-    } else {
-        this->last_battery_check += delta;
+        } else {
+            this->last_battery_check += delta;
+        }
     }
 
     this->lb.setText( "FPS:" + etc::convInt (this->CURRENT_FPS) );
@@ -468,7 +477,6 @@ void GameWindow::event (SDL_Event e , const double& delta)
         break;
     case (SDL_MOUSEBUTTONDOWN):
         //Fire Click Event
-        //this->bt.update(delta);
         break;
     }
 }
@@ -503,7 +511,7 @@ void GameWindow::screenshot()
     SDL_RenderReadPixels(this->renderer , &clip , SDL_GetWindowPixelFormat(this->window) , surface->pixels , surface->pitch );
 
     //Save the bitmap
-    SDL_SaveBMP( surface , (etc::convInt(SDL_GetTicks()) + "screenshot.bmp").c_str() );
+    SDL_SaveBMP( surface , (etc::convInt(SDL_GetTicks()) + "-screenshot.bmp").c_str() );
 
     //Tidy up surface
     SDL_FreeSurface( surface );
