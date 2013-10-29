@@ -75,7 +75,7 @@ private:
 
     //Battery
     bool has_battery;
-    //Measured in milliseconds
+    //Measured in seconds
     double last_battery_check;
 
     //TESTING OBJECTS

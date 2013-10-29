@@ -69,7 +69,7 @@ std::string Point::str()
 /**
  * @param prefix - character before the first value
  * @param mid - mid char between the point values
- * @param postfix - the character at the end of teh string
+ * @param postfix - the character at the end of the string
  * @return
  */
 std::string Point::str(char prefix, char mid , char postfix)

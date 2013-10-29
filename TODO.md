@@ -63,7 +63,7 @@ Other
 * Particle system
 * Lighting system
 * "Game States", such as : menu, battle, etc.
-* Battery Management
+* Battery Management (partial)
 
 Documentation
 -------------
