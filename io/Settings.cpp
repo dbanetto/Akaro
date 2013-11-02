@@ -137,7 +137,6 @@ void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
             //Close last section
             section.end_index = (int)file.tellg();
             this->stored_settings[section.header_name] = section;
-
 #ifdef SETTINGS_VERBOSE
             std::cout << " E:" << section.end_index << std::endl;
 #endif
