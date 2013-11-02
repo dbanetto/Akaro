@@ -18,6 +18,8 @@ using namespace IO;
 #include <iterator>
 #include "../etc/string.h"
 
+//#define SETTINGS_VERBOSE
+
 
 Settings::Settings() {
     this->loading_flag = SETTING_LOAD_NOTHING;
@@ -85,6 +87,9 @@ bool Settings::exists (std::string header)
  */
 void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
 {
+#ifdef SETTINGS_VERBOSE
+    std::cout << "Loading " << file_name << std::endl;
+#endif
     std::fstream file;
     file.open(file_name.c_str());
     this->file_name = file_name;
@@ -106,7 +111,10 @@ void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
     section.header_name = "";
     section.loaded = false;
     section.start_index = 0;
-
+#ifdef SETTINGS_VERBOSE
+    std::cout << "sys error is " << sys_error << " Pos " << file.tellg() << std::endl;
+    std::cout << "root  S:" << section.start_index;
+#endif
     while ( ! file.eof() )
     {
         //Get current position with the sys error offset
@@ -130,6 +138,10 @@ void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
             section.end_index = (int)file.tellg();
             this->stored_settings[section.header_name] = section;
 
+#ifdef SETTINGS_VERBOSE
+            std::cout << " E:" << section.end_index << std::endl;
+#endif
+
             //Refresh section
             section = INISection();
             //Remove the brackets
@@ -143,6 +155,11 @@ void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
                 section.start_index = start_pos ;
                 section.loaded = false;
                 section.properties = SettingsMap();
+
+#ifdef SETTINGS_VERBOSE
+            std::cout << section.header_name  << " S:" << section.start_index;
+#endif
+
             }
             continue;
         }
@@ -151,6 +168,10 @@ void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
     file.seekg (0 , file.end);
     section.end_index = (int)file.tellg() - sys_error;
     this->stored_settings[section.header_name] = section;
+
+#ifdef SETTINGS_VERBOSE
+            std::cout << " E:" << section.end_index << std::endl;
+#endif
 
     file.close();
 }
@@ -242,6 +263,9 @@ void Settings::load_section ( std::string header , SettingsDuplicateFlags flag) 
         else
         {
             section->properties[key] = value;
+#ifdef SETTINGS_VERBOSE
+            std::cout << section->header_name << "::" << key << "=" << value << std::endl;
+#endif
         }
     }
     //Update loaded status
