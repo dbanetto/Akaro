@@ -88,11 +88,8 @@ bool Settings::exists (std::string header)
  */
 void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
 {
-<<<<<<< HEAD
 #ifdef SETTINGS_VERBOSE
-=======
-#ifdef SETTINGS_VERBOOSE
->>>>>>> 86e3c99... Settings Fix
+
     std::cout << "Loading " << file_name << std::endl;
 #endif
     std::fstream file;
@@ -119,11 +116,8 @@ void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
     section.header_name = "";
     section.loaded = false;
     section.start_index = 0;
-<<<<<<< HEAD
 #ifdef SETTINGS_VERBOSE
-=======
-#ifdef SETTINGS_VERBOOSE
->>>>>>> 86e3c99... Settings Fix
+
     std::cout << "sys error is " << sys_error << " Pos " << file.tellg() << std::endl;
     std::cout << "root  S:" << section.start_index;
 #endif
@@ -149,16 +143,10 @@ void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
             //Close last section
             section.end_index = (int)file.tellg();
             this->stored_settings[section.header_name] = section;
-<<<<<<< HEAD
 #ifdef SETTINGS_VERBOSE
             std::cout << " E:" << section.end_index << std::endl;
 #endif
 
-=======
-#ifdef SETTINGS_VERBOOSE
-            std::cout << " E:" << section.end_index << std::endl;
-#endif
->>>>>>> 86e3c99... Settings Fix
             //Refresh section
             section = INISection();
             //Remove the brackets
@@ -172,17 +160,12 @@ void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
                 section.start_index = start_pos ;
                 section.loaded = false;
                 section.properties = SettingsMap();
-<<<<<<< HEAD
 
 #ifdef SETTINGS_VERBOSE
             std::cout << section.header_name  << " S:" << section.start_index;
 #endif
 
-=======
-#ifdef SETTINGS_VERBOOSE
-            std::cout << section.header_name  << " S:" << section.start_index;
-#endif
->>>>>>> 86e3c99... Settings Fix
+
             }
             continue;
         }
@@ -190,17 +173,12 @@ void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
 
     section.end_index = file_size;
     this->stored_settings[section.header_name] = section;
-<<<<<<< HEAD
 
 #ifdef SETTINGS_VERBOSE
             std::cout << " E:" << section.end_index << std::endl;
 #endif
 
-=======
-#ifdef SETTINGS_VERBOOSE
-            std::cout << " E:" << section.end_index << std::endl;
-#endif
->>>>>>> 86e3c99... Settings Fix
+
     file.close();
 }
 
@@ -291,11 +269,8 @@ void Settings::load_section ( std::string header , SettingsDuplicateFlags flag) 
         else
         {
             section->properties[key] = value;
-<<<<<<< HEAD
 #ifdef SETTINGS_VERBOSE
-=======
-#ifdef SETTINGS_VERBOOSE
->>>>>>> 86e3c99... Settings Fix
+
             std::cout << section->header_name << "::" << key << "=" << value << std::endl;
 #endif
         }
