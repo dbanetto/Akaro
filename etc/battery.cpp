@@ -35,15 +35,17 @@ namespace etc
 
         switch (state)
         {
-        case (SDL_POWERSTATE_NO_BATTERY):
-            return false;
-
-        case (SDL_POWERSTATE_UNKNOWN):
         case (SDL_POWERSTATE_ON_BATTERY):
         case (SDL_POWERSTATE_CHARGING):
         case (SDL_POWERSTATE_CHARGED):
-        default: //better to be safe than sorry
+
             return true;
+
+
+        case (SDL_POWERSTATE_NO_BATTERY):
+        case (SDL_POWERSTATE_UNKNOWN):
+        default: //better to be safe than sorry
+            return false;
         }
     }
 
@@ -102,7 +104,6 @@ namespace etc
             }
         }
 
-        BATTERY_SETTINGS.current_state = state;
         return BATTERY_NORMAL;
     }
 
