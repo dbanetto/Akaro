@@ -312,8 +312,7 @@ void GameWindow::start(void)
         this->render(s_delta);
         SDL_RenderPresent(this->renderer);
 
-
-
+        //Assess render time
 
         //Restart Delta
         delta.start();
@@ -404,6 +403,8 @@ void GameWindow::load()
                 , 5
                 , ui::Button::ButtonCallBacks()
                 , ui::Label( "Button" , this->font , lb_pt ) );
+
+    etc::printSystemInfo();
 }
 
 /**
@@ -511,6 +512,7 @@ void GameWindow::screenshot()
     SDL_RenderReadPixels(this->renderer , &clip , SDL_GetWindowPixelFormat(this->window) , surface->pixels , surface->pitch );
 
     //Save the bitmap
+    //TODO: Improve Naming Scheme
     SDL_SaveBMP( surface , (etc::convInt(SDL_GetTicks()) + "-screenshot.bmp").c_str() );
 
     //Tidy up surface

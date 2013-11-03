@@ -73,19 +73,19 @@ void printSystemInfo()
     std::cout << std::endl;
 
     //Other has (CPU) checks
-    std::cout << "Has 3DNow : " << SDL_Has3DNow() << std::endl;
-    std::cout << "Has Alti Vec : " << SDL_HasAltiVec() << std::endl;
-    std::cout << "Has MMX : " << SDL_HasMMX() << std::endl;
-    std::cout << "Has RDTSC : " << SDL_HasRDTSC() << std::endl;
+    std::cout << "Has 3DNow : " << ( SDL_Has3DNow() == 1 ? "true" : "false" ) << std::endl;
+    std::cout << "Has Alti Vec : " << ( SDL_HasAltiVec()  == 1 ? "true" : "false" ) << std::endl;
+    std::cout << "Has MMX : " << ( SDL_HasMMX() == 1 ? "true" : "false" ) << std::endl;
+    std::cout << "Has RDTSC : " << ( SDL_HasRDTSC() == 1 ? "true" : "false" ) << std::endl;
 
     std::cout << std::endl;
 
     //SSE Check
-    std::cout << "Has SSE : " << SDL_HasSSE() << std::endl;
-    std::cout << "Has SSE 2 : " << SDL_HasSSE2() << std::endl;
-    std::cout << "Has SSE 3 : " << SDL_HasSSE3() << std::endl;
-    std::cout << "Has SSE 4.1 : " << SDL_HasSSE41() << std::endl;
-    std::cout << "Has SSE 4.2 : " << SDL_HasSSE42() << std::endl;
+    std::cout << "Has SSE : " << ( SDL_HasSSE() == 1 ? "true" : "false" ) << std::endl;
+    std::cout << "Has SSE 2 : " << ( SDL_HasSSE2() == 1 ? "true" : "false" ) << std::endl;
+    std::cout << "Has SSE 3 : " << ( SDL_HasSSE3() == 1 ? "true" : "false" ) << std::endl;
+    std::cout << "Has SSE 4.1 : " << ( SDL_HasSSE41() == 1 ? "true" : "false" ) << std::endl;
+    std::cout << "Has SSE 4.2 : " << ( SDL_HasSSE42() == 1 ? "true" : "false" ) << std::endl;
 
 
 
@@ -201,7 +201,7 @@ void printSystemInfo()
 
     //Audio Devices
     std::cout << "Audio Devices" << std::endl;
-    int count = SDL_GetNumAudioDevices(0);
+    int count = SDL_GetNumAudioDevices(NULL);
     for (int i = 0; i < count; i++ ) {
         std::cout << "Audio device " <<  i << " : " << SDL_GetAudioDeviceName(i, 0) << std::endl;
     }
