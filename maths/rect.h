@@ -14,7 +14,7 @@
 #include "SDL.h"
 #endif
 
-namespace math
+namespace maths
 {
 
   bool isRectTouching (SDL_Rect* rect1, SDL_Rect* rect2);

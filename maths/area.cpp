@@ -13,7 +13,7 @@
 #include <algorithm>
 #include "vector.h"
 
-namespace math
+namespace maths
 {
 
 bool double_gtr_sort (double a, double b)
@@ -51,6 +51,29 @@ double area_triangle (const double& base , const double& height)
 }
 
 double area_triangle ( const SDL_Point& a , const SDL_Point& b,  const SDL_Point& c)
+{
+  std::vector<double> lengths;
+  lengths.reserve(3);
+  lengths.resize(3);
+  // http://en.wikipedia.org/wiki/Heron%27s_formula
+  lengths[0] = ( distance(a , b ));
+  lengths[1] = ( distance(c , a ) );
+  lengths[2] = ( distance(c , b ) );
+
+  //Sort list to gain Numerical stability so it can be generally used
+  std::sort (lengths.begin() , lengths.end() , double_gtr_sort );
+
+  // Written version of equation
+  // http://upload.wikimedia.org/math/1/7/c/17c41c9c2a57227d91fb7921c6ef78f4.png
+  return 0.25 * SDL_sqrt(
+              (lengths[0] + (lengths[1] + lengths[2])) *
+              (lengths[2] - (lengths[0] - lengths[1])) *
+              (lengths[2] + (lengths[0] - lengths[1])) *
+              (lengths[0] + (lengths[1] - lengths[2]))
+          );
+}
+
+double area_triangle ( const Point& a , const Point& b,  const Point& c)
 {
   std::vector<double> lengths;
   lengths.reserve(3);

@@ -11,7 +11,7 @@
 #include <cmath>
 #include <vector>
 
-namespace math
+namespace maths
 {
   /*
    * Rotation using point rotation around the origin ( more here http://en.wikipedia.org/wiki/Rotation_%28mathematics%29 )
@@ -138,6 +138,34 @@ namespace math
 
     return SDL_sqrt ( SDL_pow(p2.x - p1.x, 2) + SDL_pow(p2.y - p1.y, 2) );
   }
+
+  double distance (const Point& p1 , const Point& p2)
+  {
+      //If the x values are equal
+      if (p1.x == p2.x)
+        {
+          double d = p1.y - p2.y;
+          //Make sure it is positive
+          if (d < 0)
+            d *= -1;
+          //Return distance
+          return d;
+        }
+
+      //If the y values are equal
+      if (p1.y == p2.y)
+        {
+          double d = p1.x - p2.x;
+          //Make sure it is positive
+          if (d < 0)
+            d *= -1;
+          //Return distance
+          return d;
+        }
+
+      return SDL_sqrt ( SDL_pow(p2.x - p1.x, 2) + SDL_pow(p2.y - p1.y, 2) );
+  }
+
 
   /*
    * Tests if a given point is within a polygon

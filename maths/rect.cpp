@@ -7,7 +7,7 @@
 
 #include "rect.h"
 
-namespace math
+namespace maths
 {
 
   bool isRectTouching (SDL_Rect* aRect, SDL_Rect* bRect)
