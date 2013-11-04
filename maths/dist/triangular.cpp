@@ -19,8 +19,7 @@ namespace dist
   double tri_rnd ( double a, double b, double c )
   {
     //Get Random number between 0 and 1
-    //double prob = (double)rand()/RAND_MAX;
-    double prob = 0.9;
+    double prob = (double)rand()/RAND_MAX;
     //Calculate the height of the distribution triangle
     double h = 2 / (b - a);
 
