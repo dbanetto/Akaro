@@ -19,9 +19,10 @@ namespace dist
   double tri_rnd ( double a, double b, double c )
   {
     //Get Random number between 0 and 1
-    double prob = (double)rand()/RAND_MAX;
+    //double prob = (double)rand()/RAND_MAX;
+    double prob = 0.9;
     //Calculate the height of the distribution triangle
-    double h = 1 / (b - a);
+    double h = 2 / (b - a);
 
     //Calculate the position of the probability in the triangle
     double D =  b*c - a*c - a*b + a*a;
@@ -36,17 +37,15 @@ namespace dist
     //Is it higher than the tallest point of the distribution?
     if (l > h) {
         //Yes
-        //Then it is apart of the second equation
-        //Find the point
-        D =  b*b - b*c - a*b + a*c;
-        E =  b*b - D * prob;
+        //x = (c-a)/(b-a);
+        double P = prob - (c-a)/(b-a);
+        double g = (b*b - a*b - b*c + a*c) * (P - (b-c)/(b-a));
+        E = (b*b) + g;
 
-        x = (2*b + sqrt(4*b*b - 4*E ) ) / 2;
-        std::cout << x << std::endl;
+        x = (2*b - sqrt(4*(b*b) - 4*E) ) / 2;
     } else {
         //No
         //All done
-        std::cout << x << std::endl;
     }
 
     //Return the x coordinate as the given value
