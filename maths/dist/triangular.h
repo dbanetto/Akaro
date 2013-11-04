@@ -15,8 +15,11 @@
 //TODO : give better names to this file
 namespace maths
 {
-  double dist_tri_rnd ( double a, double b, double c );
+namespace dist
+{
+  double tri_rnd ( double a, double b, double c );
 
+} /* namespace dist */
 } /* namespace math */
 
 #endif /* DISTTRI_H_ */

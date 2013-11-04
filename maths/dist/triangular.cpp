@@ -13,8 +13,10 @@
 
 namespace maths
 {
+namespace dist
+{
   //Reverse triangular distribution, from probability to x value
-  double dist_tri_rnd ( double a, double b, double c )
+  double tri_rnd ( double a, double b, double c )
   {
     //Get Random number between 0 and 1
     double prob = (double)rand()/RAND_MAX;
@@ -50,5 +52,5 @@ namespace maths
     //Return the x coordinate as the given value
     return x;
   }
-
+} /* namespace dist */
 } /* namespace math */
