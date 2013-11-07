@@ -11,13 +11,14 @@ GameStateManager::GameStateManager()
 {
     // TODO Auto-generated constructor stub
     current = nullptr;
-
-
 }
 
 GameStateManager::~GameStateManager()
 {
-    // TODO Auto-generated destructor stub
+    // Delete all the GameStates as they were made with new statements
+    for (GameState* obj : this->states) {
+        delete obj;
+    }
 }
 
 void GameStateManager::set_state (int state)

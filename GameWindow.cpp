@@ -379,8 +379,7 @@ void GameWindow::load()
 
     }
 
-    this->game_state = new MenuState(&(this->gamestate) , (this));
-    this->gamestate.add_state( game_state );
+    this->gamestate.add_state( new MenuState(&(this->gamestate) , (this)) );
     this->gamestate.set_state( 0 );
 
     etc::printSystemInfo();

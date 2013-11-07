@@ -83,9 +83,6 @@ private:
     bool has_battery;
     //Measured in seconds
     double last_battery_check;
-
-    //Game State
-    GameState* game_state;
 };
 
 #endif
