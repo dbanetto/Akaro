@@ -15,6 +15,8 @@
 #include "etc/string.h"
 #include "etc/colour.h"
 
+#include "states/MenuState.h"
+
 /**
  * @brief Initializes a new instance of the GameWindow class.
  */
@@ -30,8 +32,6 @@ GameWindow::GameWindow(void)
     this->CURRENT_FPS = -1;
 
     settings = IO::Settings ( IO::SETTING_LOAD_ON_REQUEST );
-
-    this->font = nullptr;
 
     //battery
     this->has_battery = false;
@@ -379,30 +379,9 @@ void GameWindow::load()
 
     }
 
-    //TESTING ZONE
-    std::string str = "";
-    if ( this->settings.get("ui" , "font" , &str) )
-    {
-        if  ( IO::fileExists ( str ) ) {
-        this->font = TTF_OpenFont( str.c_str() , 16 );
-        SDL_Point pt;
-        pt.x = 0; pt.y = 0;
-        lb = ui::Label ( "TEST" , this->font , pt );
-        } else {
-            std::cout << "Font Failed to load " << str << std::endl;
-            this->quit = true;
-        }
-    }
-    SDL_Rect pt;
-    pt.x = 100; pt.y = 100;
-    pt.w = 100; pt.h = 100;
-    SDL_Point lb_pt; lb_pt.x = 0; lb_pt.y = 0;
-    this->bt = ui::Button(pt
-                , etc::toColour( etc::COLOUR_GREEN)
-                , etc::toColour( etc::COLOUR_BLUE)
-                , 5
-                , ui::Button::ButtonCallBacks()
-                , ui::Label( "Button" , this->font , lb_pt ) );
+    this->game_state = new MenuState(&(this->gamestate) , (this));
+    this->gamestate.add_state( game_state );
+    this->gamestate.set_state( 0 );
 
     etc::printSystemInfo();
 }
@@ -412,7 +391,11 @@ void GameWindow::load()
  */
 void GameWindow::unload()
 {
-    TTF_CloseFont( this->font );
+    if (this->gamestate.current != nullptr)
+    {
+        this->gamestate.current->unload();
+    }
+    delete this->game_state;
 }
 
 /**
@@ -421,8 +404,10 @@ void GameWindow::unload()
  */
 void GameWindow::render(const double& delta)
 {
-    bt.render(delta, this->renderer);
-    lb.render(delta, this->renderer);
+    if (this->gamestate.current != nullptr)
+    {
+        this->gamestate.current->render(delta, this->renderer);
+    }
 }
 
 /**
@@ -445,8 +430,11 @@ void GameWindow::update(const double& delta)
         }
     }
 
-    this->lb.setText( "FPS:" + etc::convInt (this->CURRENT_FPS) );
-    this->bt.update(delta);
+    if (this->gamestate.current != nullptr)
+    {
+        this->gamestate.current->update(delta);
+    }
+
     SDL_Event event;
     while (SDL_PollEvent(&event))
     {
@@ -519,4 +507,9 @@ void GameWindow::screenshot()
     SDL_FreeSurface( surface );
 
 
+}
+
+IO::Settings* GameWindow::getSettings ()
+{
+ return &(this->settings);
 }

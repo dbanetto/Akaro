@@ -29,6 +29,8 @@
 #include "io/Settings.h"
 #include "input/InputHandler.h"
 #include "etc/battery.h"
+#include "states/GameStateManager.h"
+
 //TODO : Support Multiple 'Game States'
 
 /// <summary>
@@ -43,6 +45,9 @@ public:
     int init(const char* TITLE , SDL_Color BACKGROUND_COLOUR ,  int SDL_SCREEN_FLAGS );
 
     void start(void);
+    int CURRENT_FPS;
+
+    IO::Settings* getSettings();
 protected:
     void render(const double& delta);
     void update(const double& delta);
@@ -54,6 +59,7 @@ protected:
     //util functions
     void screenshot();
 private:
+    GameStateManager gamestate;
     
     //Private variables
     SDL_Renderer* renderer;
@@ -63,7 +69,7 @@ private:
     //View port
     //Camera camera;
 
-    int CURRENT_FPS;
+
     double GAMETIME_MULTIPLIER;
     
     //background colour
@@ -78,10 +84,8 @@ private:
     //Measured in seconds
     double last_battery_check;
 
-    //TESTING OBJECTS
-    TTF_Font* font;
-    ui::Label lb;
-    ui::Button bt;
+    //Game State
+    GameState* game_state;
 };
 
 #endif
