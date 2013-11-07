@@ -394,7 +394,6 @@ void GameWindow::unload()
     {
         this->gamestate.current->unload();
     }
-    delete this->game_state;
 }
 
 /**
