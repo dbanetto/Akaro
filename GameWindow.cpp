@@ -380,10 +380,24 @@ void GameWindow::load()
 
     }
 
+    etc::printSystemInfo();
+
     this->gamestate.add_state( new MenuState(&(this->gamestate) , (this)) );
     this->gamestate.set_state( 0 );
 
-    etc::printSystemInfo();
+
+    audio.load_settings( &(this->settings) );
+
+    Mix_Music* music = nullptr;
+    music = Mix_LoadMUS("data/audio/ogg/abstract_anxiety.ogg");
+
+    if (music == NULL) {
+        std::cout << "Failed to load" << std::endl;
+    }
+
+    Mix_PlayMusic( music , 0);
+    Mix_VolumeMusic(10);
+
 }
 
 /**

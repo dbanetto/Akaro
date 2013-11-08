@@ -30,6 +30,7 @@
 #include "input/InputHandler.h"
 #include "etc/battery.h"
 #include "states/GameStateManager.h"
+#include "audio/AudioManager.h"
 
 //TODO : Support Multiple 'Game States'
 
@@ -78,7 +79,7 @@ private:
     //Settings
     IO::Settings settings;
     Input::InputHandler input;
-
+    audio::AudioManager audio;
     //Battery
     bool has_battery;
     //Measured in seconds
