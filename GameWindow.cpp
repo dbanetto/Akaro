@@ -14,7 +14,8 @@
 #include "GameWindow.h"
 #include "etc/string.h"
 #include "etc/colour.h"
-
+#include <iomanip>
+#include <ctime>
 #include "states/MenuState.h"
 
 /**
@@ -499,15 +500,32 @@ void GameWindow::screenshot()
 
     //Save the bitmap
     //TODO: Improve Naming Scheme
-    SDL_SaveBMP( surface , (etc::convInt(SDL_GetTicks()) + "-screenshot.bmp").c_str() );
+    std::stringstream ss;
+#ifdef STD_PUT_TIME
+    std::time_t t = std::time(nullptr);
+    std::tm tm = *std::localtime(&t);
+    ss << "akora-" << std::put_time(&tm, "%Y-%m-%d %H-%M-%S") << ".bmp";
+#else
+    time_t rawtime;
+    struct tm * timeinfo;
+    char buffer [80];
 
+    time (&rawtime);
+    timeinfo = localtime (&rawtime);
+    strftime (buffer,80,"%Y-%m-%d %H-%M-%S",timeinfo);
+
+    ss << "akora-" << etc::trim( std::string(buffer) ) << ".bmp";
+#endif
+    SDL_SaveBMP( surface , ss.str().c_str() );
     //Tidy up surface
     SDL_FreeSurface( surface );
 
 
 }
-
+/**
+ * @brief Returns a pointer to the Window Settings
+ */
 IO::Settings* GameWindow::getSettings ()
 {
- return &(this->settings);
+    return &(this->settings);
 }
