@@ -7,7 +7,8 @@
 
 #include "AudioManager.h"
 #include <iostream>
-
+#include "../etc/string.h"
+#include "../io/file.h"
 namespace audio
 {
     void music_callback(void* data, unsigned char* dev, int num);
@@ -65,6 +66,19 @@ namespace audio
             }
         }
 
+        //Base Path for all audio files
+        if ( settings->exists("audio" , "path") )
+        {
+            settings->get("audio" , "path" , &(this->path));
+            //Add a ending separator
+            if ( etc::endswith( path , "/" ) == false && etc::endswith( path , "\\" ) == false ) {
+                //Add platform specific ending
+                path += PATH_SEP;
+            }
+        } else {
+            std::cout << "WARNING : Audio path is not set" << std::endl;
+        }
+
         SDL_AudioSpec want, have;
 
         SDL_zero(want);
@@ -78,10 +92,8 @@ namespace audio
 
         device_id = SDL_OpenAudioDevice(device.c_str() , 0, &want, &have, SDL_AUDIO_ALLOW_ANY_CHANGE);
         if (device_id == 0) {
-            std::cout << "Failed to open audio: " << device << " " << SDL_GetError() << std::endl;
+            std::cout << "Failed to open audio: " << device << std::endl;
         } else {
-
-            std::cout << "Loaded Device : " << device << SDL_GetError() << std::endl;
 
             if (have.format != want.format)  // we let this one thing change.
                std::cout << "Format changed to " << have.format << std::endl;
@@ -93,7 +105,12 @@ namespace audio
                std::cout << "Samples changed to " << have.samples << std::endl;
         }
 
-        Mix_OpenAudio( freq , AUDIO_F32 , channels , chuncksize );
+        Mix_OpenAudio( freq , have.format , channels , chuncksize );
+    }
+
+    void AudioManager::setPath (std::string Path)
+    {
+        this->path = Path;
     }
 
     void music_callback(void* data, unsigned char* dev, int num)

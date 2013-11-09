@@ -387,17 +387,6 @@ void GameWindow::load()
 
 
     audio.load_settings( &(this->settings) );
-
-    Mix_Music* music = nullptr;
-    music = Mix_LoadMUS("data/audio/ogg/abstract_anxiety.ogg");
-
-    if (music == NULL) {
-        std::cout << "Failed to load" << std::endl;
-    }
-
-    Mix_PlayMusic( music , 0);
-    Mix_VolumeMusic(10);
-
 }
 
 /**
@@ -542,4 +531,13 @@ void GameWindow::screenshot()
 IO::Settings* GameWindow::getSettings ()
 {
     return &(this->settings);
+}
+
+Input::InputHandler * GameWindow::getInputHandler()
+{
+    return &(this->input);
+}
+audio::AudioManager* GameWindow::getAudio()
+{
+    return &(this->audio);
 }

@@ -32,8 +32,11 @@ namespace audio
             void load_settings(IO::Settings* audio_settings);
 
             void play ();
+
+            void setPath (std::string path);
         private:
             SDL_AudioDeviceID device_id;
+            std::string path;
     };
 
 } /* namespace audio */

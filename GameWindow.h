@@ -48,7 +48,11 @@ public:
     void start(void);
     int CURRENT_FPS;
 
+    //Get Settings and Content Managers
     IO::Settings* getSettings();
+    Input::InputHandler * getInputHandler();
+    audio::AudioManager* getAudio();
+
 protected:
     void render(const double& delta);
     void update(const double& delta);
@@ -76,10 +80,11 @@ private:
     //background colour
     SDL_Color background;
 
-    //Settings
+    //Settings and Content managers
     IO::Settings settings;
     Input::InputHandler input;
     audio::AudioManager audio;
+
     //Battery
     bool has_battery;
     //Measured in seconds
