@@ -18,6 +18,7 @@
 
 #include "../io/Settings.h"
 #include <string>
+#include <map>
 
 namespace audio
 {
@@ -31,12 +32,18 @@ namespace audio
 
             void load_settings(IO::Settings* audio_settings);
 
-            void play ();
+            void play (std::string name);
+            bool load ( std::string name , std::string file );
+            bool load ( std::string name , std::string file , bool use_base_path);
+            void unload (std::string name);
+            void unloadall ();
+            bool exist (std::string name);
 
             void setPath (std::string path);
         private:
             SDL_AudioDeviceID device_id;
             std::string path;
+            std::map <std::string , Mix_Music*> sounds;
     };
 
 } /* namespace audio */

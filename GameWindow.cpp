@@ -387,6 +387,9 @@ void GameWindow::load()
 
 
     audio.load_settings( &(this->settings) );
+
+    audio.load("music" , "ogg/abstract_anxiety.ogg");
+    audio.play("music");
 }
 
 /**
@@ -398,6 +401,8 @@ void GameWindow::unload()
     {
         this->gamestate.current->unload();
     }
+
+    this->audio.unloadall();
 }
 
 /**

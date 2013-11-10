@@ -26,7 +26,12 @@ namespace audio
 
     AudioManager::~AudioManager ()
     {
-        // TODO Auto-generated destructor stub
+        Mix_HaltMusic();
+        Mix_CloseAudio();
+
+        this->unloadall();
+
+        Mix_Quit();
     }
 
     void AudioManager::load_settings(IO::Settings* settings)
@@ -111,6 +116,57 @@ namespace audio
     void AudioManager::setPath (std::string Path)
     {
         this->path = Path;
+    }
+
+    void AudioManager::play (std::string name)
+    {
+        Mix_PlayMusic( this->sounds[name] , 1 );
+    }
+
+    bool AudioManager::load ( std::string name , std::string file )
+    {
+        return this->load (name , file , true);
+    }
+
+    bool AudioManager::load ( std::string name , std::string file , bool use_base_path)
+    {
+        if ( this->exist(name) == true)
+        {
+            return false;
+        }
+        if (use_base_path) {
+            file = this->path + file;
+        }
+        Mix_Music* music = Mix_LoadMUS( file.c_str() );
+        if (music == 0) {
+            return false;
+        }
+        this->sounds[name] = music;
+        return true;
+    }
+
+    bool AudioManager::exist (std::string name)
+    {
+        if ( this->sounds.find(name) == this->sounds.end() )
+        {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    void AudioManager::unload (std::string name)
+    {
+        Mix_FreeMusic (this->sounds[name]);
+        this->sounds.erase(name);
+    }
+
+    void AudioManager::unloadall ()
+    {
+        for (const auto sfx : this->sounds) {
+            Mix_FreeMusic( sfx.second );
+        }
+        this->sounds.clear();
     }
 
     void music_callback(void* data, unsigned char* dev, int num)
