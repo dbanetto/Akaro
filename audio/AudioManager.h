@@ -44,6 +44,7 @@ namespace audio
             SDL_AudioDeviceID device_id;
             std::string path;
             std::map <std::string , Mix_Music*> sounds;
+            int volume;
     };
 
 } /* namespace audio */

@@ -25,8 +25,8 @@ Map
 Audio
 -----
 
-* Support selecting audio device
-* Repeating music track / one off plays
+* Support selecting audio device (partial)
+* Repeating music track / one off plays (partial)
 * Audio options (play, stop, pause, audio up or down)
 
 Input
@@ -61,8 +61,8 @@ Other
 -----
 
 * Particle system
-* Lighting system
-* "Game States", such as : menu, battle, etc.
+* Basic lighting system
+* "Game States", such as : menu, battle, etc. (partially completed)
 * Battery Management (partial)
 
 Documentation

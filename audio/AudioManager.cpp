@@ -16,6 +16,8 @@ namespace audio
     AudioManager::AudioManager ()
     {
         // TODO Auto-generated constructor stub
+        this->device_id = 0;
+        this->volume = 100;
     }
 
     AudioManager::AudioManager (IO::Settings* audio)
@@ -44,13 +46,6 @@ namespace audio
         //Load Battery Settings
         settings->load_section( "audio" , IO::SETTINGS_DUPLICATES_INGORED );
 
-
-        //Set the check interval
-        if ( settings->exists("audio" , "freq") )
-        {
-            settings->getInt("audio" , "freq" , &freq);
-        }
-
         if ( settings->exists("audio" , "channels") )
         {
             settings->getInt("audio" , "channels" , &channels);
@@ -59,6 +54,11 @@ namespace audio
         if ( settings->exists("audio" , "chuncksize") )
         {
             settings->getInt("audio" , "chuncksize" , &channels);
+        }
+
+        if ( settings->exists("audio" , "volume") )
+        {
+            settings->getInt("audio" , "volume" , &this->volume);
         }
 
         if ( settings->exists("audio" , "device") )
@@ -93,13 +93,11 @@ namespace audio
         want.samples = chuncksize;
         want.callback = music_callback;  // you wrote this function elsewhere.
 
-        SDL_CloseAudioDevice(1);
-
-        device_id = SDL_OpenAudioDevice(device.c_str() , 0, &want, &have, SDL_AUDIO_ALLOW_ANY_CHANGE);
+        device_id = SDL_OpenAudioDevice(device.c_str() , 0, &want, &have, SDL_AUDIO_ALLOW_FORMAT_CHANGE);
         if (device_id == 0) {
             std::cout << "Failed to open audio: " << device << std::endl;
         } else {
-
+            std::cout << SDL_GetError() << std::endl;
             if (have.format != want.format)  // we let this one thing change.
                std::cout << "Format changed to " << have.format << std::endl;
 
@@ -111,6 +109,8 @@ namespace audio
         }
 
         Mix_OpenAudio( freq , have.format , channels , chuncksize );
+
+        Mix_VolumeMusic(this->volume);
     }
 
     void AudioManager::setPath (std::string Path)
