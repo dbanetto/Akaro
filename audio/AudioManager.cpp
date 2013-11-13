@@ -88,7 +88,7 @@ namespace audio
 
         SDL_zero(want);
         want.freq = freq;
-        want.format = AUDIO_F32;
+        want.format = AUDIO_S16;
         want.channels = channels;
         want.samples = chuncksize;
         want.callback = music_callback;  // you wrote this function elsewhere.
