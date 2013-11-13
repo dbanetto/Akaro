@@ -8,7 +8,7 @@
 #ifndef GAMESTATEMANAGER_H_
 #define GAMESTATEMANAGER_H_
 
-#include <vector>
+#include <map>
 #include "GameState.h"
 
 class GameStateManager
@@ -16,13 +16,16 @@ class GameStateManager
 public:
     GameStateManager();
     virtual ~GameStateManager();
-    void set_state (int state);
+    void set_state (std::string state_name);
 
-    int add_state (GameState* state);
+    int add_state (std::string state_name , GameState* state);
+
+    bool exists (std::string state_name);
 
     GameState* current;
+    std::string current_name;
 private:
-    std::vector<GameState*> states;
+    std::map<std::string , GameState*> states;
 };
 
 #endif /* GAMESTATEMANAGER_H_ */

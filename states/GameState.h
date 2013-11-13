@@ -29,6 +29,8 @@ public:
     virtual void load   ();
     virtual void unload ();
 
+    bool is_loaded = false;
+
 };
 
 #endif /* GAMESTATE_H_ */

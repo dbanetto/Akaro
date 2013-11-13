@@ -74,9 +74,12 @@ void MenuState::load ()
                 , 5
                 , ui::Button::ButtonCallBacks()
                 , ui::Label( "Button" , this->font , lb_pt ) );
+
+    this->is_loaded = true;
 }
 
 void MenuState::unload ()
 {
     TTF_CloseFont( this->font );
+    is_loaded = false;
 }

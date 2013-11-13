@@ -16,22 +16,39 @@ GameStateManager::GameStateManager()
 GameStateManager::~GameStateManager()
 {
     // Delete all the GameStates as they were made with new statements
-    for (GameState* obj : this->states) {
-        delete obj;
+    for (auto& obj : this->states) {
+        if (obj.second->is_loaded) {
+            obj.second->unload();
+        }
+        delete obj.second;
     }
 }
 
-void GameStateManager::set_state (int state)
+void GameStateManager::set_state (std::string state_name)
 {
+    if (this->exists( state_name) == false) {
+        return;
+    }
+
     if (this->current != nullptr) {
         this->current->unload();
     }
-    this->current = this->states[state];
+    this->current = this->states[state_name];
+    this->current_name = state_name;
     this->current->load();
 }
 
-int GameStateManager::add_state (GameState* state)
+int GameStateManager::add_state (std::string state_name , GameState* state)
 {
-    this->states.push_back( state );
+    this->states[state_name] = state;
     return this->states.size() - 1;
+}
+
+bool GameStateManager::exists (std::string state_name)
+{
+    if (this->states.find(state_name) == this->states.end()) {
+        return false;
+    } else {
+        return true;
+    }
 }

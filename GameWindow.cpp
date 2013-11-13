@@ -327,6 +327,11 @@ void GameWindow::start(void)
 
             counter.start();
             counter_frames = 0;
+
+            std::string error = SDL_GetError();
+            if (error != "") {
+                std::cout << "SDL Error : "<< error << std::endl;
+            }
         }
     }
 }
@@ -382,14 +387,11 @@ void GameWindow::load()
 
     etc::printSystemInfo();
 
-    this->gamestate.add_state( new MenuState(&(this->gamestate) , (this)) );
-    this->gamestate.set_state( 0 );
+    this->gamestate.add_state( "menu" ,  new MenuState(&(this->gamestate) , (this)) );
+    this->gamestate.set_state( "menu" );
 
 
     audio.load_settings( &(this->settings) );
-
-    audio.load("music" , "ogg/abstract_anxiety.ogg");
-    audio.play("music");
 }
 
 /**
