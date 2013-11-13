@@ -19,3 +19,7 @@
 /doc/latex/*
 
 /Release
+
+#Eclipse Project Files
+.cproject
+.project
