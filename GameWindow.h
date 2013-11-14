@@ -31,6 +31,7 @@
 #include "etc/battery.h"
 #include "states/GameStateManager.h"
 #include "audio/AudioManager.h"
+#include "graphics/TextureManager.h"
 
 //TODO : Support Multiple 'Game States'
 
@@ -52,7 +53,8 @@ public:
     IO::Settings* getSettings();
     Input::InputHandler * getInputHandler();
     audio::AudioManager* getAudio();
-    SDL_Renderer* getRenderer ();
+    graphics::TextureManager* getTextures();
+
 protected:
     void render(const double& delta);
     void update(const double& delta);
@@ -84,6 +86,8 @@ private:
     IO::Settings settings;
     Input::InputHandler input;
     audio::AudioManager audio;
+    graphics::TextureManager textures;
+
 
     //Battery
     bool has_battery;
