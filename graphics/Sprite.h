@@ -25,6 +25,18 @@ namespace graphics
 
             virtual void render (const double& delta, SDL_Renderer* renderer);
             virtual void update (const double& delta);
+
+            void setTexture (Texture* texture);
+            void setFlip (SDL_RendererFlip flip);
+            void setCenterOfRotation (SDL_Point pt);
+            void setRotation (double rot);
+            void setSpriteMapIndex (int sprite_map_index);
+
+            Texture* getTexture();
+            SDL_RendererFlip getFlip();
+            SDL_Point getCenterOfRotation();
+            double getRotation();
+            int getSpriteMapIndex ();
         private:
             Texture* tex;
             SDL_RendererFlip flip;

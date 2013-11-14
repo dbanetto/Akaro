@@ -45,4 +45,47 @@ namespace graphics
 
     }
 
+    //Getters and Setters
+    void Sprite::setTexture (Texture* texture)
+    {
+        this->tex = texture;
+    }
+    void Sprite::setFlip (SDL_RendererFlip flip)
+    {
+        this->flip = flip;
+    }
+    void Sprite::setCenterOfRotation (SDL_Point pt)
+    {
+        this->cor = pt;
+    }
+    void Sprite::setRotation (double rot)
+    {
+        this->rot = rot;
+    }
+    void Sprite::setSpriteMapIndex (int sprite_map_index)
+    {
+        this->sprite_map_index = sprite_map_index;
+    }
+
+    Texture* Sprite::getTexture()
+    {
+        return this->tex;
+    }
+    SDL_RendererFlip Sprite::getFlip()
+    {
+        return this->flip;
+    }
+    SDL_Point Sprite::getCenterOfRotation()
+    {
+        return this->cor;
+    }
+    double Sprite::getRotation()
+    {
+        return this->rot;
+    }
+    int Sprite::getSpriteMapIndex ()
+    {
+        return this->sprite_map_index;
+    }
+
 } /* namespace graphics */
