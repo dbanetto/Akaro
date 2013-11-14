@@ -34,6 +34,8 @@ GameWindow::GameWindow(void)
 
     settings = IO::Settings ( IO::SETTING_LOAD_ON_REQUEST );
 
+
+
     //battery
     this->has_battery = false;
     this->last_battery_check = 0;
@@ -258,6 +260,8 @@ int GameWindow::init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_F
     //Check if the System has a battery
     this->has_battery = etc::has_battery();
 
+    this->textures = graphics::TextureManager(this->renderer);
+
     this->inited = true;
     //All done correctly
 
@@ -389,7 +393,6 @@ void GameWindow::load()
 
     this->gamestate.add_state( "menu" ,  new MenuState(&(this->gamestate) , (this)) );
     this->gamestate.set_state( "menu" );
-
 
     audio.load_settings( &(this->settings) );
 }
@@ -538,6 +541,11 @@ void GameWindow::screenshot()
 IO::Settings* GameWindow::getSettings ()
 {
     return &(this->settings);
+}
+
+graphics::TextureManager* GameWindow::getTextures()
+{
+    return &(this->textures);
 }
 
 Input::InputHandler * GameWindow::getInputHandler()
