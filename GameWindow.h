@@ -52,7 +52,7 @@ public:
     IO::Settings* getSettings();
     Input::InputHandler * getInputHandler();
     audio::AudioManager* getAudio();
-
+    SDL_Renderer* getRenderer ();
 protected:
     void render(const double& delta);
     void update(const double& delta);

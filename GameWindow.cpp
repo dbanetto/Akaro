@@ -390,7 +390,6 @@ void GameWindow::load()
     this->gamestate.add_state( "menu" ,  new MenuState(&(this->gamestate) , (this)) );
     this->gamestate.set_state( "menu" );
 
-
     audio.load_settings( &(this->settings) );
 }
 
@@ -538,6 +537,11 @@ void GameWindow::screenshot()
 IO::Settings* GameWindow::getSettings ()
 {
     return &(this->settings);
+}
+
+SDL_Renderer* GameWindow::getRenderer ()
+{
+    return this->renderer;
 }
 
 Input::InputHandler * GameWindow::getInputHandler()
