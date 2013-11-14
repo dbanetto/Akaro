@@ -11,6 +11,8 @@
 #include "GameState.h"
 #include "GameStateManager.h"
 #include "../GameWindow.h"
+#include "../graphics/Sprite.h"
+
 
 class MenuState : public GameState
 {
@@ -36,6 +38,7 @@ private:
     TTF_Font* font;
     ui::Label lb;
     ui::Button bt;
+    graphics::Sprite sheep;
 };
 
 #endif /* MENUSTATE_H_ */

@@ -1,0 +1,38 @@
+/*
+ * Sprite.h
+ *
+ *  Created on: 13/11/2013
+ *      Author: drb
+ */
+
+#ifndef SPRITE_H_
+#define SPRITE_H_
+
+#include "drawable.h"
+#include "Texture.h"
+
+namespace graphics
+{
+    /**
+     * @brief Base Class for all on-screen entities with Game logic
+     */
+    class Sprite : public graphics::drawable
+    {
+        public:
+            Sprite ();
+            Sprite (Texture* texture ,SDL_Rect Position, int SpriteMapIndex , double Rotation , SDL_Point CenterofRotation, SDL_RendererFlip flip);
+            virtual ~Sprite ();
+
+            virtual void render (const double& delta, SDL_Renderer* renderer);
+            virtual void update (const double& delta);
+        private:
+            Texture* tex;
+            SDL_RendererFlip flip;
+            SDL_Point cor; // Center of Rotation
+            double rot; //rotation in rads
+            int sprite_map_index;
+    };
+
+} /* namespace graphics */
+
+#endif /* SPRITE_H_ */

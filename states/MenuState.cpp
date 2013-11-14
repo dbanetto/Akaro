@@ -13,6 +13,7 @@
 #include "../etc/colour.h"
 
 
+
 MenuState::MenuState(GameStateManager* Manager, GameWindow* Window)
  : GameState()
 {
@@ -20,9 +21,6 @@ MenuState::MenuState(GameStateManager* Manager, GameWindow* Window)
     this->manager = Manager;
     this->window = Window;
     this->font = nullptr;
-
-
-
 }
 
 MenuState::~MenuState()
@@ -35,6 +33,9 @@ void MenuState::render (const double& delta, SDL_Renderer* renderer)
 {
     bt.render(delta, renderer);
     lb.render(delta, renderer);
+
+    sheep.render(delta, renderer);
+    //SDL_RenderCopy(renderer , text.getTexture() , text.getSprite(0) , text.getSprite(0)  );
 }
 
 void MenuState::update (const double& delta)
@@ -76,6 +77,23 @@ void MenuState::load ()
                 , ui::Label( "Button" , this->font , lb_pt ) );
 
     this->is_loaded = true;
+
+    if ( this->window->getTextures()->load("data/texture/sheep.png" , "sheep" , 2 , 2) == false)
+    {
+        std::cout << "SHEEP Failed to load " << "data/texture/sheep.png" << std::endl;
+    } else {
+        SDL_Rect pos;
+        pos.x = 50;
+        pos.y = 50;
+        pos.h = 32;
+        pos.w = 32;
+
+        SDL_Point cor;
+        cor.x = 16;
+        cor.y = 16;
+        graphics::Texture* temp = this->window->getTextures()->getTexture("sheep");
+        this->sheep = graphics::Sprite( temp , pos, 0 , 0 , cor , SDL_FLIP_NONE );
+    }
 }
 
 void MenuState::unload ()
