@@ -38,10 +38,14 @@ void GameStateManager::set_state (std::string state_name)
     this->current->load();
 }
 
-int GameStateManager::add_state (std::string state_name , GameState* state)
+bool GameStateManager::add_state (std::string state_name , GameState* state)
 {
-    this->states[state_name] = state;
-    return this->states.size() - 1;
+    if (this->exists(state_name) == false) {
+        this->states[state_name] = state;
+    return true;
+    } else {
+        return false;
+    }
 }
 
 bool GameStateManager::exists (std::string state_name)

@@ -18,7 +18,7 @@ public:
     virtual ~GameStateManager();
     void set_state (std::string state_name);
 
-    int add_state (std::string state_name , GameState* state);
+    bool add_state (std::string state_name , GameState* state);
 
     bool exists (std::string state_name);
 
