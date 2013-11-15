@@ -36,16 +36,40 @@ void MenuState::render (const double& delta, SDL_Renderer* renderer)
 
     sheep.render(delta, renderer);
     //SDL_RenderCopy(renderer , text.getTexture() , text.getSprite(0) , text.getSprite(0)  );
+
 }
 
 void MenuState::update (const double& delta)
 {
     this->lb.setText( "FPS:" + etc::convInt (this->window->CURRENT_FPS) );
     this->bt.update(delta);
+
+    const Uint8* state = SDL_GetKeyboardState(0);
+    if (state[SDL_SCANCODE_W])
+    {
+        sheep.setSpriteMapIndex(3);
+        sheep.setFlip(SDL_FLIP_NONE);
+    }
+    if (state[SDL_SCANCODE_A])
+    {
+        sheep.setSpriteMapIndex(0);
+        sheep.setFlip(SDL_FLIP_NONE);
+    }
+    if (state[SDL_SCANCODE_D])
+    {
+        sheep.setSpriteMapIndex(0);
+        sheep.setFlip(SDL_FLIP_HORIZONTAL);
+    }
+    if (state[SDL_SCANCODE_S])
+    {
+        sheep.setSpriteMapIndex(2);
+        sheep.setFlip(SDL_FLIP_NONE);
+    }
 }
 
 void MenuState::event (SDL_Event e , const double& delta)
 {
+
 
 }
 
@@ -91,8 +115,8 @@ void MenuState::load ()
         SDL_Point cor;
         cor.x = 16;
         cor.y = 16;
-        graphics::Texture* temp = this->window->getTextures()->getTexture("sheep");
-        this->sheep = graphics::Sprite( temp , pos, 0 , 0 , cor , SDL_FLIP_NONE );
+
+        this->sheep = graphics::Sprite( this->window->getTextures()->getTexture("sheep") , pos, 0 , 0 , cor , SDL_FLIP_NONE );
     }
 }
 

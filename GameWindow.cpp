@@ -447,6 +447,7 @@ void GameWindow::update(const double& delta)
         this->gamestate.current->update(delta);
     }
 
+    SDL_PumpEvents();
     SDL_Event event;
     while (SDL_PollEvent(&event))
     {
