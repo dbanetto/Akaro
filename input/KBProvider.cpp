@@ -31,6 +31,16 @@ namespace input
 
     }
 
+    bool  KBProvider::checkInputState (std::string& header , std::string& name)
+    {
+        return false;
+    }
+
+    bool  KBProvider::setInputState (std::string& header , std::string& name, void*& data)
+    {
+        return false;
+    }
+
     Key stringToKeys (std::string keys)
     {
         Key out;

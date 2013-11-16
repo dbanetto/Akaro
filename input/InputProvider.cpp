@@ -30,5 +30,13 @@ namespace input
 
     }
 
+    bool InputProvider::checkInputState (std::string& header , std::string& name)
+    {
+        return false;
+    }
+    bool InputProvider::setInputState (std::string& header , std::string& name, void*& data)
+    {
+        return false;
+    }
 
 } /* namespace input */

@@ -38,6 +38,9 @@ namespace input
 
             void load   ();
             void unload ();
+
+            bool checkInputState (std::string& header , std::string& name);
+            bool setInputState (std::string& header , std::string& name, void*& data);
     };
 
 } /* namespace input */

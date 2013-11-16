@@ -55,4 +55,36 @@ namespace input
         }
     }
 
+    bool InputManager::checkInput (std::string header , std::string name)
+    {
+        for (auto& pro : this->providers)
+        {
+            if (pro.second->checkInputState(header , name) == true)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    bool InputManager::checkInput (std::string provider_name , std::string header , std::string name)
+    {
+        if (this->exists(provider_name))
+        {
+            return this->providers[provider_name]->checkInputState(header , name);
+        } else {
+            return false;
+        }
+    }
+
+    bool InputManager::setInput (std::string provider_name ,std::string header , std::string name , void* data)
+    {
+        if (this->exists(provider_name))
+        {
+            return this->providers[provider_name]->setInputState( header , name , data);
+        } else {
+            return false;
+        }
+    }
+
 } /* namespace input */

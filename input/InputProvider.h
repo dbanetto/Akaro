@@ -8,6 +8,8 @@
 #ifndef INPUTPROVIDER_H_
 #define INPUTPROVIDER_H_
 
+#include <string>
+
 namespace input
 {
 
@@ -20,6 +22,11 @@ namespace input
             //Loading and unloading
             virtual void load   ();
             virtual void unload ();
+
+            //Check input state, if true then it is active
+            virtual bool checkInputState (std::string& header , std::string& name);
+            //Change the needed input state
+            virtual bool setInputState (std::string& header , std::string& name, void*& data);
 
             bool is_loaded;
     };

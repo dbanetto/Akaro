@@ -25,8 +25,13 @@ namespace input
 
             //Provider Management
             bool add_provider (std::string provider_name , InputProvider* provider);
-            bool remove_provider (std::string provider);
+            bool remove_provider (std::string provider_name);
             bool exists (std::string provider_name);
+
+            bool checkInput (std::string header , std::string name);
+            bool checkInput (std::string provider_name , std::string header , std::string name);
+            bool setInput (std::string provider_name , std::string header , std::string name , void* data);
+
 
         private:
             std::map<std::string , InputProvider*> providers;
