@@ -21,7 +21,6 @@ namespace input
         out.keymod = KMOD_NONE;
         for (auto& code : codes)
         {
-            std::cout << code << std::endl;
             //Check if the code starts with K but not only a K
             if (code[0] == 'K' && code != "K")
             {
