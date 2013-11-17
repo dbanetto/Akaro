@@ -45,22 +45,22 @@ void MenuState::update (const double& delta)
     this->bt.update(delta);
 
     const Uint8* state = SDL_GetKeyboardState(0);
-    if (state[SDL_SCANCODE_W])
+    if (this->window->getInputManager()->checkInput( "sheep" , "forward") == true)
     {
         sheep.setSpriteMapIndex(3);
         sheep.setFlip(SDL_FLIP_NONE);
     }
-    if (state[SDL_SCANCODE_A])
+    if (this->window->getInputManager()->checkInput( "sheep" , "back") == true)
     {
         sheep.setSpriteMapIndex(0);
         sheep.setFlip(SDL_FLIP_NONE);
     }
-    if (state[SDL_SCANCODE_D])
+    if (this->window->getInputManager()->checkInput( "sheep" , "left") == true)
     {
         sheep.setSpriteMapIndex(0);
         sheep.setFlip(SDL_FLIP_HORIZONTAL);
     }
-    if (state[SDL_SCANCODE_S])
+    if (this->window->getInputManager()->checkInput( "sheep" , "right") == true)
     {
         sheep.setSpriteMapIndex(2);
         sheep.setFlip(SDL_FLIP_NONE);

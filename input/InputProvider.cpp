@@ -21,11 +21,16 @@ namespace input
         // TODO Auto-generated destructor stub
     }
 
-    void InputProvider::load   ()
+    void InputProvider::load   (IO::Settings* input_settings)
     {
 
     }
     void InputProvider::unload ()
+    {
+
+    }
+
+    void InputProvider::update(const double& delta)
     {
 
     }
