@@ -395,7 +395,17 @@ void GameWindow::load()
     //INPUT
     input.load( INPUT_SETTINGS_FILE , IO::SETTINGS_DUPLICATES_INGORED , IO::SETTING_LOAD_ON_REQUEST);
     input.add_provider("kb" , new input::KBProvider() );
-    input.add_provider("ps3" , new input::PS3Provider() );
+
+    if (this->settings.exists("ps3" , "enable"))
+    {
+        bool enable = false;
+        this->settings.getBool( "ps3" , "enable" , &enable );
+        if (enable)
+        {
+            input.add_provider("ps3" , new input::PS3Provider() );
+        }
+    }
+
     //GAME STATES
     this->gamestate.add_state( "menu" ,  new MenuState(&(this->gamestate) , (this)) );
     this->gamestate.set_state( "menu" );
