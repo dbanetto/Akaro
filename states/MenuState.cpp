@@ -44,13 +44,12 @@ void MenuState::update (const double& delta)
     this->lb.setText( "FPS:" + etc::convInt (this->window->CURRENT_FPS) );
     this->bt.update(delta);
 
-    const Uint8* state = SDL_GetKeyboardState(0);
-    if (this->window->getInputManager()->checkInput( "sheep" , "forward") == true)
+    if (this->window->getInputManager()->checkInput("sheep" , "up") == true)
     {
         sheep.setSpriteMapIndex(3);
         sheep.setFlip(SDL_FLIP_NONE);
     }
-    if (this->window->getInputManager()->checkInput( "sheep" , "back") == true)
+    if (this->window->getInputManager()->checkInput( "sheep" , "down") == true)
     {
         sheep.setSpriteMapIndex(0);
         sheep.setFlip(SDL_FLIP_NONE);

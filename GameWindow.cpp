@@ -18,6 +18,7 @@
 #include <ctime>
 #include "states/MenuState.h"
 #include "input/KBProvider.h"
+#include "input/PS3Provider.h"
 
 /**
  * @brief Initializes a new instance of the GameWindow class.
@@ -346,9 +347,6 @@ void GameWindow::start(void)
  */
 void GameWindow::load()
 {
-    input.load( INPUT_SETTINGS_FILE , IO::SETTINGS_DUPLICATES_INGORED , IO::SETTING_LOAD_ON_REQUEST);
-    input.add_provider("kb" , new input::KBProvider() );
-
     if (this->has_battery && this->settings.exists("battery"))
     {
         //Load Battery Settings
@@ -394,6 +392,11 @@ void GameWindow::load()
 
     etc::printSystemInfo();
 
+    //INPUT
+    input.load( INPUT_SETTINGS_FILE , IO::SETTINGS_DUPLICATES_INGORED , IO::SETTING_LOAD_ON_REQUEST);
+    input.add_provider("kb" , new input::KBProvider() );
+    input.add_provider("ps3" , new input::PS3Provider() );
+    //GAME STATES
     this->gamestate.add_state( "menu" ,  new MenuState(&(this->gamestate) , (this)) );
     this->gamestate.set_state( "menu" );
 

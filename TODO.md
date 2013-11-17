@@ -6,11 +6,12 @@ Core
 
 * ~~Add saving to Settings class~~
 * Area map class to sort items by area of which they are in
+* Proper error management
 
 Graphics
 --------
 
-* Sprite class
+* ~~Sprite class~~
 * GL Shaders
 * ~~Screen shot support~~
 
@@ -34,13 +35,13 @@ Input
 
 * Mouse support
 * Game pad/Controller support (mainly PS3 and Xbox 360 controller)
-* Input schemes
-* Input unification
+* Input schemes (base work complete)
+* Input unification (Base work completed)
 
 Maths
 -----
 
-* Additional functions
+* Additional vector/area functions
 * Add probability distribution functions to scale items
 * Add normal, triangular, bimodal and poisson distribution ( + more )
 

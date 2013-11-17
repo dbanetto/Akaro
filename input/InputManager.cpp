@@ -65,11 +65,13 @@ namespace input
             return false;
         }
 
-        for (auto& pro : this->providers)
+        for (auto pro : this->providers)
         {
-            if (pro.second->checkInputState(header , name) == true)
-            {
-                return true;
+            if (pro.second != nullptr) {
+                if (pro.second->checkInputState(header , name) == true)
+                {
+                    return true;
+                }
             }
         }
         return false;
@@ -77,7 +79,7 @@ namespace input
 
     bool InputManager::checkInput (std::string provider_name , std::string header , std::string name)
     {
-        if (this->exists(provider_name))
+        if (this->exists(provider_name) && this->providers[provider_name] != nullptr)
         {
             return this->providers[provider_name]->checkInputState(header , name);
         } else {
