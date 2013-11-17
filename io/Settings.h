@@ -95,6 +95,8 @@ class Settings
 
         bool save ();
 
+        std::map<std::string,INISection>* getStoredSettings ();
+
     private:
         std::map<std::string , INISection > stored_settings;
 

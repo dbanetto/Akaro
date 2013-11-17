@@ -16,7 +16,7 @@
 #include "SDL.h"
 #endif
 
-#define INPUT_SETTINGS_FILE "input.ini"
+
 
 namespace Input {
 

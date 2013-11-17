@@ -11,6 +11,8 @@
 #include "InputProvider.h"
 #include "../io/Settings.h"
 
+#define INPUT_SETTINGS_FILE "input.ini"
+
 namespace input
 {
 
@@ -21,7 +23,7 @@ namespace input
             InputManager(std::string settigs_path);
             virtual ~InputManager();
 
-            bool load (std::string settigs_path);
+            bool load (std::string settigs_path , IO::SettingsDuplicateFlags dupflags , IO::SettingsLoadFlags loadflags);
 
             //Provider Management
             bool add_provider (std::string provider_name , InputProvider* provider);
@@ -32,7 +34,7 @@ namespace input
             bool checkInput (std::string provider_name , std::string header , std::string name);
             bool setInput (std::string provider_name , std::string header , std::string name , void* data);
 
-
+            void update(const double& delta);
         private:
             std::map<std::string , InputProvider*> providers;
             IO::Settings input;

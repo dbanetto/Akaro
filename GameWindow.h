@@ -27,7 +27,7 @@
 #include "ui/Label.h"
 #include "ui/Button.h"
 #include "io/Settings.h"
-#include "input/InputHandler.h"
+#include "input/InputManager.h"
 #include "etc/battery.h"
 #include "states/GameStateManager.h"
 #include "audio/AudioManager.h"
@@ -51,7 +51,7 @@ public:
 
     //Get Settings and Content Managers
     IO::Settings* getSettings();
-    Input::InputHandler * getInputHandler();
+    input::InputManager * getInputManager();
     audio::AudioManager* getAudio();
     graphics::TextureManager* getTextures();
 
@@ -84,7 +84,7 @@ private:
 
     //Settings and Content managers
     IO::Settings settings;
-    Input::InputHandler input;
+    input::InputManager input;
     audio::AudioManager audio;
     graphics::TextureManager textures;
 

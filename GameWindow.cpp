@@ -17,6 +17,7 @@
 #include <iomanip>
 #include <ctime>
 #include "states/MenuState.h"
+#include "input/KBProvider.h"
 
 /**
  * @brief Initializes a new instance of the GameWindow class.
@@ -93,7 +94,6 @@ int GameWindow::init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_F
         return -1;
     }
 
-    input.load( INPUT_SETTINGS_FILE , IO::SETTINGS_DUPLICATES_INGORED );
     settings.load( SETTINGS_PATH , IO::SETTINGS_DUPLICATES_INGORED );
     
     //Support for Resizable windows 
@@ -346,6 +346,9 @@ void GameWindow::start(void)
  */
 void GameWindow::load()
 {
+    input.load( INPUT_SETTINGS_FILE , IO::SETTINGS_DUPLICATES_INGORED , IO::SETTING_LOAD_ON_REQUEST);
+    input.add_provider("kb" , new input::KBProvider() );
+
     if (this->has_battery && this->settings.exists("battery"))
     {
         //Load Battery Settings
@@ -442,12 +445,16 @@ void GameWindow::update(const double& delta)
         }
     }
 
+
+
+    SDL_PumpEvents();
+    this->input.update(delta);
+
     if (this->gamestate.current != nullptr)
     {
         this->gamestate.current->update(delta);
     }
 
-    SDL_PumpEvents();
     SDL_Event event;
     while (SDL_PollEvent(&event))
     {
@@ -549,7 +556,7 @@ graphics::TextureManager* GameWindow::getTextures()
     return &(this->textures);
 }
 
-Input::InputHandler * GameWindow::getInputHandler()
+input::InputManager * GameWindow::getInputManager()
 {
     return &(this->input);
 }

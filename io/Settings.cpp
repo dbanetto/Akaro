@@ -481,3 +481,8 @@ bool Settings::save ()
 
     return true;
 }
+
+std::map<std::string,INISection>* Settings::getStoredSettings ()
+{
+    return &this->stored_settings;
+}
