@@ -110,6 +110,7 @@ std::vector<std::string> split (std::string String , std::string delimiter)
         tokens.push_back (token);
         String.erase(0, pos + delimiter.length());
     }
+    tokens.push_back(String);
     return tokens;
 }
 /**
