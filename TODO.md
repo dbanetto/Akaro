@@ -7,6 +7,7 @@ Core
 * ~~Add saving to Settings class~~
 * Area map class to sort items by area of which they are in
 * Proper error management
+* Move from Eclipse project to make files
 
 Graphics
 --------

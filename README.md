@@ -20,8 +20,10 @@ Tools
 -----
 
 Written with Eclipse Kepler SR1 with support from CDT 8.2.1, Doxygen, cppcheck and the internet.
-Built and tested with gcc (4.8.1) on Windows 7 (x64) and Arch Linux (x64).
+Built and tested with gcc (4.8.+) on Windows 7 (x64) and Arch Linux (x64).
 
-Libraries Used
+Libraries Used and Build options
 --------------
 SDL2, SDL2_ttf, SDL2_image, SDL2_net and SDL2_mixer.
+
+Requires C++11 support
