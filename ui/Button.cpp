@@ -13,8 +13,11 @@ namespace ui {
 Button::Button() {
     this->texture = nullptr;
     this->RENDER_TEXTURE = true;
-    this->pos.w = 100; this->pos.h = 100;
+    this->area.w = 100; this->area.h = 100;
+    this->area.x = 100; this->area.y = 100;
+
     this->pos.x = 100; this->pos.y = 100;
+
 
     this->fg.r = 0;
     this->fg.g = 255;
@@ -43,7 +46,7 @@ Button::Button() {
  */
 Button::Button( SDL_Rect pos , SDL_Color fg, SDL_Color border , int border_width , ButtonCallBacks callbacks , Label label )
 {
-    this->pos = pos;
+    this->area = pos;
     this->fg = fg;
     this->border = border;
     this->border_width = border_width;
@@ -75,11 +78,11 @@ void Button::render (const double& delta , SDL_Renderer* renderer )
         if (this->texture != nullptr) {
             SDL_DestroyTexture(this->texture);
         }
-        this->texture = generateButtonTexture( renderer , this->fg , this->border , this->border_width, this->pos );
+        this->texture = generateButtonTexture( renderer , this->fg , this->border , this->border_width, this->area );
         this->RENDER_TEXTURE = false;
     }
 
-    SDL_RenderCopy( renderer , this->texture , NULL , &(this->pos) );
+    SDL_RenderCopy( renderer , this->texture , NULL , &(this->area) );
 
     this->label.render(delta,renderer);
 }
@@ -88,12 +91,16 @@ void Button::update (const double& delta )
 {
     //Check if the Button needs an update
     if (this->UPDATE_POSITION == true) {
-        centerLabel( this->pos , &this->label );
+        centerLabel( this->area , &this->label );
+        this->pos.x = area.x;
+        this->pos.y = area.y;
         this->UPDATE_POSITION = false;
     }
     //Check if Label needed an update
     if (this->label.UPDATE_POSITION == true) {
-        centerLabel( this->pos , &this->label );
+        centerLabel( this->area , &this->label );
+        this->pos.x = area.x;
+        this->pos.y = area.y;
         this->label.UPDATE_POSITION = false;
     }
 }

@@ -15,8 +15,11 @@ namespace graphics
     //Set the rectangle to be (0,0,0,0)
     this->pos.x = 0;
     this->pos.y = 0;
-    this->pos.w = 0;
-    this->pos.h = 0;
+
+    this->area.x = 0;
+    this->area.y = 0;
+    this->area.w = 0;
+    this->area.h = 0;
 
   }
 
@@ -24,25 +27,37 @@ namespace graphics
   {
     this->pos.x = pos.x;
     this->pos.y = pos.y;
+
+    this->area.x = pos.x;
+    this->area.y = pos.y;
   }
 
-  void drawable::setPosition (int x , int y)
+  void drawable::setPosition (maths::Point pos)
+  {
+    this->pos.x = pos.x;
+    this->pos.y = pos.y;
+
+    this->area.x = (int)pos.x;
+    this->area.y = (int)pos.y;
+  }
+
+  void drawable::setPosition (double x , double y)
   {
     this->pos.x = x;
     this->pos.y = y;
+
+    this->area.x = (int)pos.x;
+    this->area.y = (int)pos.y;
   }
 
   SDL_Rect drawable::getRect ()
   {
-    return this->pos;
+    return this->area;
   }
 
-  SDL_Point drawable::getPosition ()
+  maths::Point drawable::getPosition ()
   {
-    SDL_Point pt;
-    pt.x = this->pos.x;
-    pt.y = this->pos.y;
-    return pt;
+    return this->pos;
   }
 
   drawable::~drawable()

@@ -14,6 +14,8 @@
 #include "SDL.h"
 #endif
 
+#include "../maths/Point.h"
+
 namespace graphics
 {
 /**
@@ -29,15 +31,17 @@ namespace graphics
     virtual void update (const double& delta) = 0;
 
 
+    void setPosition (maths::Point pos);
     void setPosition (SDL_Point pos);
-    void setPosition (int x , int y);
+    void setPosition (double x , double y);
 
     SDL_Rect getRect ();
-    SDL_Point getPosition ();
+    maths::Point getPosition ();
 
   protected:
     //Position and rectangular area
-    SDL_Rect pos;
+    SDL_Rect area;
+    maths::Point pos;
 
   };
 

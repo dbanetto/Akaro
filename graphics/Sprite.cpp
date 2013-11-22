@@ -21,7 +21,9 @@ namespace graphics
 
     Sprite::Sprite (Texture* texture ,SDL_Rect Position, int SpriteMapIndex , double Rotation , SDL_Point CenterofRotation, SDL_RendererFlip flip)
     {
-        this->pos = Position;
+        this->area = Position;
+        this->pos.x = this->area.x;
+        this->pos.y = this->area.y;
         this->tex = texture;
         this->sprite_map_index = SpriteMapIndex;
         this->rot = Rotation;
@@ -37,7 +39,7 @@ namespace graphics
     void Sprite::render (const double& delta, SDL_Renderer* renderer)
     {
         SDL_Texture* texture = this->tex->getTexture();
-        SDL_RenderCopyEx(renderer , texture , this->tex->getSprite(this->sprite_map_index) ,  &(this->pos) , this->rot , &(this->cor) , this->flip );
+        SDL_RenderCopyEx(renderer , texture , this->tex->getSprite(this->sprite_map_index) ,  &(this->area) , this->rot , &(this->cor) , this->flip );
     }
 
     void Sprite::update (const double& delta)

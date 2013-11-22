@@ -51,17 +51,23 @@ void Label::render (const double& delta , SDL_Renderer* renderer )
 		if (this->texture != nullptr) {
 			SDL_DestroyTexture(this->texture);
 		}
-		this->texture = generateLabelTexture( this->text , renderer , this->font , this->fg, &(this->pos));
+		this->texture = generateLabelTexture( this->text , renderer , this->font , this->fg, &(this->area));
 		this->RENDER_TEXTURE = false;
 		this->UPDATE_POSITION = true;
 	}
 
-	SDL_RenderCopy( renderer , this->texture , NULL , &(this->pos) );
+	SDL_RenderCopy( renderer , this->texture , NULL , &(this->area) );
 }
 
 void Label::update (const double& delta )
 {
 	//Update the Font
+    if (this->UPDATE_POSITION)
+    {
+        this->pos.x = area.x;
+        this->pos.y = area.y;
+        this->UPDATE_POSITION = false;
+    }
 }
 
 void Label::setText (std::string Text) {
