@@ -51,18 +51,18 @@ void MenuState::update (const double& delta)
     }
     if (this->window->getInputManager()->checkInput( "sheep" , "down") == true)
     {
-        sheep.setSpriteMapIndex(0);
+        sheep.setSpriteMapIndex(2);
         sheep.setFlip(SDL_FLIP_NONE);
     }
     if (this->window->getInputManager()->checkInput( "sheep" , "left") == true)
     {
         sheep.setSpriteMapIndex(0);
-        sheep.setFlip(SDL_FLIP_HORIZONTAL);
+        sheep.setFlip(SDL_FLIP_NONE);
     }
     if (this->window->getInputManager()->checkInput( "sheep" , "right") == true)
     {
-        sheep.setSpriteMapIndex(2);
-        sheep.setFlip(SDL_FLIP_NONE);
+        sheep.setSpriteMapIndex(0);
+        sheep.setFlip(SDL_FLIP_HORIZONTAL);
     }
 }
 

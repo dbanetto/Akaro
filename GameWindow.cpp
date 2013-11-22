@@ -396,10 +396,10 @@ void GameWindow::load()
     input.load( INPUT_SETTINGS_FILE , IO::SETTINGS_DUPLICATES_INGORED , IO::SETTING_LOAD_ON_REQUEST);
     input.add_provider("kb" , new input::KBProvider() );
 
-    if (this->settings.exists("ps3" , "enable"))
+    if (this->settings.exists("Controller" , "ps3.enable"))
     {
         bool enable = false;
-        this->settings.getBool( "ps3" , "enable" , &enable );
+        this->settings.getBool( "Controller" , "ps3.enable" , &enable );
         if (enable)
         {
             input.add_provider("ps3" , new input::PS3Provider() );

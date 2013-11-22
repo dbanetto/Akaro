@@ -17,7 +17,7 @@ namespace maths
 {
 namespace dist
 {
-  double tri_rnd ( double a, double b, double c );
+  double tri_rnd ( double min, double mode, double max );
 
 } /* namespace dist */
 } /* namespace math */
