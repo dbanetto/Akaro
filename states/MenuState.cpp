@@ -29,7 +29,7 @@ MenuState::~MenuState()
 }
 
 //Each frame
-void MenuState::render (const double& delta, SDL_Renderer* renderer)
+void MenuState::render (const Ldouble& delta, SDL_Renderer* renderer)
 {
     bt.render(delta, renderer);
     lb.render(delta, renderer);
@@ -39,7 +39,9 @@ void MenuState::render (const double& delta, SDL_Renderer* renderer)
 
 }
 
-void MenuState::update (const double& delta)
+#define SPEED 200.0
+
+void MenuState::update (const Ldouble& delta)
 {
     this->lb.setText( "FPS:" + etc::convInt (this->window->CURRENT_FPS) );
     this->bt.update(delta);
@@ -47,26 +49,30 @@ void MenuState::update (const double& delta)
     if (this->window->getInputManager()->checkInput("sheep" , "up") == true)
     {
         sheep.setSpriteMapIndex(3);
+        sheep.changePosition(0,-SPEED*delta);
         sheep.setFlip(SDL_FLIP_NONE);
     }
     if (this->window->getInputManager()->checkInput( "sheep" , "down") == true)
     {
         sheep.setSpriteMapIndex(2);
+        sheep.changePosition(0,SPEED*delta);
         sheep.setFlip(SDL_FLIP_NONE);
     }
     if (this->window->getInputManager()->checkInput( "sheep" , "left") == true)
     {
         sheep.setSpriteMapIndex(0);
+        sheep.changePosition(-SPEED*delta,0);
         sheep.setFlip(SDL_FLIP_NONE);
     }
     if (this->window->getInputManager()->checkInput( "sheep" , "right") == true)
     {
         sheep.setSpriteMapIndex(0);
+        sheep.changePosition(SPEED*delta,0);
         sheep.setFlip(SDL_FLIP_HORIZONTAL);
     }
 }
 
-void MenuState::event (SDL_Event e , const double& delta)
+void MenuState::event (SDL_Event e , const Ldouble& delta)
 {
 
 

@@ -36,13 +36,13 @@ namespace graphics
         // TODO Auto-generated destructor stub
     }
 
-    void Sprite::render (const double& delta, SDL_Renderer* renderer)
+    void Sprite::render (const Ldouble& delta, SDL_Renderer* renderer)
     {
         SDL_Texture* texture = this->tex->getTexture();
         SDL_RenderCopyEx(renderer , texture , this->tex->getSprite(this->sprite_map_index) ,  &(this->area) , this->rot , &(this->cor) , this->flip );
     }
 
-    void Sprite::update (const double& delta)
+    void Sprite::update (const Ldouble& delta)
     {
 
     }

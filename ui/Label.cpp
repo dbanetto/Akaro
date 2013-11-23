@@ -43,7 +43,7 @@ Label::~Label() {
 	}
 }
 
-void Label::render (const double& delta , SDL_Renderer* renderer )
+void Label::render (const Ldouble& delta , SDL_Renderer* renderer )
 {
 	//Check if the text needs to be rendered
 	if (this->RENDER_TEXTURE) {
@@ -59,7 +59,7 @@ void Label::render (const double& delta , SDL_Renderer* renderer )
 	SDL_RenderCopy( renderer , this->texture , NULL , &(this->area) );
 }
 
-void Label::update (const double& delta )
+void Label::update (const Ldouble& delta )
 {
 	//Update the Font
     if (this->UPDATE_POSITION)

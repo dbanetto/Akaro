@@ -22,17 +22,17 @@ GameState::~GameState()
 
 
 //Each frame
-void GameState::render (const double& delta, SDL_Renderer* renderer)
+void GameState::render (const Ldouble& delta, SDL_Renderer* renderer)
 {
     std::cout << "WARNING : Base render function for GameState is called" << std::endl;
 }
 
-void GameState::update (const double& delta)
+void GameState::update (const Ldouble& delta)
 {
     std::cout << "WARNING : Base update function for GameState is called" << std::endl;
 }
 
-void GameState::event (SDL_Event e , const double& delta)
+void GameState::event (SDL_Event e , const Ldouble& delta)
 {
     std::cout << "WARNING : Base event function for GameState is called" << std::endl;
 }

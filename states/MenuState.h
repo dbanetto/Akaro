@@ -22,9 +22,9 @@ public:
     ~MenuState();
 
     //Each frame
-    void render (const double& delta, SDL_Renderer* renderer);
-    void update (const double& delta);
-    void event (SDL_Event e , const double& delta);
+    void render (const Ldouble& delta, SDL_Renderer* renderer);
+    void update (const Ldouble& delta);
+    void event (SDL_Event e , const Ldouble& delta);
 
     //Inital un/Load Assests
     void load   ();

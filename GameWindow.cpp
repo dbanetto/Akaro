@@ -302,7 +302,7 @@ void GameWindow::start(void)
 
         //RENDERS HERE
         //Change in time in seconds with game-time multiplier to edit game speed
-        double s_delta = (((double)(delta.get_ticks()) * GAMETIME_MULTIPLIER) / 1000.0);
+        Ldouble s_delta = delta.get_ticks() * GAMETIME_MULTIPLIER;
         this->update(s_delta);
         
         //Mid frame Check for exit
@@ -313,8 +313,7 @@ void GameWindow::start(void)
         SDL_SetRenderDrawColor(this->renderer, this->background.r, this->background.g, this->background.b, this->background.a);
         SDL_RenderClear  (this->renderer);
 
-        s_delta = (((double)(delta.get_ticks()) * GAMETIME_MULTIPLIER) / 1000.0);
-
+        s_delta = delta.get_ticks() * GAMETIME_MULTIPLIER;
         this->render(s_delta);
         SDL_RenderPresent(this->renderer);
 
@@ -326,9 +325,9 @@ void GameWindow::start(void)
         //Increment frame count
         counter_frames++;
 
-        if (counter.get_ticks() > 1000)   //1 second worth of frames collected
+        if (counter.get_ticks() > 1)   //1 second worth of frames collected
         {
-            this->CURRENT_FPS = (int)(counter_frames / ( counter.get_ticks() / 1000.0 ));
+            this->CURRENT_FPS = (int)(counter_frames / ( counter.get_ticks() ));
 
             counter.start();
             counter_frames = 0;
@@ -430,7 +429,7 @@ void GameWindow::unload()
  * @brief Renders the frame.
  * @param delta Change in time between last render.
  */
-void GameWindow::render(const double& delta)
+void GameWindow::render(const Ldouble& delta)
 {
     if (this->gamestate.current != nullptr)
     {
@@ -442,7 +441,7 @@ void GameWindow::render(const double& delta)
  * @brief Updates the Game for the frame.
  * @param delta Change in time between last update.
  */
-void GameWindow::update(const double& delta)
+void GameWindow::update(const Ldouble& delta)
 {
     if (this->has_battery == true) {
         if (this->last_battery_check >= etc::batteryGetCheckInterval())

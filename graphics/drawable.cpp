@@ -40,8 +40,15 @@ namespace graphics
     this->area.x = (int)pos.x;
     this->area.y = (int)pos.y;
   }
+  void drawable::changePosition (Ldouble x , Ldouble y)
+  {
+      this->pos.x += x;
+      this->pos.y += y;
 
-  void drawable::setPosition (double x , double y)
+      this->area.x = (int)pos.x;
+      this->area.y = (int)pos.y;
+  }
+  void drawable::setPosition (Ldouble x , Ldouble y)
   {
     this->pos.x = x;
     this->pos.y = y;

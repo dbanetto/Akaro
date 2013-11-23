@@ -30,8 +30,8 @@ public:
 	Label(std::string label, TTF_Font* font , SDL_Point pos);
 	virtual ~Label();
 
-	void render (const double& delta , SDL_Renderer* renderer );
-	void update (const double& delta );
+	void render (const Ldouble& delta , SDL_Renderer* renderer );
+	void update (const Ldouble& delta );
 
 
 	void setText (std::string text);

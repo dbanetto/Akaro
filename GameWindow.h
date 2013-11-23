@@ -56,8 +56,8 @@ public:
     graphics::TextureManager* getTextures();
 
 protected:
-    void render(const double& delta);
-    void update(const double& delta);
+    void render(const Ldouble& delta);
+    void update(const Ldouble& delta);
     void event (SDL_Event e , const double& delta);
 
     void load();

@@ -71,7 +71,7 @@ Button::~Button() {
  * @param delta
  * @param renderer
  */
-void Button::render (const double& delta , SDL_Renderer* renderer )
+void Button::render (const Ldouble& delta , SDL_Renderer* renderer )
 {
     if (this->RENDER_TEXTURE == true) {
         //If the Label has a texture destroy it FOR SAFETY! border
@@ -87,7 +87,7 @@ void Button::render (const double& delta , SDL_Renderer* renderer )
     this->label.render(delta,renderer);
 }
 
-void Button::update (const double& delta )
+void Button::update (const Ldouble& delta )
 {
     //Check if the Button needs an update
     if (this->UPDATE_POSITION == true) {

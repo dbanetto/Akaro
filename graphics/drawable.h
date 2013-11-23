@@ -27,13 +27,15 @@ namespace graphics
     drawable();
     virtual ~drawable() = 0;
 
-    virtual void render (const double& delta, SDL_Renderer* renderer) = 0;
-    virtual void update (const double& delta) = 0;
+    virtual void render (const Ldouble& delta, SDL_Renderer* renderer) = 0;
+    virtual void update (const Ldouble& delta) = 0;
 
 
     void setPosition (maths::Point pos);
     void setPosition (SDL_Point pos);
-    void setPosition (double x , double y);
+    void setPosition (Ldouble x , Ldouble y);
+
+    void changePosition (Ldouble x , Ldouble y);
 
     SDL_Rect getRect ();
     maths::Point getPosition ();

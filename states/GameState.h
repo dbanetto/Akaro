@@ -14,6 +14,8 @@
 #include "SDL.h"
 #endif
 
+#include "../etc/define.h"
+
 class GameState
 {
 public:
@@ -21,9 +23,9 @@ public:
     virtual ~GameState();
 
     //Each frame
-    virtual void render (const double& delta, SDL_Renderer* renderer);
-    virtual void update (const double& delta);
-    virtual void event (SDL_Event e , const double& delta);
+    virtual void render (const Ldouble& delta, SDL_Renderer* renderer);
+    virtual void update (const Ldouble& delta);
+    virtual void event (SDL_Event e , const Ldouble& delta);
 
     //Inital un/Load Assests
     virtual void load   ();

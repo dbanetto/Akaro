@@ -10,6 +10,7 @@
 
 // TODO : Add operators ( += , -= , == )
 #include <string>
+#include "../etc/define.h"
 
 namespace maths {
 
@@ -32,7 +33,7 @@ class Point {
         std::string str();
         std::string str(char prefix, char mid , char postfix);
 
-        double x , y;
+        Ldouble x , y;
 };
 
 } /* namespace etc */

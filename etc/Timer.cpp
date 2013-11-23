@@ -6,11 +6,7 @@
 
 //Cross platform
 //SDL_timer.h is used instead of SDL.h due to build times
-#if __GNUC__
-#include <SDL2/SDL_timer.h>
-#else
-#include "SDL_timer.h"
-#endif
+
 
 #include "Timer.h"
 
@@ -32,8 +28,7 @@ void Timer::start()
     this->paused = false;
 
     //Get the current clock time
-    this->startTicks = SDL_GetTicks();
-
+    this->startTicks = SDL_GetPerformanceCounter();
 }
 
 void Timer::stop()
@@ -54,7 +49,7 @@ void Timer::pause()
         paused = true;
 
         //Calculate the paused ticks
-        this->pausedTicks = SDL_GetTicks() - this->startTicks;
+        this->pausedTicks = SDL_GetPerformanceCounter() - this->startTicks;
     }
 }
 
@@ -67,14 +62,14 @@ void Timer::unpause()
         this->paused = false;
 
         //Reset the starting ticks
-        this->startTicks = SDL_GetTicks() - this->pausedTicks;
+        this->startTicks = SDL_GetPerformanceCounter() - this->pausedTicks;
 
         //Reset the paused ticks
         pausedTicks = 0;
     }
 }
 
-int Timer::get_ticks()
+double long Timer::get_ticks()
 {
     //If the timer is running
     if( this->started == true )
@@ -88,7 +83,29 @@ int Timer::get_ticks()
         else
         {
             //Return the current time minus the start time
-            return SDL_GetTicks() - this->startTicks;
+            return (double long)(SDL_GetPerformanceCounter() - this->startTicks) / (double long)(SDL_GetPerformanceFrequency());
+        }
+    }
+
+    //If the timer isn't running
+    return 0;
+}
+
+Uint64 Timer::get_ticks_raw()
+{
+    //If the timer is running
+    if( this->started == true )
+    {
+        //If the timer is paused
+        if( this->paused == true )
+        {
+            //Return the number of ticks when the timer was paused
+            return this->pausedTicks;
+        }
+        else
+        {
+            //Return the current time minus the start time
+            return SDL_GetPerformanceCounter() - this->startTicks;
         }
     }
 
