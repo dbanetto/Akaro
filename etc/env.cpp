@@ -178,7 +178,7 @@ void printSystemInfo()
               std::cout << "-";
           }
       }
-      std::cout << std::endl;
+      std::cout << std::dec << std::endl;
 
       SDL_JoystickClose(joystick);
       if ( SDL_IsGameController(i) == SDL_TRUE ) {
