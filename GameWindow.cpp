@@ -19,6 +19,7 @@
 #include "states/MenuState.h"
 #include "input/KBProvider.h"
 #include "input/PS3Provider.h"
+#include <cmath>
 
 /**
  * @brief Initializes a new instance of the GameWindow class.
@@ -36,7 +37,8 @@ GameWindow::GameWindow(void)
 
     settings = IO::Settings ( IO::SETTING_LOAD_ON_REQUEST );
 
-
+    CAP_FRAMES = false;
+    this->FRAME_LIMIT = 0;
 
     //battery
     this->has_battery = false;
@@ -240,8 +242,22 @@ int GameWindow::init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_F
         //Evaluate if the option is set on
         if (vsync)
         {
-            render_flags |= SDL_RENDERER_PRESENTVSYNC;
+            //render_flags |= SDL_RENDERER_PRESENTVSYNC;
+            this->CAP_FRAMES = true;
         }
+    }
+
+    int FRAME_LIMIT = display_mode.refresh_rate;
+    if (settings.getInt ( "window" , "framelimit" , &FRAME_LIMIT))
+    {
+        std::cout << FRAME_LIMIT << std::endl;
+        if (FRAME_LIMIT > 0) {
+            this->FRAME_LIMIT = FRAME_LIMIT;
+        } else {
+            std::cout << "Cannot set negative Frame Limit " << FRAME_LIMIT << std::endl;
+        }
+    } else {
+        this->FRAME_LIMIT = FRAME_LIMIT;
     }
 
     //Create Renderer
@@ -325,10 +341,37 @@ void GameWindow::start(void)
         //Increment frame count
         counter_frames++;
 
+        if( ( this->CAP_FRAMES == true ) && ( fps.get_ticks() < 1000.0 / this->FRAME_LIMIT ) )
+        {
+            //Sleep the remaining frame time
+            Uint32 delay = (Uint32)( round( (1000.0 / this->FRAME_LIMIT ) - fps.get_ticks() ) );
+
+            //Correct the time to sleep so it keeps up where the frame is suppose to be in terms of a second
+            Uint32 normaliser =  (Uint32)round( counter.get_ticks() ) - (Uint32)round( ( counter_frames / this->FRAME_LIMIT) );
+            //Only Apply it if it is needed
+            if ( normaliser < delay && normaliser != 0 )
+            {
+                delay -= normaliser;
+            }
+            //Crash safety net and is less than a second
+            if (delay > 0 && delay < 1000)
+            {
+              SDL_Delay(  delay );
+            }
+        } else
+        {
+            //std::cout << "Cannot keep up!" << std::endl;
+        }
         if (counter.get_ticks() > 1)   //1 second worth of frames collected
         {
-            this->CURRENT_FPS = (int)(counter_frames / ( counter.get_ticks() ));
-
+            this->CURRENT_FPS = counter_frames / counter.get_ticks();
+#ifdef VERBOSE_FRAME_TIME
+        if (this->CAP_FRAMES)
+        {
+            std::cout << "Taken:" << counter.get_ticks() / CURRENT_FPS * 1000.0 << "ms Expected:" << 1.0 / this->FRAME_LIMIT * 1000.0  << "ms " <<
+                    (1.0 / this->FRAME_LIMIT * 1000.0) /  (counter.get_ticks() / CURRENT_FPS * 1000.0) * 100 << "%"<< std::endl;
+        }
+#endif
             counter.start();
             counter_frames = 0;
 

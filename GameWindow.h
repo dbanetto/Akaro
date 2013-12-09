@@ -76,8 +76,10 @@ private:
     //View port
     //Camera camera;
 
-
+    //GAME TIME
     double GAMETIME_MULTIPLIER;
+    int FRAME_LIMIT;
+    bool CAP_FRAMES;
     
     //background colour
     SDL_Color background;

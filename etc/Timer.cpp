@@ -83,7 +83,7 @@ double long Timer::get_ticks()
         else
         {
             //Return the current time minus the start time
-            return (double long)(SDL_GetPerformanceCounter() - this->startTicks) / (double long)(SDL_GetPerformanceFrequency());
+            return static_cast<double long>(SDL_GetPerformanceCounter() - this->startTicks) / static_cast<double long>(SDL_GetPerformanceFrequency());
         }
     }
 
