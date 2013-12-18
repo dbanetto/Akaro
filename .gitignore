@@ -12,6 +12,7 @@
 *.la
 *.a
 /Debug
+/bin
 
 # Doxygen Generated Doc
 /doc/html/*
@@ -23,3 +24,6 @@
 #Eclipse Project Files
 .cproject
 .project
+
+#Data Folder (Is anotehr repo)
+/data

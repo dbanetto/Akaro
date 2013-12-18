@@ -4,12 +4,13 @@
     License: MIT License
 */
 
+#include <SDL2/SDL_platform.h>
+
 #ifndef ENV_H_
 #define ENV_H_
 
 // Check windows
 #if _WIN32 || _WIN64
-#define __WINDOWS__
     #if _WIN64
         #define ENV64
     #else

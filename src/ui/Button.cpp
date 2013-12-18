@@ -156,7 +156,7 @@ SDL_Texture* generateButtonTexture (SDL_Renderer* renderer , SDL_Color fg , SDL_
 
     SDL_Texture* texture = SDL_CreateTextureFromSurface( renderer , surface);
 
-    if (texture == 0) {
+    if (texture == nullptr) {
         std::cout << "SDL Render Error : " << SDL_GetError() << std::endl;
         return nullptr;
     }

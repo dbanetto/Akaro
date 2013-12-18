@@ -138,7 +138,7 @@ namespace audio
             file = this->path + file;
         }
         Mix_Music* music = Mix_LoadMUS( file.c_str() );
-        if (music == 0) {
+        if (music == nullptr) {
             return false;
         }
         this->sounds[name] = music;
