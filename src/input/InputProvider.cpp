@@ -12,13 +12,11 @@ namespace input
 
     InputProvider::InputProvider ()
     {
-        // TODO Auto-generated constructor stub
         this->is_loaded = false;
     }
 
     InputProvider::~InputProvider ()
     {
-        // TODO Auto-generated destructor stub
     }
 
     void InputProvider::load   (IO::Settings* input_settings)

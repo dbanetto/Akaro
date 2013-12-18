@@ -10,7 +10,7 @@
 
 #include <string>
 #include "../etc/env.h"
-// TODO : Add some SDL file operations
+// TODO : Add SDL file operations wrappers
 
 #if __GNUC__
 #include <SDL2/SDL_filesystem.h>

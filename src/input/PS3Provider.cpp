@@ -63,7 +63,6 @@ namespace input
 
     PS3Provider::PS3Provider ()
     {
-        // TODO Auto-generated constructor stub
         this->controller = nullptr;
         this->is_loaded = false;
         this->dead_zone = 1024;
@@ -72,7 +71,6 @@ namespace input
 
     PS3Provider::~PS3Provider ()
     {
-        // TODO Auto-generated destructor stub
     }
 
     void PS3Provider::load   (IO::Settings* input_settings)

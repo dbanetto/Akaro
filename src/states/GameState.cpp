@@ -10,13 +10,11 @@
 
 GameState::GameState()
 {
-    // TODO Auto-generated constructor stub
 }
 
 
 GameState::~GameState()
 {
-    // TODO Auto-generated destructor stub
 }
 
 

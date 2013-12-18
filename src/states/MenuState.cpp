@@ -17,7 +17,6 @@
 MenuState::MenuState(GameStateManager* Manager, GameWindow* Window)
  : GameState()
 {
-    // TODO Auto-generated constructor stub
     this->manager = Manager;
     this->window = Window;
     this->font = nullptr;
@@ -25,7 +24,7 @@ MenuState::MenuState(GameStateManager* Manager, GameWindow* Window)
 
 MenuState::~MenuState()
 {
-    // TODO Auto-generated destructor stub
+
 }
 
 //Each frame

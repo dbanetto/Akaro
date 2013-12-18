@@ -15,14 +15,12 @@ namespace audio
 
     AudioManager::AudioManager ()
     {
-        // TODO Auto-generated constructor stub
         this->device_id = 0;
         this->volume = 100;
     }
 
     AudioManager::AudioManager (IO::Settings* audio)
     {
-        // TODO Auto-generated constructor stub
         load_settings(audio);
     }
 

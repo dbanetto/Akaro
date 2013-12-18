@@ -3,7 +3,6 @@
     Date   : 03-10-2013
     License: MIT License
 */
-
 #include <SDL2/SDL_platform.h>
 
 #ifndef ENV_H_

@@ -12,7 +12,6 @@ namespace graphics
 
     TextureManager::TextureManager ()
     {
-        // TODO Auto-generated constructor stub
         this->renderer = nullptr;
     }
 
@@ -23,7 +22,6 @@ namespace graphics
 
     TextureManager::~TextureManager ()
     {
-        // TODO Auto-generated destructor stub
     }
 
     bool TextureManager::load ( std::string file , std::string name )

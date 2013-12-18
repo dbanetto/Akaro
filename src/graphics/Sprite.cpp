@@ -12,7 +12,6 @@ namespace graphics
 
     Sprite::Sprite ()
     {
-        // TODO Auto-generated constructor stub
         this->tex = nullptr;
         this->sprite_map_index = 0;
         this->rot = 0;
@@ -33,7 +32,6 @@ namespace graphics
 
     Sprite::~Sprite ()
     {
-        // TODO Auto-generated destructor stub
     }
 
     void Sprite::render (const Ldouble& delta, SDL_Renderer* renderer)

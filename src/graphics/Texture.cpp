@@ -20,7 +20,6 @@ namespace graphics
 
     Texture::Texture ()
     {
-        // TODO Auto-generated constructor stub
         this->texture = nullptr;
         this->is_loaded = false;
         this->rows = 0;
@@ -46,7 +45,7 @@ namespace graphics
 
     Texture::~Texture ()
     {
-        // TODO Auto-generated destructor stub
+
         if (this->texture != nullptr)
         {
             SDL_DestroyTexture(this->texture);
@@ -61,7 +60,7 @@ namespace graphics
     bool Texture::load (SDL_Renderer* renderer, std::string file, int columns, int rows)
     {
         SDL_Surface* surf = IMG_Load(file.c_str());
-        if (surf == 0) {
+        if (surf == nullptr) {
             std::cout << file << " failed to load. " << SDL_GetError() << std::endl;
             return false;
         }
@@ -99,7 +98,7 @@ namespace graphics
             this->sprite_map.push_back(map);
         }
         this->texture = SDL_CreateTextureFromSurface ( renderer, surf );
-        if (this->texture == 0)
+        if (this->texture == nullptr)
         {
             std::cout << file << " failed to convert to texture. " << SDL_GetError() << std::endl;
             return false;

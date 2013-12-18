@@ -9,7 +9,6 @@
 
 GameStateManager::GameStateManager()
 {
-    // TODO Auto-generated constructor stub
     current = nullptr;
 }
 

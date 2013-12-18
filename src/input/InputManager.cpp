@@ -13,13 +13,11 @@ namespace input
 
     InputManager::InputManager ()
     {
-        // TODO Auto-generated constructor stub
 
     }
 
     InputManager::~InputManager ()
     {
-        // TODO Auto-generated destructor stub
         for (auto& obj : this->providers) {
             if (obj.second->is_loaded) {
                 obj.second->unload();

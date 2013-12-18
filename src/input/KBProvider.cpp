@@ -60,13 +60,11 @@ namespace input
 
     KBProvider::KBProvider ()
     {
-        // TODO Auto-generated constructor stub
         this->key_states = nullptr;
     }
 
     KBProvider::~KBProvider ()
     {
-        // TODO Auto-generated destructor stub
         unload ();
     }
 
