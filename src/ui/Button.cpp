@@ -71,7 +71,7 @@ Button::~Button() {
  * @param delta
  * @param renderer
  */
-void Button::render (const Ldouble& delta , SDL_Renderer* renderer )
+void Button::render (const Ldouble& delta , SDL_Renderer* renderer , const etc::Camera& camera )
 {
     if (this->RENDER_TEXTURE == true) {
         //If the Label has a texture destroy it FOR SAFETY! border
@@ -84,7 +84,7 @@ void Button::render (const Ldouble& delta , SDL_Renderer* renderer )
 
     SDL_RenderCopy( renderer , this->texture , NULL , &(this->area) );
 
-    this->label.render(delta,renderer);
+    this->label.render(delta,renderer , camera);
 }
 
 void Button::update (const Ldouble& delta )
@@ -171,3 +171,4 @@ SDL_Texture* generateButtonTexture (SDL_Renderer* renderer , SDL_Color fg , SDL_
 }
 
 } /* namespace ui */
+

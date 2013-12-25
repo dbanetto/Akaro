@@ -32,6 +32,8 @@
 #include "states/GameStateManager.h"
 #include "audio/AudioManager.h"
 #include "graphics/TextureManager.h"
+#include "etc/Camera.h"
+
 
 //TODO : Support Multiple 'Game States'
 
@@ -74,7 +76,8 @@ private:
     bool inited, quit;
 
     //View port
-    //Camera camera;
+    etc::Camera camera;
+
 
     //GAME TIME
     double GAMETIME_MULTIPLIER;

@@ -23,14 +23,12 @@ namespace ui {
 
 class Label : public graphics::drawable {
 
-
-
 public:
 	Label();
 	Label(std::string label, TTF_Font* font , SDL_Point pos);
 	virtual ~Label();
 
-	void render (const Ldouble& delta , SDL_Renderer* renderer );
+	void render (const Ldouble& delta , SDL_Renderer* renderer , const etc::Camera& camera );
 	void update (const Ldouble& delta );
 
 
@@ -43,8 +41,6 @@ private:
 	SDL_Texture* texture;
 	std::string text;
 	SDL_Color fg;
-
-
 
 };
 

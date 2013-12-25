@@ -14,6 +14,7 @@
 #include "SDL.h"
 #endif
 
+#include "../etc/Camera.h"
 #include "../maths/Point.h"
 
 namespace graphics
@@ -27,7 +28,7 @@ namespace graphics
     drawable();
     virtual ~drawable() = 0;
 
-    virtual void render (const Ldouble& delta, SDL_Renderer* renderer) = 0;
+    virtual void render (const Ldouble& delta, SDL_Renderer* renderer , const etc::Camera& camera) = 0;
     virtual void update (const Ldouble& delta) = 0;
 
 

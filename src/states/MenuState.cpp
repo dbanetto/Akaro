@@ -11,6 +11,7 @@
 #include "../io/file.h"
 #include <iostream>
 #include "../etc/colour.h"
+#include "../etc/Camera.h"
 
 
 
@@ -28,12 +29,12 @@ MenuState::~MenuState()
 }
 
 //Each frame
-void MenuState::render (const Ldouble& delta, SDL_Renderer* renderer)
+void MenuState::render (const Ldouble& delta, SDL_Renderer* renderer , const etc::Camera &camera )
 {
-    bt.render(delta, renderer);
-    lb.render(delta, renderer);
+    bt.render(delta, renderer , camera);
+    lb.render(delta, renderer , camera);
 
-    sheep.render(delta, renderer);
+    sheep.render(delta, renderer , camera);
     //SDL_RenderCopy(renderer , text.getTexture() , text.getSprite(0) , text.getSprite(0)  );
 
 }

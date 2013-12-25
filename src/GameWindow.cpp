@@ -279,6 +279,10 @@ int GameWindow::init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_F
 
     this->textures = graphics::TextureManager(this->renderer);
 
+    //Camera bnounds
+    this->camera.setBounds(WIDTH , HIEGHT);
+    this->camera.setPosition(0,0);
+
     this->inited = true;
     //All done correctly
 

@@ -43,7 +43,7 @@ Label::~Label() {
 	}
 }
 
-void Label::render (const Ldouble& delta , SDL_Renderer* renderer )
+void Label::render (const Ldouble& delta , SDL_Renderer* renderer , const etc::Camera& camera )
 {
 	//Check if the text needs to be rendered
 	if (this->RENDER_TEXTURE) {
