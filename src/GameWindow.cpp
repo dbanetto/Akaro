@@ -480,7 +480,7 @@ void GameWindow::render(const Ldouble& delta)
 {
     if (this->gamestate.current != nullptr)
     {
-        this->gamestate.current->render(delta, this->renderer);
+        this->gamestate.current->render(delta, this->renderer , this->camera);
     }
 }
 
