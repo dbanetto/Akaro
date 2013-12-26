@@ -20,7 +20,7 @@ GameState::~GameState()
 
 
 //Each frame
-void GameState::render (const Ldouble& delta, SDL_Renderer* renderer , const etc::Camera& camera)
+void GameState::render (const Ldouble& delta, SDL_Renderer* renderer , etc::Camera& camera)
 {
     std::cout << "WARNING : Base render function for GameState is called" << std::endl;
 }

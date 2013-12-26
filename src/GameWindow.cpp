@@ -281,7 +281,7 @@ int GameWindow::init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_F
 
     //Camera bnounds
     this->camera.setBounds(WIDTH , HIEGHT);
-    this->camera.setPosition(0,0);
+    this->camera.setPosition(-500,-500);
 
     this->inited = true;
     //All done correctly

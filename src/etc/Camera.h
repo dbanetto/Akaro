@@ -26,6 +26,8 @@ namespace etc
             void setBounds (int w, int h);
             void setPosition (int x, int y);
 
+            SDL_Rect subCamPos( SDL_Rect rect );
+
             const SDL_Rect& getViewport();
 
         private:

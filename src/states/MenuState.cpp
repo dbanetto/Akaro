@@ -29,14 +29,12 @@ MenuState::~MenuState()
 }
 
 //Each frame
-void MenuState::render (const Ldouble& delta, SDL_Renderer* renderer , const etc::Camera &camera )
+void MenuState::render (const Ldouble& delta, SDL_Renderer* renderer , etc::Camera &camera )
 {
     bt.render(delta, renderer , camera);
     lb.render(delta, renderer , camera);
 
     sheep.render(delta, renderer , camera);
-    //SDL_RenderCopy(renderer , text.getTexture() , text.getSprite(0) , text.getSprite(0)  );
-
 }
 
 #define SPEED 200.0

@@ -24,7 +24,7 @@ public:
     virtual ~GameState();
 
     //Each frame
-    virtual void render (const Ldouble& delta, SDL_Renderer* renderer , const etc::Camera& camera );
+    virtual void render (const Ldouble& delta, SDL_Renderer* renderer , etc::Camera& camera );
     virtual void update (const Ldouble& delta);
     virtual void event (SDL_Event e , const Ldouble& delta);
 

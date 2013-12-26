@@ -71,7 +71,7 @@ Button::~Button() {
  * @param delta
  * @param renderer
  */
-void Button::render (const Ldouble& delta , SDL_Renderer* renderer , const etc::Camera& camera )
+void Button::render (const Ldouble& delta , SDL_Renderer* renderer , etc::Camera& camera )
 {
     if (this->RENDER_TEXTURE == true) {
         //If the Label has a texture destroy it FOR SAFETY! border

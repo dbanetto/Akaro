@@ -39,4 +39,11 @@ namespace etc
 
     }
 
+    SDL_Rect Camera::subCamPos( SDL_Rect pt )
+    {
+        pt.x -= this->view.x;
+        pt.y -= this->view.y;
+        return pt;
+    }
+
 } /* namespace etc */

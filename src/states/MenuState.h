@@ -22,7 +22,7 @@ public:
     ~MenuState();
 
     //Each frame
-    void render (const Ldouble& delta, SDL_Renderer* renderer , const etc::Camera &camera);
+    void render (const Ldouble& delta, SDL_Renderer* renderer , etc::Camera &camera);
     void update (const Ldouble& delta);
     void event (SDL_Event e , const Ldouble& delta);
 

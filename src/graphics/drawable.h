@@ -28,7 +28,7 @@ namespace graphics
     drawable();
     virtual ~drawable() = 0;
 
-    virtual void render (const Ldouble& delta, SDL_Renderer* renderer , const etc::Camera& camera) = 0;
+    virtual void render (const Ldouble& delta, SDL_Renderer* renderer , etc::Camera& camera) = 0;
     virtual void update (const Ldouble& delta) = 0;
 
 
@@ -45,6 +45,10 @@ namespace graphics
     //Position and rectangular area
     SDL_Rect area;
     maths::Point pos;
+    /**
+     * @note Sets if a object is effected by camera
+     */
+    bool adjust_camera;
 
   };
 

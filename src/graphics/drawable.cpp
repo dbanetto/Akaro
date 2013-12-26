@@ -21,6 +21,7 @@ namespace graphics
     this->area.w = 0;
     this->area.h = 0;
 
+    this->adjust_camera = false;
   }
 
   void drawable::setPosition (SDL_Point pos)

@@ -24,7 +24,7 @@ namespace graphics
             Sprite (Texture* texture ,SDL_Rect Position, int SpriteMapIndex , double Rotation , SDL_Point CenterofRotation, SDL_RendererFlip flip);
             virtual ~Sprite ();
 
-            virtual void render (const Ldouble& delta, SDL_Renderer* renderer , const etc::Camera& camera);
+            virtual void render (const Ldouble& delta, SDL_Renderer* renderer , etc::Camera& camera);
             virtual void update (const Ldouble& delta);
 
             void setTexture (Texture* texture);

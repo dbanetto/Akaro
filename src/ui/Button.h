@@ -72,7 +72,7 @@ struct ButtonCallBacks {
 	Button( SDL_Rect pos , SDL_Color fg, SDL_Color border , int border_width , ButtonCallBacks callbacks , ui::Label label );
 	virtual ~Button();
 
-	void render (const Ldouble& delta , SDL_Renderer* renderer , const etc::Camera& camera );
+	void render (const Ldouble& delta , SDL_Renderer* renderer , etc::Camera& camera );
 	void update (const Ldouble& delta );
 
     //Flags for updating rendered texture or position

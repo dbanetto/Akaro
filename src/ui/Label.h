@@ -28,7 +28,7 @@ public:
 	Label(std::string label, TTF_Font* font , SDL_Point pos);
 	virtual ~Label();
 
-	void render (const Ldouble& delta , SDL_Renderer* renderer , const etc::Camera& camera );
+	void render (const Ldouble& delta , SDL_Renderer* renderer , etc::Camera& camera );
 	void update (const Ldouble& delta );
 
 

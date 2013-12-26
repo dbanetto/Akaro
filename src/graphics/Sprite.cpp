@@ -7,6 +7,8 @@
 
 #include "Sprite.h"
 
+#include <iostream>
+
 namespace graphics
 {
 
@@ -34,10 +36,15 @@ namespace graphics
     {
     }
 
-    void Sprite::render (const Ldouble& delta, SDL_Renderer* renderer , const etc::Camera& camera)
+    void Sprite::render (const Ldouble& delta, SDL_Renderer* renderer , etc::Camera& camera)
     {
+        SDL_Rect temp = this->area;
+        if (this->adjust_camera)
+        {
+            temp = camera.subCamPos(this->area);
+        }
         SDL_Texture* texture = this->tex->getTexture();
-        SDL_RenderCopyEx(renderer , texture , this->tex->getSprite(this->sprite_map_index) ,  &(this->area) , this->rot , &(this->cor) , this->flip );
+        SDL_RenderCopyEx(renderer , texture , this->tex->getSprite(this->sprite_map_index) ,  &(temp) , this->rot , &(this->cor) , this->flip );
     }
 
     void Sprite::update (const Ldouble& delta)
