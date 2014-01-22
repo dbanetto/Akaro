@@ -51,7 +51,7 @@ GameWindow::GameWindow(void)
  */
 GameWindow::~GameWindow(void)
 {
-    if (this->inited) 
+    if (this->inited)
     {
         //Clear Settings
         this->settings.clear();
@@ -59,7 +59,7 @@ GameWindow::~GameWindow(void)
         //Unload the Game Data
         this->unload();
 
-        //Destroy the window/renderer 
+        //Destroy the window/renderer
         SDL_DestroyRenderer ( this->renderer );
         SDL_DestroyWindow   ( this->window );
 
@@ -385,6 +385,7 @@ void GameWindow::start(void)
             }
         }
     }
+    this->unload();
 }
 
 
