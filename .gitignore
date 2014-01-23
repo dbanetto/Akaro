@@ -27,3 +27,6 @@
 
 #Data Folder (Is anotehr repo)
 /data
+
+#Sublime Text Files
+*.sublime*

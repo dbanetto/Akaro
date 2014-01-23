@@ -15,7 +15,7 @@ namespace audio
 
     AudioManager::AudioManager ()
     {
-        this->device_id = 0;
+        this->device_id = 1;
         this->volume = 100;
     }
 
@@ -67,6 +67,8 @@ namespace audio
             } else {
                 settings->get("audio" , "device" , &device);
             }
+        } else {
+        	device = SDL_GetAudioDeviceName(0 , 0);
         }
 
         //Base Path for all audio files
@@ -135,11 +137,14 @@ namespace audio
         if (use_base_path) {
             file = this->path + file;
         }
+
         Mix_Music* music = Mix_LoadMUS( file.c_str() );
         if (music == nullptr) {
             return false;
         }
+
         this->sounds[name] = music;
+
         return true;
     }
 
@@ -161,10 +166,10 @@ namespace audio
 
     void AudioManager::unloadall ()
     {
-        for (const auto sfx : this->sounds) {
-            Mix_FreeMusic( sfx.second );
-        }
-        this->sounds.clear();
+		for (const auto sfx : this->sounds) {
+			Mix_FreeMusic( sfx.second );
+		}
+		this->sounds.clear();
     }
 
     void music_callback(void* data, unsigned char* dev, int num)

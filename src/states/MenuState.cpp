@@ -126,5 +126,6 @@ void MenuState::load ()
 void MenuState::unload ()
 {
     TTF_CloseFont( this->font );
+    this->font = nullptr;
     is_loaded = false;
 }

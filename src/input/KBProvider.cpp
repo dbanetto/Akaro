@@ -108,7 +108,9 @@ namespace input
            {
                delete lower.second;
            }
+           header.second.clear();
        }
+        this->keys.clear();
     }
 
     bool  KBProvider::checkInputState (std::string& header , std::string& name)
