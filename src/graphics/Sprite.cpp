@@ -53,22 +53,37 @@ namespace graphics
     }
 
     //Getters and Setters
+    /**
+     * @brief Set Texture for sprite
+     */
     void Sprite::setTexture (Texture* texture)
     {
         this->tex = texture;
     }
+    /**
+     * @brief Set Render Flip mode
+     */
     void Sprite::setFlip (SDL_RendererFlip flip)
     {
         this->flip = flip;
     }
+    /**
+     * @brief Set centre of rotation, in relation to sprite's top left (0,0)
+     */
     void Sprite::setCenterOfRotation (SDL_Point pt)
     {
         this->cor = pt;
     }
+    /**
+     * @brief Set Sprite's rotation, in rads
+     */
     void Sprite::setRotation (double rot)
     {
         this->rot = rot;
     }
+    /**
+     * @brief Set Sprite's texture index, for its sprite map.
+     */
     void Sprite::setSpriteMapIndex (int sprite_map_index)
     {
         this->sprite_map_index = sprite_map_index;
