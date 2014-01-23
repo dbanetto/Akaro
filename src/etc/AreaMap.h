@@ -11,6 +11,8 @@
 #include "../graphics/drawable.h"
 #include <vector>
 
+namespace etc {
+
 class AreaMap
 {
 public:
@@ -40,5 +42,7 @@ protected:
 private:
     void split();
 };
+
+} /* etc namespace */
 
 #endif /* AREAMAP_H_ */

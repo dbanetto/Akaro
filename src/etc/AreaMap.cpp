@@ -12,6 +12,8 @@
 #include <cassert>
 #include <cmath>
 
+using namespace etc;
+
 AreaMap::AreaMap()
 {
     // TODO Auto-generated constructor stub
