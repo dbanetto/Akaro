@@ -93,7 +93,11 @@ namespace audio
         want.samples = chuncksize;
         want.callback = music_callback;  // you wrote this function elsewhere.
 
-        device_id = SDL_OpenAudioDevice(device.c_str() , 0, &want, &have, SDL_AUDIO_ALLOW_FORMAT_CHANGE);
+        device_id = SDL_OpenAudioDevice(device.c_str() 
+                                        , 0
+                                        , &want
+                                        , &have
+                                        , SDL_AUDIO_ALLOW_FORMAT_CHANGE);
         if (device_id == 0) {
             std::cout << "Failed to open audio: " << device << std::endl;
         } else {

@@ -17,6 +17,7 @@
 #include "../etc/define.h"
 #include "../etc/Camera.h"
 
+
 class GameState
 {
 public:
