@@ -11,15 +11,17 @@
 *.lai
 *.la
 *.a
-/Debug
-/bin
+/Debug/*
+/Release/*
+/bin/*
+/obj/*
 
 # Doxygen Generated Doc
 /doc/html/*
 /doc/man/*
 /doc/latex/*
 
-/Release
+
 
 #Eclipse Project Files
 .cproject

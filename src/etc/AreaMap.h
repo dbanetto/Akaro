@@ -11,6 +11,10 @@
 #include "../graphics/drawable.h"
 #include <vector>
 
+
+
+namespace etc {
+
 class AreaMap
 {
 public:
@@ -31,7 +35,7 @@ public:
     void clear();
 
     int count();
-
+    int getDepth();
 protected:
     SDL_Rect area;
     std::vector<graphics::drawable*>  sprites;
@@ -39,6 +43,9 @@ protected:
     AreaMap* parent;
 private:
     void split();
+    int depth;
 };
+
+} /* etc namespace */
 
 #endif /* AREAMAP_H_ */

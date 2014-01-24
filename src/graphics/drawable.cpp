@@ -68,6 +68,11 @@ namespace graphics
     return this->pos;
   }
 
+  void drawable::setAdjustCamera(bool var)
+  {
+	  this->adjust_camera = var;
+  }
+
   drawable::~drawable()
   {
   }

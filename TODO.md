@@ -66,6 +66,7 @@ Other
 * Basic lighting system
 * "Game States", such as : menu, battle, etc. (partially completed)
 * Battery Management (partial)
+* Have pure stream based loaders then file/network wrappers
 
 Documentation
 -------------

@@ -281,7 +281,7 @@ int GameWindow::init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_F
 
     //Camera bnounds
     this->camera.setBounds(WIDTH , HIEGHT);
-    this->camera.setPosition(-500,-500);
+    this->camera.setPosition(0,0);
 
     this->inited = true;
     //All done correctly
@@ -345,26 +345,31 @@ void GameWindow::start(void)
         //Increment frame count
         counter_frames++;
 
-        if( ( this->CAP_FRAMES == true ) && ( fps.get_ticks() < 1000.0 / this->FRAME_LIMIT ) )
+        if( ( this->CAP_FRAMES == true ) )
         {
-            //Sleep the remaining frame time
-            Uint32 delay = (Uint32)( round( (1000.0 / this->FRAME_LIMIT ) - fps.get_ticks() ) );
+        	if (fps.get_ticks() < 1000.0 / this->FRAME_LIMIT)
+        	{
+				//Sleep the remaining frame time
+				Uint32 delay = (Uint32)( round( (1000.0 / this->FRAME_LIMIT ) - (fps.get_ticks() * 1000) ) );
 
-            //Correct the time to sleep so it keeps up where the frame is suppose to be in terms of a second
-            Uint32 normaliser =  (Uint32)round( counter.get_ticks() ) - (Uint32)round( ( counter_frames / this->FRAME_LIMIT) );
-            //Only Apply it if it is needed
-            if ( normaliser < delay && normaliser != 0 )
-            {
-                delay -= normaliser;
-            }
-            //Crash safety net and is less than a second
-            if (delay > 0 && delay < 1000)
-            {
-              SDL_Delay(  delay );
-            }
+				//Correct the time to sleep so it keeps up where the frame is suppose to be in terms of a second
+				//Uint32 normaliser =  (Uint32)round( counter.get_ticks() ) - (Uint32)round( ( counter_frames / this->FRAME_LIMIT) );
+				//Only Apply it if it is needed
+				//if ( normaliser < delay && normaliser != 0 )
+				//{
+				//	delay -= normaliser;
+				//}
+				//Crash safety net and is less than a second
+				if (delay > 0 && delay < 1000)
+				{
+					SDL_Delay(  delay );
+				}
+        	} else {
+        		std::cout << "Cannot Keep up!" << std::endl;
+        	}
         } else
         {
-            //std::cout << "Cannot keep up!" << std::endl;
+        	SDL_Delay(  1 );
         }
         if (counter.get_ticks() > 1)   //1 second worth of frames collected
         {
@@ -547,6 +552,10 @@ void GameWindow::event (SDL_Event e , const double& delta)
     case (SDL_MOUSEBUTTONDOWN):
         //Fire Click Event
         break;
+    case (SDL_WINDOWEVENT):
+		int w = 0, h = 0;
+    	SDL_GetWindowSize(this->window, &w, &h);
+		this->camera.setBounds(w, h);
     }
 }
 

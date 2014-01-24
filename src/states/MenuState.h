@@ -12,7 +12,7 @@
 #include "GameStateManager.h"
 #include "../GameWindow.h"
 #include "../graphics/Sprite.h"
-
+#include "../map/Map.h"
 
 class MenuState : public GameState
 {
@@ -39,6 +39,8 @@ private:
     ui::Label lb;
     ui::Button bt;
     graphics::Sprite sheep;
+
+    map::Map map;
 };
 
 #endif /* MENUSTATE_H_ */

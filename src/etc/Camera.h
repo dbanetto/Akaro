@@ -20,11 +20,9 @@ namespace etc
             Camera ();
             virtual ~Camera ();
 
-            void render (const Ldouble& delta);
-            void update (const Ldouble& delta);
-
             void setBounds (int w, int h);
             void setPosition (int x, int y);
+            void changePosition (int deltax, int deltay);
 
             SDL_Rect subCamPos( SDL_Rect rect );
 

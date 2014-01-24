@@ -81,7 +81,7 @@ all : make_dir  $(OUTDIR)$(EXE)
 
 $(OUTDIR)$(EXE) : $(OBJ)
 	$(CPP) -o $(OUTDIR)$(EXE) $(CPPFLAGS) $(OBJ) $(LIBDIR) $(LIBS)
-	cp $(OUTDIR)$(EXE) Akaro
+	
 
 $(OBJ): $(OBJDIR)%.o : $(SRCDIR)%.cpp
 	$(CPP) $(CPPFLAGS) -c $< $(LIB_PATH) $(LIBS) $(INCLUDE) -o $@

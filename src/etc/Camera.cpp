@@ -46,4 +46,10 @@ namespace etc
         return pt;
     }
 
+    void Camera::changePosition (int deltax, int deltay)
+    {
+    	this->view.x += deltax;
+    	this->view.y += deltay;
+    }
+
 } /* namespace etc */

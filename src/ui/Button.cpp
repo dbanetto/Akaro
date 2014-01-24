@@ -78,11 +78,16 @@ void Button::render (const Ldouble& delta , SDL_Renderer* renderer , etc::Camera
         if (this->texture != nullptr) {
             SDL_DestroyTexture(this->texture);
         }
-        this->texture = generateButtonTexture( renderer , this->fg , this->border , this->border_width, this->area );
+
+        this->texture = generateButtonTexture( renderer , this->fg , this->border , this->border_width, area );
         this->RENDER_TEXTURE = false;
     }
-
-    SDL_RenderCopy( renderer , this->texture , NULL , &(this->area) );
+    SDL_Rect temp = this->area;
+	if (this->adjust_camera)
+	{
+		temp = camera.subCamPos(this->area);
+	}
+    SDL_RenderCopy( renderer , this->texture , NULL , &(temp) );
 
     this->label.render(delta,renderer , camera);
 }

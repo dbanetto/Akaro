@@ -56,7 +56,12 @@ void Label::render (const Ldouble& delta , SDL_Renderer* renderer , etc::Camera&
 		this->UPDATE_POSITION = true;
 	}
 
-	SDL_RenderCopy( renderer , this->texture , NULL , &(this->area) );
+	SDL_Rect temp = this->area;
+    if (this->adjust_camera)
+    {
+        temp = camera.subCamPos(this->area);
+    }
+	SDL_RenderCopy( renderer , this->texture , NULL , &(temp) );
 }
 
 void Label::update (const Ldouble& delta )

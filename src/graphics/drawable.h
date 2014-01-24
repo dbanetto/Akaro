@@ -41,6 +41,8 @@ namespace graphics
     SDL_Rect getRect ();
     maths::Point getPosition ();
 
+    void setAdjustCamera(bool var);
+
   protected:
     //Position and rectangular area
     SDL_Rect area;
