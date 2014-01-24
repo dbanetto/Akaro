@@ -14,6 +14,9 @@
 
 using namespace etc;
 
+#define AREA_MAP_MAX_DEPTH 16
+#define AREA_MAP_SPRITE_SPLIT_SIZE 10
+//#define AREA_MAP_LIMIT_DEPTH
 AreaMap::AreaMap()
 {
     // TODO Auto-generated constructor stub
@@ -27,7 +30,7 @@ AreaMap::AreaMap()
 
     children.reserve(4);
     sprites.reserve (10);
-
+    this->depth = 0;
 }
 
 AreaMap::~AreaMap()
@@ -40,11 +43,12 @@ AreaMap::AreaMap(AreaMap* Parent , SDL_Rect Area)
 {
     this->parent = Parent;
     this->area = Area;
+    this->depth = Parent->getDepth() + 1;
 }
 
 void AreaMap::insert(graphics::drawable* sp)
 {
-    if (this->sprites.size() > 4 || this->children.size() == 4)
+    if (this->sprites.size() >= AREA_MAP_SPRITE_SPLIT_SIZE || this->children.size() == 4)
     {
         //Haven't split yet, might as well
         if (this->children.size() != 4)
@@ -92,9 +96,17 @@ SDL_Rect AreaMap::getArea()
     return this->area;
 }
 
+
+
 void AreaMap::split()
 {
-    //If there are no children, time to make some
+#ifdef AREA_MAP_LIMIT_DEPTH
+    if (this->depth >= AREA_MAP_MAX_DEPTH)
+    {
+    	return;
+    }
+#endif
+	//If there are no children, time to make some
     if (children.size() == 0)
     {
         SDL_Rect new_area;
@@ -123,6 +135,7 @@ void AreaMap::split()
         new_area.y = this->area.y + new_area.h;
         this->children.push_back( AreaMap( this ,  new_area ) );
     }
+
     std::vector<graphics::drawable*> leftovers;
     for (unsigned int i = 0; i < this->sprites.size(); i++)
     {
@@ -220,4 +233,9 @@ int AreaMap::count()
     }
 
     return count;
+}
+
+int AreaMap::getDepth()
+{
+	return this->depth;
 }

@@ -73,14 +73,15 @@ namespace maths
 
   bool isWholeRectInside (const SDL_Rect &small, const SDL_Rect &big )
   {
-      if ( small.x > big.x && small.y > big.y
-              && (small.x + small.w) < (big.x + big.w) && (small.y + small.h) < (big.y + big.h) )
-      {
-          return true;
-      }
-      else
-      {
-          return false;
-      }
+      if ((small.x > big.x) == false)
+    	  return false;
+      if ((small.y > big.y) == false)
+          	  return false;
+      if (((small.x + small.w) < (big.x + big.w)) == false)
+          	  return false;
+      if (((small.y + small.h) < (big.y + big.h)) == false)
+          	  return false;
+
+      return true;
   }
 } /* namespace math */

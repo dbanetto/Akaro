@@ -31,10 +31,15 @@ MenuState::~MenuState()
 //Each frame
 void MenuState::render (const Ldouble& delta, SDL_Renderer* renderer , etc::Camera &camera )
 {
+	camera.setPosition(sheep.getRect().x -100, sheep.getRect().y - 100);
+
+	this->map.render(delta, renderer , camera);
+
     bt.render(delta, renderer , camera);
     lb.render(delta, renderer , camera);
 
     sheep.render(delta, renderer , camera);
+
 }
 
 #define SPEED 200.0
@@ -43,6 +48,7 @@ void MenuState::update (const Ldouble& delta)
 {
     this->lb.setText( "FPS:" + etc::convInt (this->window->CURRENT_FPS) );
     this->bt.update(delta);
+    this->map.update(delta);
 
     if (this->window->getInputManager()->checkInput("sheep" , "up") == true)
     {
@@ -102,6 +108,7 @@ void MenuState::load ()
                 , 5
                 , ui::Button::ButtonCallBacks()
                 , ui::Label( "Button" , this->font , lb_pt ) );
+    this->bt.setAdjustCamera(true);
 
     this->is_loaded = true;
 
@@ -120,11 +127,17 @@ void MenuState::load ()
         cor.y = 16;
 
         this->sheep = graphics::Sprite( this->window->getTextures()->getTexture("sheep") , pos, 0 , 0 , cor , SDL_FLIP_NONE );
+        this->sheep.setAdjustCamera(true);
     }
+
+    this->window->getTextures()->load("data/texture/grass.png" , "grass" , 2 , 2);
+    this->map.init(this->window->getTextures());
+    this->map.loadMap("data/map.pam");
 }
 
 void MenuState::unload ()
 {
+	this->map.unloadMap();
     TTF_CloseFont( this->font );
     this->font = nullptr;
     is_loaded = false;
