@@ -81,8 +81,8 @@ namespace graphics
                     SDL_Rect map;
                     map.x = x*width;
                     map.y = y*hieght;
-                    map.w = map.x + width;
-                    map.h = map.y + hieght;
+                    map.w = width;
+                    map.h = hieght;
 
                     this->sprite_map.push_back(map);
                 }
