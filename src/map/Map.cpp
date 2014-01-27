@@ -7,7 +7,13 @@
 
 #include "Map.h"
 #include <fstream>
+#include "../etc/string.h"
 
+#if __GNUC__
+#include <SDL2/SDL.h>
+#else
+#include "SDL.h"
+#endif
 
 namespace map {
 
@@ -45,30 +51,61 @@ bool Map::init (graphics::TextureManager* textures)
  */
 void Map::loadMap(std::string file)
 {
-	//std::fstream fs;
-	//fs.open(file.c_str());
-	for (int x = 0; x < 500; x++) {
-		for (int y = 0; y < 500; y++) {
-			MapTile* tile;
-			SDL_Rect pos;
-			pos.x = x * 32;
-			pos.y = y * 32;
-			pos.h = 32;
-			pos.w = 32;
+	std::fstream fs;
+	fs.open(file.c_str());
+	std::string line;
+	while ( ! fs.eof() )
+	{
+		std::getline( fs , line );
+		// # are comments
+		if (etc::startswith( line , "#" ) )
+			continue;
 
-			SDL_Point cor;
-			cor.x = 16;
-			cor.y = 16;
+		auto seg = etc::split(line, ",");
+		SDL_Rect pt;
+		std::string tex;
+		int tex_index = 0;
+		SDL_RendererFlip flip;
 
-			tile = new MapTile( this->textures->getTexture("grass") , pos, (x % 4 + y % 2) % 4 , 0 , cor , (SDL_RendererFlip)(y % 2));
-			tile->setAdjustCamera(true);
 
-			this->maptiles.push_back(tile);
-			this->map.insert(tile);
-		}
+		//Texture name
+		tex = seg[2];
+
+		//Texture Map index
+		tex_index = atoi( seg[3].c_str() );
+
+		//Texture flip
+		flip = (SDL_RendererFlip)atoi( seg[4].c_str() );
+
+		//Position
+		//X
+		pt.x = atoi( seg[0].c_str() );
+
+		//Y
+		pt.y = atoi( seg[1].c_str() );
+
+		SDL_Rect* size = this->textures->getTexture(tex)->getSprite(tex_index);
+		pt.w = size->w;
+		pt.h = size->h;
+
+
+
+		MapTile* tile;
+		SDL_Point cor; //center of rotation
+		cor.x = pt.w/2; cor.y = pt.h/2;
+
+		tile = new MapTile( this->textures->getTexture(tex)
+				, pt
+				, tex_index
+				, 0.0
+				, cor
+				, flip );
+		tile->setAdjustCamera(true);
+		this->maptiles.push_back(tile);
+		this->map.insert(tile);
 	}
 
-	//fs.close();
+	fs.close();
 }
 
 void Map::unloadMap()
