@@ -43,6 +43,8 @@ GameWindow::GameWindow(void)
     //battery
     this->has_battery = false;
     this->last_battery_check = 0;
+
+    this->t_update = nullptr;
 }
 
 
@@ -296,6 +298,7 @@ int t_update_start(void* data)
 {
 	GameWindow* gm = (GameWindow*)data;
 	gm->_updateloop();
+	return 0;
 }
 
 void GameWindow::start(void)
