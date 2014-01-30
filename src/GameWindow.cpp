@@ -292,11 +292,21 @@ int GameWindow::init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_F
 /**
  * @brief Starts the game loop.
  */
+int t_update_start(void* data)
+{
+	GameWindow* gm = (GameWindow*)data;
+	gm->_updateloop();
+}
+
 void GameWindow::start(void)
 {
-    //Load Content
-    this->load();
+	t_update = SDL_CreateThread(t_update_start , "Update Thread" , (void*)this);
+    _renderloop();
+}
 
+void GameWindow::_renderloop()
+{
+	this->load();
     SDL_SetRenderDrawColor(this->renderer, this->background.r, this->background.g, this->background.b, this->background.a);
     SDL_RenderClear       (this->renderer);
     SDL_RenderPresent     (this->renderer);
@@ -320,20 +330,11 @@ void GameWindow::start(void)
         //Start counting frame time for capping
         fps.start();
 
-        //RENDERS HERE
-        //Change in time in seconds with game-time multiplier to edit game speed
-        Ldouble s_delta = delta.get_ticks() * GAMETIME_MULTIPLIER;
-        this->update(s_delta);
-        
-        //Mid frame Check for exit
-        if (this->quit)
-            break;
-
         //Render delta for post-render
         SDL_SetRenderDrawColor(this->renderer, this->background.r, this->background.g, this->background.b, this->background.a);
         SDL_RenderClear  (this->renderer);
 
-        s_delta = delta.get_ticks() * GAMETIME_MULTIPLIER;
+        Ldouble s_delta = delta.get_ticks() * GAMETIME_MULTIPLIER;
         this->render(s_delta);
         SDL_RenderPresent(this->renderer);
 
@@ -391,6 +392,88 @@ void GameWindow::start(void)
         }
     }
     this->unload();
+}
+void GameWindow::_updateloop()
+{
+    //Load Content
+
+
+    //Update Thread
+    Timer fps = Timer();
+
+    Timer delta = Timer();
+
+    //Frame rate counter
+    Timer counter = Timer();
+    int counter_frames = 0;
+
+    //Start Counter
+    counter.start();
+
+    //Start Delta
+    delta.start();
+    while (!this->quit)    //While not quitting, UPDATE!
+    {
+        //Start counting frame time for capping
+        fps.start();
+
+        //RENDERS HERE
+        //Change in time in seconds with game-time multiplier to edit game speed
+        Ldouble s_delta = delta.get_ticks() * GAMETIME_MULTIPLIER;
+        this->update(s_delta);
+
+        //Restart Delta
+        delta.start();
+
+        //Increment frame count
+        counter_frames++;
+
+        if( ( this->CAP_FRAMES == true ) )
+        {
+        	if (fps.get_ticks() < 1000.0 / this->FRAME_LIMIT)
+        	{
+				//Sleep the remaining frame time
+				Uint32 delay = (Uint32)( round( (1000.0 / this->FRAME_LIMIT ) - (fps.get_ticks() * 1000) ) );
+
+				//Correct the time to sleep so it keeps up where the frame is suppose to be in terms of a second
+				//Uint32 normaliser =  (Uint32)round( counter.get_ticks() ) - (Uint32)round( ( counter_frames / this->FRAME_LIMIT) );
+				//Only Apply it if it is needed
+				//if ( normaliser < delay && normaliser != 0 )
+				//{
+				//	delay -= normaliser;
+				//}
+				//Crash safety net and is less than a second
+				if (delay > 0 && delay < 1000)
+				{
+					SDL_Delay(  delay );
+				}
+        	} else {
+        		std::cout << "Cannot Keep up!" << std::endl;
+        	}
+        } else
+        {
+        	SDL_Delay(  1 );
+        }
+        if (counter.get_ticks() > 1)   //1 second worth of frames collected
+        {
+            std::cout << "UPS:" << counter_frames / counter.get_ticks() << std::endl;
+#ifdef VERBOSE_FRAME_TIME
+        if (this->CAP_FRAMES)
+        {
+            std::cout << "Taken:" << counter.get_ticks() / CURRENT_FPS * 1000.0 << "ms Expected:" << 1.0 / this->FRAME_LIMIT * 1000.0  << "ms " <<
+                    (1.0 / this->FRAME_LIMIT * 1000.0) /  (counter.get_ticks() / CURRENT_FPS * 1000.0) * 100 << "%"<< std::endl;
+        }
+#endif
+            counter.start();
+            counter_frames = 0;
+
+            std::string error = SDL_GetError();
+            if (error != "") {
+                std::cout << "SDL Error : "<< error << std::endl;
+            }
+        }
+    }
+
 }
 
 
@@ -484,6 +567,8 @@ void GameWindow::unload()
  */
 void GameWindow::render(const Ldouble& delta)
 {
+
+
     if (this->gamestate.current != nullptr)
     {
         this->gamestate.current->render(delta, this->renderer , this->camera);

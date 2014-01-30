@@ -47,7 +47,7 @@ public:
     virtual ~GameWindow();
 
     int init(const char* TITLE , SDL_Color BACKGROUND_COLOUR ,  int SDL_SCREEN_FLAGS );
-
+    //Starts Update loop then render loop
     void start(void);
     int CURRENT_FPS;
 
@@ -57,8 +57,13 @@ public:
     audio::AudioManager* getAudio();
     graphics::TextureManager* getTextures();
 
+    void _updateloop();
+    void _renderloop();
 protected:
+
+    //Render Loop
     void render(const Ldouble& delta);
+    //Update Loop
     void update(const Ldouble& delta);
     void event (SDL_Event e , const double& delta);
 
@@ -68,6 +73,10 @@ protected:
     //util functions
     void screenshot();
 private:
+
+
+    SDL_Thread* t_update;
+
     GameStateManager gamestate;
     
     //Private variables
