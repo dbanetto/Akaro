@@ -7,6 +7,7 @@
 
 #include "Map.h"
 #include <fstream>
+#include <iostream>
 #include "../etc/string.h"
 
 #if __GNUC__
@@ -53,15 +54,23 @@ void Map::loadMap(std::string file)
 {
 	std::fstream fs;
 	fs.open(file.c_str());
-	std::string line;
+
 	while ( ! fs.eof() )
 	{
+		std::string line;
 		std::getline( fs , line );
+		line = etc::trim(line);
+
+		//Skip empty lines
+		if (line == "")
+			continue;
+
 		// # are comments
 		if (etc::startswith( line , "#" ) )
 			continue;
 
 		auto seg = etc::split(line, ",");
+
 		SDL_Rect pt;
 		std::string tex;
 		int tex_index = 0;
@@ -103,6 +112,7 @@ void Map::loadMap(std::string file)
 		tile->setAdjustCamera(true);
 		this->maptiles.push_back(tile);
 		this->map.insert(tile);
+		std::cout << "Loaded " << line << std::endl;
 	}
 
 	fs.close();
