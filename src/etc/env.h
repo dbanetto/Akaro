@@ -26,16 +26,6 @@
     #endif
 #endif
 
-//Check if Linux
-#if __linux
-    #define __LINUX__
-#elif __APPLE__
-    #include "TargetConditionals.h"
-    #if TARGET_OS_MAC
-        #define __MACOSX__
-    #endif
-#endif
-
 namespace etc {
 
 void printSystemInfo();
