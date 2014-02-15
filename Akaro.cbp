@@ -3,19 +3,28 @@
 	<FileVersion major="1" minor="6" />
 	<Project>
 		<Option title="Akaro" />
-		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
-			<Target title="Debug">
+			<Target title="Debug Unix-like">
+				<Option platforms="Unix;Mac;" />
 				<Option output="bin/Debug/Akaro" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-std=c++11" />
 					<Add option="-g" />
 				</Compiler>
+				<Linker>
+					<Add library="SDL2" />
+					<Add library="SDL2_image" />
+					<Add library="SDL2_mixer" />
+					<Add library="SDL2_ttf" />
+					<Add library="SDL2_net" />
+				</Linker>
 			</Target>
-			<Target title="Release">
+			<Target title="Release Unix-Like">
+				<Option platforms="Unix;Mac;" />
 				<Option output="bin/Release/Akaro" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
@@ -25,17 +34,138 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add library="SDL2" />
+					<Add library="SDL2_image" />
+					<Add library="SDL2_mixer" />
+					<Add library="SDL2_ttf" />
+					<Add library="SDL2_net" />
+				</Linker>
+			</Target>
+			<Target title="Debug Win">
+				<Option platforms="Windows;" />
+				<Option output="bin/Debug/Akaro" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add library="SDL2" />
+					<Add library="SDL2_image" />
+					<Add library="SDL2_mixer" />
+					<Add library="SDL2_ttf" />
+					<Add library="SDL2_net" />
+				</Linker>
+			</Target>
+			<Target title="Release Win">
+				<Option platforms="Windows;" />
+				<Option output="bin/Release/Akaro" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="SDL2" />
+					<Add library="SDL2_image" />
+					<Add library="SDL2_mixer" />
+					<Add library="SDL2_ttf" />
+					<Add library="SDL2_net" />
 				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-std=c++11" />
 			<Add option="-Wall" />
 		</Compiler>
+		<Linker>
+			<Add library="SDL2" />
+			<Add library="SDL2_image" />
+			<Add library="SDL2_mixer" />
+			<Add library="SDL2_ttf" />
+			<Add library="SDL2_net" />
+		</Linker>
+		<Unit filename="src/GameWindow.cpp" />
+		<Unit filename="src/GameWindow.h" />
+		<Unit filename="src/audio/AudioManager.cpp" />
+		<Unit filename="src/audio/AudioManager.h" />
+		<Unit filename="src/etc/AreaMap.cpp" />
+		<Unit filename="src/etc/AreaMap.h" />
+		<Unit filename="src/etc/Camera.cpp" />
+		<Unit filename="src/etc/Camera.h" />
+		<Unit filename="src/etc/Timer.cpp" />
+		<Unit filename="src/etc/Timer.h" />
+		<Unit filename="src/etc/battery.cpp" />
+		<Unit filename="src/etc/battery.h" />
+		<Unit filename="src/etc/colour.cpp" />
+		<Unit filename="src/etc/colour.h" />
+		<Unit filename="src/etc/define.h" />
+		<Unit filename="src/etc/env.cpp" />
+		<Unit filename="src/etc/env.h" />
+		<Unit filename="src/etc/string.cpp" />
+		<Unit filename="src/etc/string.h" />
+		<Unit filename="src/graphics/Sprite.cpp" />
+		<Unit filename="src/graphics/Sprite.h" />
+		<Unit filename="src/graphics/Texture.cpp" />
+		<Unit filename="src/graphics/Texture.h" />
+		<Unit filename="src/graphics/TextureManager.cpp" />
+		<Unit filename="src/graphics/TextureManager.h" />
+		<Unit filename="src/graphics/drawable.cpp" />
+		<Unit filename="src/graphics/drawable.h" />
+		<Unit filename="src/input/InputManager.cpp" />
+		<Unit filename="src/input/InputManager.h" />
+		<Unit filename="src/input/InputProvider.cpp" />
+		<Unit filename="src/input/InputProvider.h" />
+		<Unit filename="src/input/KBProvider.cpp" />
+		<Unit filename="src/input/KBProvider.h" />
+		<Unit filename="src/input/PS3Provider.cpp" />
+		<Unit filename="src/input/PS3Provider.h" />
+		<Unit filename="src/io/Settings.cpp" />
+		<Unit filename="src/io/Settings.h" />
+		<Unit filename="src/io/file.cpp" />
+		<Unit filename="src/io/file.h" />
+		<Unit filename="src/main.cpp" />
+		<Unit filename="src/map/Map.cpp" />
+		<Unit filename="src/map/Map.h" />
+		<Unit filename="src/map/MapTile.cpp" />
+		<Unit filename="src/map/MapTile.h" />
+		<Unit filename="src/maths/Point.cpp" />
+		<Unit filename="src/maths/Point.h" />
+		<Unit filename="src/maths/area.cpp" />
+		<Unit filename="src/maths/area.h" />
+		<Unit filename="src/maths/dist/normal.cpp" />
+		<Unit filename="src/maths/dist/normal.h" />
+		<Unit filename="src/maths/dist/triangular.cpp" />
+		<Unit filename="src/maths/dist/triangular.h" />
+		<Unit filename="src/maths/rect.cpp" />
+		<Unit filename="src/maths/rect.h" />
+		<Unit filename="src/maths/vector.cpp" />
+		<Unit filename="src/maths/vector.h" />
+		<Unit filename="src/states/GameState.cpp" />
+		<Unit filename="src/states/GameState.h" />
+		<Unit filename="src/states/GameStateManager.cpp" />
+		<Unit filename="src/states/GameStateManager.h" />
+		<Unit filename="src/states/MenuState.cpp" />
+		<Unit filename="src/states/MenuState.h" />
+		<Unit filename="src/ui/Button.cpp" />
+		<Unit filename="src/ui/Button.h" />
+		<Unit filename="src/ui/Label.cpp" />
+		<Unit filename="src/ui/Label.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
 			<debugger />
-			<lib_finder disable_auto="1" />
+			<lib_finder disable_auto="1">
+				<lib name="sdl2" />
+				<lib name="SDL2_image" />
+				<lib name="SDL2_ttf" />
+				<lib name="SDL2_net" />
+				<lib name="SDL2_mixer" />
+			</lib_finder>
+			<editor_config active="1" use_tabs="1" tab_indents="1" tab_width="4" indent="4" eol_mode="0" />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
