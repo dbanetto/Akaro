@@ -19,40 +19,40 @@
 
 namespace graphics
 {
-/**
- * @brief Base class of all object to be rendered on-screen
- */
-  class drawable
-  {
-  public:
-    drawable();
-    virtual ~drawable() = 0;
+	/**
+	 * @brief Base class of all object to be rendered on-screen
+	 */
+	class drawable
+	{
+		public:
+			drawable();
+			virtual ~drawable() = 0;
 
-    virtual void render (const Ldouble& delta, SDL_Renderer* renderer , etc::Camera& camera) = 0;
-    virtual void update (const Ldouble& delta) = 0;
+			virtual void render (const Ldouble& delta, SDL_Renderer* renderer , etc::Camera& camera) = 0;
+			virtual void update (const Ldouble& delta) = 0;
 
 
-    void setPosition (maths::Point pos);
-    void setPosition (SDL_Point pos);
-    void setPosition (Ldouble x , Ldouble y);
+			void setPosition (maths::Point pos);
+			void setPosition (SDL_Point pos);
+			void setPosition (Ldouble x , Ldouble y);
 
-    void changePosition (Ldouble x , Ldouble y);
+			void changePosition (Ldouble x , Ldouble y);
 
-    SDL_Rect getRect ();
-    maths::Point getPosition ();
+			SDL_Rect getRect ();
+			maths::Point getPosition ();
 
-    void setAdjustCamera(bool var);
+			void setAdjustCamera(bool var);
 
-  protected:
-    //Position and rectangular area
-    SDL_Rect area;
-    maths::Point pos;
-    /**
-     * @note Sets if a object is effected by camera
-     */
-    bool adjust_camera;
+		protected:
+			//Position and rectangular area
+			SDL_Rect area;
+			maths::Point pos;
+			/**
+			 * @note Sets if a object is effected by camera
+			 */
+			bool adjust_camera;
 
-  };
+	};
 
 } /* namespace graphics */
 

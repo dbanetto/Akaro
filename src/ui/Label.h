@@ -19,35 +19,37 @@
 #include <string>
 #include "../graphics/drawable.h"
 
-namespace ui {
+namespace ui
+{
 
-class Label : public graphics::drawable {
+	class Label : public graphics::drawable
+	{
 
-public:
-	Label();
-	Label(std::string label, TTF_Font* font , SDL_Point pos);
-	virtual ~Label();
+		public:
+			Label();
+			Label(std::string label, TTF_Font* font , SDL_Point pos);
+			virtual ~Label();
 
-	void render (const Ldouble& delta , SDL_Renderer* renderer , etc::Camera& camera );
-	void update (const Ldouble& delta );
+			void render (const Ldouble& delta , SDL_Renderer* renderer , etc::Camera& camera );
+			void update (const Ldouble& delta );
 
 
-	void setText (std::string text);
+			void setText (std::string text);
 
-    bool RENDER_TEXTURE;
-    bool UPDATE_POSITION;
-private:
-	TTF_Font* font;
-	SDL_Texture* texture;
-	std::string text;
-	SDL_Color fg;
+			bool RENDER_TEXTURE;
+			bool UPDATE_POSITION;
+		private:
+			TTF_Font* font;
+			SDL_Texture* texture;
+			std::string text;
+			SDL_Color fg;
 
-};
+	};
 
 //Other Label related Functions
-SDL_Texture* generateLabelTexture ( std::string text , SDL_Renderer* renderer , TTF_Font* font , SDL_Color fg , SDL_Rect* size );
-SDL_Texture* generateLabelTexture ( std::string text , SDL_Renderer* renderer , TTF_Font* font , SDL_Color fg );
-void centerLabel (SDL_Rect area , Label* label);
+	SDL_Texture* generateLabelTexture ( std::string text , SDL_Renderer* renderer , TTF_Font* font , SDL_Color fg , SDL_Rect* size );
+	SDL_Texture* generateLabelTexture ( std::string text , SDL_Renderer* renderer , TTF_Font* font , SDL_Color fg );
+	void centerLabel (SDL_Rect area , Label* label);
 
 } /* namespace ui */
 

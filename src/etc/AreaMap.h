@@ -13,38 +13,39 @@
 
 
 
-namespace etc {
-
-class AreaMap
+namespace etc
 {
-public:
-    AreaMap();
-    AreaMap(AreaMap* Parent , SDL_Rect Area);
-    virtual ~AreaMap();
 
-    void insert(graphics::drawable* sp);
+	class AreaMap
+	{
+		public:
+			AreaMap();
+			AreaMap(AreaMap* Parent , SDL_Rect Area);
+			virtual ~AreaMap();
 
-    std::vector<graphics::drawable*> getSpritesFromArea (SDL_Rect Area);
+			void insert(graphics::drawable* sp);
 
-    bool remove (graphics::drawable* sp);
+			std::vector<graphics::drawable*> getSpritesFromArea (SDL_Rect Area);
 
-    void update (graphics::drawable* sp);
+			bool remove (graphics::drawable* sp);
 
-    SDL_Rect getArea();
+			void update (graphics::drawable* sp);
 
-    void clear();
+			SDL_Rect getArea();
 
-    int count();
-    int getDepth();
-protected:
-    SDL_Rect area;
-    std::vector<graphics::drawable*>  sprites;
-    std::vector<AreaMap> children;
-    AreaMap* parent;
-private:
-    void split();
-    int depth;
-};
+			void clear();
+
+			int count();
+			int getDepth();
+		protected:
+			SDL_Rect area;
+			std::vector<graphics::drawable*>  sprites;
+			std::vector<AreaMap> children;
+			AreaMap* parent;
+		private:
+			void split();
+			int depth;
+	};
 
 } /* etc namespace */
 

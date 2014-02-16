@@ -15,11 +15,11 @@
 //TODO : give better names to this file
 namespace maths
 {
-namespace dist
-{
-  double tri_rnd ( double min, double mode, double max );
+	namespace dist
+	{
+		double tri_rnd ( double min, double mode, double max );
 
-} /* namespace dist */
+	} /* namespace dist */
 } /* namespace math */
 
 #endif /* DISTTRI_H_ */

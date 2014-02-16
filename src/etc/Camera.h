@@ -14,23 +14,23 @@
 namespace etc
 {
 
-    class Camera
-    {
-        public:
-            Camera ();
-            virtual ~Camera ();
+	class Camera
+	{
+		public:
+			Camera ();
+			virtual ~Camera ();
 
-            void setBounds (int w, int h);
-            void setPosition (int x, int y);
-            void changePosition (int deltax, int deltay);
+			void setBounds (int w, int h);
+			void setPosition (int x, int y);
+			void changePosition (int deltax, int deltay);
 
-            SDL_Rect subCamPos( SDL_Rect rect );
+			SDL_Rect subCamPos( SDL_Rect rect );
 
-            const SDL_Rect& getViewport();
+			const SDL_Rect& getViewport();
 
-        private:
-            SDL_Rect view;
-    };
+		private:
+			SDL_Rect view;
+	};
 
 } /* namespace etc */
 

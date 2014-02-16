@@ -20,20 +20,20 @@
 
 class GameState
 {
-public:
-    GameState();
-    virtual ~GameState();
+	public:
+		GameState();
+		virtual ~GameState();
 
-    //Each frame
-    virtual void render (const Ldouble& delta, SDL_Renderer* renderer , etc::Camera& camera );
-    virtual void update (const Ldouble& delta);
-    virtual void event (SDL_Event e , const Ldouble& delta);
+		//Each frame
+		virtual void render (const Ldouble& delta, SDL_Renderer* renderer , etc::Camera& camera );
+		virtual void update (const Ldouble& delta);
+		virtual void event (SDL_Event e , const Ldouble& delta);
 
-    //Inital un/Load Assests
-    virtual void load   ();
-    virtual void unload ();
+		//Inital un/Load Assests
+		virtual void load   ();
+		virtual void unload ();
 
-    bool is_loaded = false;
+		bool is_loaded = false;
 
 };
 

@@ -13,19 +13,19 @@
 
 class GameStateManager
 {
-public:
-    GameStateManager();
-    virtual ~GameStateManager();
-    void set_state (std::string state_name);
+	public:
+		GameStateManager();
+		virtual ~GameStateManager();
+		void set_state (std::string state_name);
 
-    bool add_state (std::string state_name , GameState* state);
+		bool add_state (std::string state_name , GameState* state);
 
-    bool exists (std::string state_name);
+		bool exists (std::string state_name);
 
-    GameState* current;
-    std::string current_name;
-private:
-    std::map<std::string , GameState*> states;
+		GameState* current;
+		std::string current_name;
+	private:
+		std::map<std::string , GameState*> states;
 };
 
 #endif /* GAMESTATEMANAGER_H_ */

@@ -19,35 +19,35 @@
 
 class Timer
 {
-public:
-    //Initializes variables
-    Timer();
+	public:
+		//Initializes variables
+		Timer();
 
-    //The various clock actions
-    void start();
-    void stop();
-    void pause();
-    void unpause();
+		//The various clock actions
+		void start();
+		void stop();
+		void pause();
+		void unpause();
 
-    //Gets the timer's time
-    Uint64 get_ticks_raw();
-    Ldouble get_ticks();
+		//Gets the timer's time
+		Uint64 get_ticks_raw();
+		Ldouble get_ticks();
 
 
-    //Checks the status of the timer
-    bool is_started();
-    bool is_paused();
+		//Checks the status of the timer
+		bool is_started();
+		bool is_paused();
 
-private:
-    //The clock time when the timer started
-    Uint64 startTicks;
+	private:
+		//The clock time when the timer started
+		Uint64 startTicks;
 
-    //The ticks stored when the timer was paused
-    Uint64 pausedTicks;
+		//The ticks stored when the timer was paused
+		Uint64 pausedTicks;
 
-    //The timer status
-    bool paused;
-    bool started;
+		//The timer status
+		bool paused;
+		bool started;
 };
 
 #endif

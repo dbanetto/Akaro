@@ -14,25 +14,25 @@
 namespace input
 {
 
-    class InputProvider
-    {
-        public:
-            InputProvider ();
-            virtual ~InputProvider ();
+	class InputProvider
+	{
+		public:
+			InputProvider ();
+			virtual ~InputProvider ();
 
-            //Loading and unloading
-            virtual void load   (IO::Settings* input_settings);
-            virtual void unload ();
+			//Loading and unloading
+			virtual void load   (IO::Settings* input_settings);
+			virtual void unload ();
 
-            //Check input state, if true then it is active
-            virtual bool checkInputState (std::string& header , std::string& name);
-            //Change the needed input state
-            virtual bool setInputState (std::string& header , std::string& name, void*& data);
-            virtual void update(const double& delta);
-            bool is_loaded;
-        protected:
-            const std::string settings_postfix = "";
-    };
+			//Check input state, if true then it is active
+			virtual bool checkInputState (std::string& header , std::string& name);
+			//Change the needed input state
+			virtual bool setInputState (std::string& header , std::string& name, void*& data);
+			virtual void update(const double& delta);
+			bool is_loaded;
+		protected:
+			const std::string settings_postfix = "";
+	};
 
 } /* namespace input */
 

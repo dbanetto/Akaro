@@ -12,29 +12,31 @@
 #include <string>
 #include "../etc/define.h"
 
-namespace maths {
+namespace maths
+{
 
-class Point {
-    public:
-        Point();
-        Point(const Point& p);
-        Point(double xy);
-        Point(double x, double y);
+	class Point
+	{
+		public:
+			Point();
+			Point(const Point& p);
+			Point(double xy);
+			Point(double x, double y);
 
-        virtual ~Point();
+			virtual ~Point();
 
-        //Operators
+			//Operators
 
-        Point operator+(const Point&) const;
-        Point operator-(const Point&) const;
+			Point operator+(const Point&) const;
+			Point operator-(const Point&) const;
 
 
-        //To String Function
-        std::string str();
-        std::string str(char prefix, char mid , char postfix);
+			//To String Function
+			std::string str();
+			std::string str(char prefix, char mid , char postfix);
 
-        Ldouble x , y;
-};
+			Ldouble x , y;
+	};
 
 } /* namespace etc */
 

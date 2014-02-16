@@ -25,8 +25,9 @@
 #define PATH_SEP '/'
 #endif
 
-namespace IO {
-    bool fileExists(const std::string& filename);
+namespace IO
+{
+	bool fileExists(const std::string& filename);
 };
 
 #endif

@@ -42,62 +42,62 @@
 /// </summary>
 class GameWindow
 {
-public:
-    GameWindow();
-    virtual ~GameWindow();
+	public:
+		GameWindow();
+		virtual ~GameWindow();
 
-    int init(const char* TITLE , SDL_Color BACKGROUND_COLOUR ,  int SDL_SCREEN_FLAGS );
+		int init(const char* TITLE , SDL_Color BACKGROUND_COLOUR ,  int SDL_SCREEN_FLAGS );
 
-    void start(void);
-    int CURRENT_FPS;
+		void start(void);
+		int CURRENT_FPS;
 
-    //Get Settings and Content Managers
-    IO::Settings* getSettings();
-    input::InputManager * getInputManager();
-    audio::AudioManager* getAudio();
-    graphics::TextureManager* getTextures();
+		//Get Settings and Content Managers
+		IO::Settings* getSettings();
+		input::InputManager * getInputManager();
+		audio::AudioManager* getAudio();
+		graphics::TextureManager* getTextures();
 
-protected:
-    void render(const Ldouble& delta);
-    void update(const Ldouble& delta);
-    void event (SDL_Event e , const double& delta);
+	protected:
+		void render(const Ldouble& delta);
+		void update(const Ldouble& delta);
+		void event (SDL_Event e , const double& delta);
 
-    void load();
-    void unload();
+		void load();
+		void unload();
 
-    //util functions
-    void screenshot();
-private:
-    GameStateManager gamestate;
-    
-    //Private variables
-    SDL_Renderer* renderer;
-    SDL_Window*   window;
-    bool inited, quit;
+		//util functions
+		void screenshot();
+	private:
+		GameStateManager gamestate;
 
-    //View port
-    etc::Camera camera;
+		//Private variables
+		SDL_Renderer* renderer;
+		SDL_Window*   window;
+		bool inited, quit;
 
-
-    //GAME TIME
-    double GAMETIME_MULTIPLIER;
-    int FRAME_LIMIT;
-    bool CAP_FRAMES;
-    
-    //background colour
-    SDL_Color background;
-
-    //Settings and Content managers
-    IO::Settings settings;
-    input::InputManager input;
-    audio::AudioManager audio;
-    graphics::TextureManager textures;
+		//View port
+		etc::Camera camera;
 
 
-    //Battery
-    bool has_battery;
-    //Measured in seconds
-    double last_battery_check;
+		//GAME TIME
+		double GAMETIME_MULTIPLIER;
+		int FRAME_LIMIT;
+		bool CAP_FRAMES;
+
+		//background colour
+		SDL_Color background;
+
+		//Settings and Content managers
+		IO::Settings settings;
+		input::InputManager input;
+		audio::AudioManager audio;
+		graphics::TextureManager textures;
+
+
+		//Battery
+		bool has_battery;
+		//Measured in seconds
+		double last_battery_check;
 };
 
 #endif

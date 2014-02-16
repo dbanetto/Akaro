@@ -21,30 +21,30 @@
 namespace graphics
 {
 
-    class Texture
-    {
-        public:
-            Texture ();
-            Texture (SDL_Renderer* renderer,std::string file);
-            Texture (const Texture& tex);
+	class Texture
+	{
+		public:
+			Texture ();
+			Texture (SDL_Renderer* renderer,std::string file);
+			Texture (const Texture& tex);
 
-            virtual ~Texture ();
+			virtual ~Texture ();
 
-            bool load (SDL_Renderer* renderer,std::string file);
-            bool load (SDL_Renderer* renderer,  std::string file, int columns, int rows);
-            bool load (SDL_Renderer* renderer, std::string file, std::vector<SDL_Rect> sprite_map);
+			bool load (SDL_Renderer* renderer,std::string file);
+			bool load (SDL_Renderer* renderer,  std::string file, int columns, int rows);
+			bool load (SDL_Renderer* renderer, std::string file, std::vector<SDL_Rect> sprite_map);
 
-            SDL_Texture* getTexture();
-            SDL_Rect* getSprite(int column, int row);
-            SDL_Rect* getSprite(int index);
+			SDL_Texture* getTexture();
+			SDL_Rect* getSprite(int column, int row);
+			SDL_Rect* getSprite(int index);
 
-        private:
-            SDL_Texture* texture;
-            std::vector<SDL_Rect> sprite_map;
-            bool is_loaded;
-            int columns;
-            int rows;
-    };
+		private:
+			SDL_Texture* texture;
+			std::vector<SDL_Rect> sprite_map;
+			bool is_loaded;
+			int columns;
+			int rows;
+	};
 
 } /* namespace graphics */
 

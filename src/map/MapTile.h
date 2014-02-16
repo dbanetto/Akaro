@@ -11,22 +11,24 @@
 #include "../graphics/Sprite.h"
 #include <string>
 
-namespace map {
+namespace map
+{
 
-class MapTile: public graphics::Sprite {
-public:
-	MapTile();
-	MapTile (graphics::Texture* texture
-			,SDL_Rect Position
-			, int SpriteMapIndex
-			, double Rotation
-			, SDL_Point CenterofRotation
-			, SDL_RendererFlip flip);
+	class MapTile: public graphics::Sprite
+	{
+		public:
+			MapTile();
+			MapTile (graphics::Texture* texture
+					 ,SDL_Rect Position
+					 , int SpriteMapIndex
+					 , double Rotation
+					 , SDL_Point CenterofRotation
+					 , SDL_RendererFlip flip);
 
-	virtual ~MapTile();
+			virtual ~MapTile();
 
-	void load(std::string config);
-};
+			void load(std::string config);
+	};
 
 } /* namespace map */
 

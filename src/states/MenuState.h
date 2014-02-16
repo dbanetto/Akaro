@@ -16,31 +16,31 @@
 
 class MenuState : public GameState
 {
-public:
-    MenuState(GameStateManager* Manager, GameWindow* gamewindow);
-    virtual
-    ~MenuState();
+	public:
+		MenuState(GameStateManager* Manager, GameWindow* gamewindow);
+		virtual
+		~MenuState();
 
-    //Each frame
-    void render (const Ldouble& delta, SDL_Renderer* renderer , etc::Camera &camera);
-    void update (const Ldouble& delta);
-    void event (SDL_Event e , const Ldouble& delta);
+		//Each frame
+		void render (const Ldouble& delta, SDL_Renderer* renderer , etc::Camera &camera);
+		void update (const Ldouble& delta);
+		void event (SDL_Event e , const Ldouble& delta);
 
-    //Inital un/Load Assests
-    void load   ();
-    void unload ();
+		//Inital un/Load Assests
+		void load   ();
+		void unload ();
 
-private:
-    GameStateManager* manager;
-    GameWindow* window;
+	private:
+		GameStateManager* manager;
+		GameWindow* window;
 
-    //TESTING OBJECTS
-    TTF_Font* font;
-    ui::Label lb;
-    ui::Button bt;
-    graphics::Sprite sheep;
+		//TESTING OBJECTS
+		TTF_Font* font;
+		ui::Label lb;
+		ui::Button bt;
+		graphics::Sprite sheep;
 
-    map::Map map;
+		map::Map map;
 };
 
 #endif /* MENUSTATE_H_ */
