@@ -101,10 +101,10 @@ int GameWindow::init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_F
 
 	settings.load( SETTINGS_PATH , IO::SETTINGS_DUPLICATES_INGORED );
 
-	//Support for Resizable windows
+	//Support for Resizeable windows
 	//Check if the settings contain the option
 	bool resizable;
-	if (settings.getBool ( "window" , "resizable" , &resizable ) == true)
+	if (settings.getBool ( "window" , "resizeable" , &resizable ) == true)
 	{
 		//Evaluate if the option is set on
 		if (resizable)
