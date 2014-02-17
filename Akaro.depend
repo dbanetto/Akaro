@@ -634,3 +634,367 @@
 	"Label.h"
 	<iostream>
 
+1392516265 source:/home/drb/workspace/Akaro/src/audio/AudioManager.cpp
+	"AudioManager.h"
+	<iostream>
+	"../etc/string.h"
+	"../io/file.h"
+
+1392516265 /home/drb/workspace/Akaro/src/audio/AudioManager.h
+	<SDL2/SDL.h>
+	<SDL2/SDL_audio.h>
+	<SDL2/SDL_mixer.h>
+	<SDL.h>
+	"../io/Settings.h"
+	<string>
+	<map>
+
+1392516265 /home/drb/workspace/Akaro/src/io/Settings.h
+	<fstream>
+	<map>
+	<vector>
+	<string>
+
+1392666365 /home/drb/workspace/Akaro/src/etc/string.h
+	<string>
+	<vector>
+
+1392516265 /home/drb/workspace/Akaro/src/io/file.h
+	<string>
+	"../etc/env.h"
+	<SDL2/SDL_filesystem.h>
+	"SDL_filesystem.h"
+
+1392516265 /home/drb/workspace/Akaro/src/etc/env.h
+	<SDL2/SDL_platform.h>
+
+1392516265 source:/home/drb/workspace/Akaro/src/etc/AreaMap.cpp
+	"AreaMap.h"
+	<limits>
+	"../maths/rect.h"
+	<iostream>
+	<cassert>
+	<cmath>
+
+1392516265 /home/drb/workspace/Akaro/src/etc/AreaMap.h
+	"../graphics/drawable.h"
+	<vector>
+
+1392516265 /home/drb/workspace/Akaro/src/graphics/drawable.h
+	<SDL2/SDL.h>
+	"SDL.h"
+	"../etc/Camera.h"
+	"../maths/Point.h"
+
+1392516265 /home/drb/workspace/Akaro/src/etc/Camera.h
+	<SDL2/SDL.h>
+	"define.h"
+
+1392516265 /home/drb/workspace/Akaro/src/etc/define.h
+
+1392516265 /home/drb/workspace/Akaro/src/maths/Point.h
+	<string>
+	"../etc/define.h"
+
+1392516265 /home/drb/workspace/Akaro/src/maths/rect.h
+	<SDL2/SDL.h>
+	"SDL.h"
+
+1392516265 source:/home/drb/workspace/Akaro/src/etc/battery.cpp
+	"battery.h"
+
+1392516265 /home/drb/workspace/Akaro/src/etc/battery.h
+	<SDL2/SDL.h>
+	"SDL.h"
+
+1392516265 source:/home/drb/workspace/Akaro/src/etc/Camera.cpp
+	"Camera.h"
+
+1392516265 source:/home/drb/workspace/Akaro/src/etc/colour.cpp
+	"colour.h"
+
+1392516265 /home/drb/workspace/Akaro/src/etc/colour.h
+	<SDL2/SDL.h>
+	"SDL.h"
+
+1392516265 source:/home/drb/workspace/Akaro/src/etc/env.cpp
+	"env.h"
+	<iostream>
+	<iomanip>
+	<SDL2/SDL.h>
+	<SDL2/SDL_version.h>
+	"SDL.h"
+
+1392516265 source:/home/drb/workspace/Akaro/src/etc/string.cpp
+	"string.h"
+	<cstring>
+	<stdlib.h>
+	<string.h>
+	<sstream>
+	<algorithm>
+	<iterator>
+	<iostream>
+
+1392516265 source:/home/drb/workspace/Akaro/src/etc/Timer.cpp
+	"Timer.h"
+
+1392516265 /home/drb/workspace/Akaro/src/etc/Timer.h
+	<SDL2/SDL_timer.h>
+	"SDL_timer.h"
+	"define.h"
+
+1392516265 source:/home/drb/workspace/Akaro/src/graphics/drawable.cpp
+	"drawable.h"
+
+1392516265 source:/home/drb/workspace/Akaro/src/graphics/Sprite.cpp
+	"Sprite.h"
+	<iostream>
+
+1392516265 /home/drb/workspace/Akaro/src/graphics/Sprite.h
+	"drawable.h"
+	"Texture.h"
+
+1392516265 /home/drb/workspace/Akaro/src/graphics/Texture.h
+	<SDL2/SDL.h>
+	"SDL.h"
+	<string>
+	<vector>
+
+1392516265 source:/home/drb/workspace/Akaro/src/graphics/Texture.cpp
+	"Texture.h"
+	<SDL2/SDL_image.h>
+	"SDL_image.h"
+	<iostream>
+
+1392516265 source:/home/drb/workspace/Akaro/src/graphics/TextureManager.cpp
+	"TextureManager.h"
+
+1392516265 /home/drb/workspace/Akaro/src/graphics/TextureManager.h
+	<SDL2/SDL.h>
+	"SDL.h"
+	<map>
+	<string>
+	"Texture.h"
+
+1392516265 source:/home/drb/workspace/Akaro/src/input/InputManager.cpp
+	"InputManager.h"
+	<iostream>
+
+1392516265 /home/drb/workspace/Akaro/src/input/InputManager.h
+	"InputProvider.h"
+	"../io/Settings.h"
+
+1392516265 /home/drb/workspace/Akaro/src/input/InputProvider.h
+	<string>
+	"../io/Settings.h"
+
+1392516265 source:/home/drb/workspace/Akaro/src/input/InputProvider.cpp
+	"InputProvider.h"
+
+1392516265 source:/home/drb/workspace/Akaro/src/input/KBProvider.cpp
+	"KBProvider.h"
+	"../etc/string.h"
+	<iostream>
+
+1392516265 /home/drb/workspace/Akaro/src/input/KBProvider.h
+	"InputProvider.h"
+	<SDL2/SDL.h>
+	"SDL.h"
+	<string>
+	<vector>
+	<map>
+
+1392516265 source:/home/drb/workspace/Akaro/src/input/PS3Provider.cpp
+	"PS3Provider.h"
+	"../etc/string.h"
+	<iostream>
+
+1392516265 /home/drb/workspace/Akaro/src/input/PS3Provider.h
+	"InputProvider.h"
+	<SDL2/SDL.h>
+	"SDL.h"
+
+1392516265 source:/home/drb/workspace/Akaro/src/io/file.cpp
+	"file.h"
+	<sys/stat.h>
+
+1392666058 source:/home/drb/workspace/Akaro/src/io/Settings.cpp
+	"Settings.h"
+	<iosfwd>
+	<iostream>
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<sstream>
+	<algorithm>
+	<iterator>
+	"../etc/string.h"
+
+1392516265 source:/home/drb/workspace/Akaro/src/main.cpp
+	"GameWindow.h"
+	"etc/colour.h"
+
+1392516265 /home/drb/workspace/Akaro/src/GameWindow.h
+	<SDL2/SDL.h>
+	<SDL2/SDL_ttf.h>
+	<SDL2/SDL_net.h>
+	<SDL2/SDL_mixer.h>
+	<SDL2/SDL_image.h>
+	"SDL.h"
+	"SDL_ttf.h"
+	"SDL_net.h"
+	"SDL_mixer.h"
+	"SDL_image.h"
+	"ui/Label.h"
+	"ui/Button.h"
+	"io/Settings.h"
+	"input/InputManager.h"
+	"etc/battery.h"
+	"states/GameStateManager.h"
+	"audio/AudioManager.h"
+	"graphics/TextureManager.h"
+	"etc/Camera.h"
+
+1392516265 /home/drb/workspace/Akaro/src/ui/Label.h
+	<SDL2/SDL.h>
+	<SDL2/SDL_ttf.h>
+	"SDL.h"
+	"SDL_tff.h"
+	<string>
+	"../graphics/drawable.h"
+
+1392516265 /home/drb/workspace/Akaro/src/ui/Button.h
+	<SDL2/SDL.h>
+	"SDL.h"
+	"../graphics/drawable.h"
+	"Label.h"
+
+1392516265 /home/drb/workspace/Akaro/src/states/GameStateManager.h
+	<map>
+	"GameState.h"
+
+1392516265 /home/drb/workspace/Akaro/src/states/GameState.h
+	<SDL2/SDL.h>
+	"SDL.h"
+	"../etc/define.h"
+	"../etc/Camera.h"
+
+1392665513 source:/home/drb/workspace/Akaro/src/map/Map.cpp
+	"Map.h"
+	<fstream>
+	<iostream>
+	"../etc/string.h"
+	<SDL2/SDL.h>
+	"SDL.h"
+
+1392516265 /home/drb/workspace/Akaro/src/map/Map.h
+	"../etc/AreaMap.h"
+	"MapTile.h"
+	<string>
+	<vector>
+	"../graphics/TextureManager.h"
+
+1392516265 /home/drb/workspace/Akaro/src/map/MapTile.h
+	"../graphics/Sprite.h"
+	<string>
+
+1392516265 source:/home/drb/workspace/Akaro/src/map/MapTile.cpp
+	"MapTile.h"
+
+1392516265 source:/home/drb/workspace/Akaro/src/maths/area.cpp
+	"area.h"
+	<iostream>
+	<vector>
+	<limits>
+	"math.h"
+	<algorithm>
+	"vector.h"
+
+1392516265 /home/drb/workspace/Akaro/src/maths/area.h
+	<SDL2/SDL.h>
+	"SDL.h"
+	<vector>
+	"Point.h"
+
+1392516265 /home/drb/workspace/Akaro/src/maths/vector.h
+	<SDL2/SDL.h>
+	"SDL.h"
+	<vector>
+	"Point.h"
+
+1392516265 source:/home/drb/workspace/Akaro/src/maths/dist/normal.cpp
+	"normal.h"
+
+1392516265 /home/drb/workspace/Akaro/src/maths/dist/normal.h
+
+1392516265 source:/home/drb/workspace/Akaro/src/maths/dist/triangular.cpp
+	"triangular.h"
+	<random>
+	"../area.h"
+	"../Point.h"
+	<iostream>
+
+1392516265 /home/drb/workspace/Akaro/src/maths/dist/triangular.h
+
+1392516265 source:/home/drb/workspace/Akaro/src/maths/Point.cpp
+	"Point.h"
+	"../etc/string.h"
+
+1392516265 source:/home/drb/workspace/Akaro/src/maths/rect.cpp
+	"rect.h"
+
+1392516265 source:/home/drb/workspace/Akaro/src/maths/vector.cpp
+	"vector.h"
+	<cmath>
+	<vector>
+
+1392516265 source:/home/drb/workspace/Akaro/src/states/GameState.cpp
+	"GameState.h"
+	<iostream>
+
+1392516265 source:/home/drb/workspace/Akaro/src/states/GameStateManager.cpp
+	"GameStateManager.h"
+
+1392665654 source:/home/drb/workspace/Akaro/src/states/MenuState.cpp
+	"MenuState.h"
+	"../etc/env.h"
+	"../etc/string.h"
+	"../io/file.h"
+	<iostream>
+	"../etc/colour.h"
+	"../etc/Camera.h"
+
+1392516265 /home/drb/workspace/Akaro/src/states/MenuState.h
+	"GameState.h"
+	"GameStateManager.h"
+	"../GameWindow.h"
+	"../graphics/Sprite.h"
+	"../map/Map.h"
+
+1392516265 source:/home/drb/workspace/Akaro/src/ui/Button.cpp
+	"Button.h"
+	"../etc/colour.h"
+	<iostream>
+
+1392666543 source:/home/drb/workspace/Akaro/src/ui/Label.cpp
+	"Label.h"
+	<iostream>
+
+1392666634 source:/home/drb/workspace/Akaro/src/GameWindow.cpp
+	<iostream>
+	"etc/Timer.h"
+	<string>
+	<stdlib.h>
+	<sstream>
+	"etc/env.h"
+	"io/file.h"
+	"GameWindow.h"
+	"etc/string.h"
+	"etc/colour.h"
+	<iomanip>
+	<ctime>
+	"states/MenuState.h"
+	"input/KBProvider.h"
+	"input/PS3Provider.h"
+	<cmath>
+
