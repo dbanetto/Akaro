@@ -30,5 +30,9 @@
 #Data Folder (Is anotehr repo)
 /data
 
+#Code Blocks
+*.depend
+*.layout
+
 #Sublime Text Files
 *.sublime*
