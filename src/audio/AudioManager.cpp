@@ -15,7 +15,7 @@ namespace audio
 
 	AudioManager::AudioManager ()
 	{
-		this->device_id = 1;
+		this->device_id = 0;
 		this->volume = 100;
 	}
 

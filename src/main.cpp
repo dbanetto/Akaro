@@ -6,10 +6,15 @@
 
 #include "GameWindow.h"
 #include "etc/colour.h"
+#include "content.h"
 
 int main (int argc, char* argv[])
 {
-	GameWindow gm;
+	Content content;
+	//Load base content
+	content.load();
+
+	GameWindow gm = GameWindow (&content);
 
 	//Make sure the window init'ed properly
 	if ( gm.init ( "Akaro" , etc::toColour(4,107,19 , 100) , SDL_WINDOW_OPENGL ) == 0 )

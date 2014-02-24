@@ -17,7 +17,7 @@
 class MenuState : public GameState
 {
 	public:
-		MenuState(GameStateManager* Manager, GameWindow* gamewindow);
+		MenuState(GameStateManager* Manager, GameWindow* gamewindow , Content* content);
 		virtual
 		~MenuState();
 
@@ -32,6 +32,7 @@ class MenuState : public GameState
 
 	private:
 		GameStateManager* manager;
+		Content* content;
 		GameWindow* window;
 
 		//TESTING OBJECTS

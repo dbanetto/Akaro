@@ -24,16 +24,9 @@
 #include "SDL_image.h"
 #endif
 
-#include "ui/Label.h"
-#include "ui/Button.h"
-#include "io/Settings.h"
-#include "input/InputManager.h"
-#include "etc/battery.h"
-#include "states/GameStateManager.h"
-#include "audio/AudioManager.h"
+#include "content.h"
 #include "graphics/TextureManager.h"
 #include "etc/Camera.h"
-
 
 //TODO : Support Multiple 'Game States'
 
@@ -43,7 +36,7 @@
 class GameWindow
 {
 	public:
-		GameWindow();
+		GameWindow(Content* content);
 		virtual ~GameWindow();
 
 		int init(const char* TITLE , SDL_Color BACKGROUND_COLOUR ,  int SDL_SCREEN_FLAGS );
@@ -51,12 +44,7 @@ class GameWindow
 		void start(void);
 		int CURRENT_FPS;
 
-		//Get Settings and Content Managers
-		IO::Settings* getSettings();
-		input::InputManager * getInputManager();
-		audio::AudioManager* getAudio();
 		graphics::TextureManager* getTextures();
-
 	protected:
 		void render(const Ldouble& delta);
 		void update(const Ldouble& delta);
@@ -68,16 +56,17 @@ class GameWindow
 		//util functions
 		void screenshot();
 	private:
-		GameStateManager gamestate;
+
 
 		//Private variables
 		SDL_Renderer* renderer;
 		SDL_Window*   window;
 		bool inited, quit;
 
-		//View port
+		//Content and Graphics
+		Content* content;
 		etc::Camera camera;
-
+		graphics::TextureManager textures;
 
 		//GAME TIME
 		double GAMETIME_MULTIPLIER;
@@ -86,13 +75,6 @@ class GameWindow
 
 		//background colour
 		SDL_Color background;
-
-		//Settings and Content managers
-		IO::Settings settings;
-		input::InputManager input;
-		audio::AudioManager audio;
-		graphics::TextureManager textures;
-
 
 		//Battery
 		bool has_battery;

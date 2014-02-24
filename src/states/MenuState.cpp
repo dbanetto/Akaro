@@ -15,11 +15,12 @@
 
 
 
-MenuState::MenuState(GameStateManager* Manager, GameWindow* Window)
+MenuState::MenuState(GameStateManager* Manager, GameWindow* Window, Content* ccontent)
 	: GameState()
 {
 	this->manager = Manager;
 	this->window = Window;
+	this->content = ccontent;
 	this->font = nullptr;
 }
 
@@ -50,25 +51,25 @@ void MenuState::update (const Ldouble& delta)
 	this->bt.update(delta);
 	this->map.update(delta);
 
-	if (this->window->getInputManager()->checkInput("sheep" , "up") == true)
+	if (this->content->Input()->checkInput("sheep" , "up") == true)
 	{
 		sheep.setSpriteMapIndex(3);
 		sheep.changePosition(0,-SPEED*delta);
 		sheep.setFlip(SDL_FLIP_NONE);
 	}
-	if (this->window->getInputManager()->checkInput( "sheep" , "down") == true)
+	if (this->content->Input()->checkInput( "sheep" , "down") == true)
 	{
 		sheep.setSpriteMapIndex(2);
 		sheep.changePosition(0,SPEED*delta);
 		sheep.setFlip(SDL_FLIP_NONE);
 	}
-	if (this->window->getInputManager()->checkInput( "sheep" , "left") == true)
+	if (this->content->Input()->checkInput( "sheep" , "left") == true)
 	{
 		sheep.setSpriteMapIndex(0);
 		sheep.changePosition(-SPEED*delta,0);
 		sheep.setFlip(SDL_FLIP_NONE);
 	}
-	if (this->window->getInputManager()->checkInput( "sheep" , "right") == true)
+	if (this->content->Input()->checkInput( "sheep" , "right") == true)
 	{
 		sheep.setSpriteMapIndex(0);
 		sheep.changePosition(SPEED*delta,0);
@@ -87,7 +88,7 @@ void MenuState::load ()
 {
 	//TESTING ZONE
 	std::string str = "";
-	if ( this->window->getSettings()->get("ui" , "font" , &str) )
+	if ( this->content->Settings()->get("ui" , "font" , &str) )
 	{
 		if  ( IO::fileExists ( str ) )
 		{
@@ -147,8 +148,12 @@ void MenuState::load ()
 
 void MenuState::unload ()
 {
+	this->is_loaded = false;
 	this->map.unloadMap();
-	TTF_CloseFont( this->font );
-	this->font = nullptr;
-	is_loaded = false;
+	if (this->font != nullptr)
+	{
+		TTF_CloseFont( this->font );
+		this->font = nullptr;
+	}
+
 }

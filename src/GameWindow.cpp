@@ -24,7 +24,7 @@
 /**
  * @brief Initializes a new instance of the GameWindow class.
  */
-GameWindow::GameWindow(void)
+GameWindow::GameWindow(Content* content)
 {
 	this->inited = false;
 	this->GAMETIME_MULTIPLIER = 1.0;
@@ -35,14 +35,14 @@ GameWindow::GameWindow(void)
 	this->quit = false;
 	this->CURRENT_FPS = -1;
 
-	settings = IO::Settings ( IO::SETTING_LOAD_ON_REQUEST );
-
 	CAP_FRAMES = false;
 	this->FRAME_LIMIT = 0;
 
 	//battery
 	this->has_battery = false;
 	this->last_battery_check = 0;
+
+	this->content = content;
 }
 
 
@@ -53,21 +53,12 @@ GameWindow::~GameWindow(void)
 {
 	if (this->inited)
 	{
-		//Clear Settings
-		this->settings.clear();
-
 		//Unload the Game Data
 		this->unload();
 
 		//Destroy the window/renderer
 		SDL_DestroyRenderer ( this->renderer );
 		SDL_DestroyWindow   ( this->window );
-
-		//Shutdown inited services in reverse order of init
-		TTF_Quit();
-		Mix_Quit();
-		IMG_Quit();
-		SDL_Quit();
 	}
 }
 
@@ -85,26 +76,10 @@ int GameWindow::init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_F
 	if (this->inited)
 		return 0;
 
-	if (IO::fileExists( SETTINGS_PATH ) == false)
-	{
-		std::cout << TITLE << " could not initialize due to the settings file "
-				  << SETTINGS_PATH << " does not exist." ;
-		return -1;
-	}
-
-	if (IO::fileExists( INPUT_SETTINGS_FILE ) == false)
-	{
-		std::cout << TITLE << " could not initialize due to the settings file "
-				  << INPUT_SETTINGS_FILE << " does not exist." ;
-		return -1;
-	}
-
-	settings.load( SETTINGS_PATH , IO::SETTINGS_DUPLICATES_INGORED );
-
 	//Support for Resizeable windows
 	//Check if the settings contain the option
 	bool resizable;
-	if (settings.getBool ( "window" , "resizeable" , &resizable ) == true)
+	if (this->content->Settings()->getBool ( "window" , "resizeable" , &resizable ) == true)
 	{
 		//Evaluate if the option is set on
 		if (resizable)
@@ -117,7 +92,7 @@ int GameWindow::init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_F
 	//Support for fullscreen windows
 	//Check if the settings contain the option
 	bool fullscreen;
-	if (settings.getBool ( "window" , "fullscreen", &fullscreen ) == true)
+	if (this->content->Settings()->getBool ( "window" , "fullscreen", &fullscreen ) == true)
 	{
 		//Evaluate if the option is set on
 		if (fullscreen)
@@ -132,40 +107,8 @@ int GameWindow::init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_F
 		}
 	}
 
-	//Start SDL
-	if ( SDL_Init(SDL_INIT_EVERYTHING) == -1)
-	{
-		std::cout << "An error has occurred" << std::endl << SDL_GetError() << std::endl;
-		std::cerr << SDL_GetError() << std::endl;
-		return 1;
-	}
-
-	//Start SDL_image
-	if ( IMG_Init(IMG_INIT_PNG|IMG_INIT_JPG) == 0)
-	{
-		std::cout << "An error has occurred" << std::endl << SDL_GetError() << std::endl;
-		std::cerr << SDL_GetError() << std::endl;
-		return 1;
-	}
-
-	//Start SDL_mixer
-	if ( Mix_Init(MIX_INIT_MP3) == 0)
-	{
-		std::cout << "An error has occurred" << std::endl << SDL_GetError() << std::endl;
-		std::cerr << SDL_GetError() << std::endl;
-		return 1;
-	}
-
-	//Start SDL_ttf
-	if ( TTF_Init() == -1)
-	{
-		std::cout << "An error has occurred" << std::endl << SDL_GetError() << std::endl;
-		std::cerr << SDL_GetError() << std::endl;
-		return 1;
-	}
-
 	int display = 0;
-	settings.getInt ( "window" , "display" , &display );
+	this->content->Settings()->getInt ( "window" , "display" , &display );
 
 
 	//Set display to be rendered to
@@ -176,10 +119,10 @@ int GameWindow::init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_F
 	}
 
 	int WIDTH = 800;
-	if (this->settings.getInt( "window" , "width" , &WIDTH ) == false)
+	if (this->content->Settings()->getInt( "window" , "width" , &WIDTH ) == false)
 	{
 		std::string native;
-		if (this->settings.get ("window" , "width" , &native) == true)
+		if (this->content->Settings()->get ("window" , "width" , &native) == true)
 		{
 			if (native == "native")
 			{
@@ -198,10 +141,10 @@ int GameWindow::init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_F
 	}
 
 	int HIEGHT = 600;
-	if (this->settings.getInt( "window" , "height" , &HIEGHT ) == false)
+	if (this->content->Settings()->getInt( "window" , "height" , &HIEGHT ) == false)
 	{
 		std::string native;
-		if (this->settings.get ("window" , "height" , &native) == true)
+		if (this->content->Settings()->get ("window" , "height" , &native) == true)
 		{
 			if (native == "native")
 			{
@@ -244,7 +187,7 @@ int GameWindow::init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_F
 	//Support for SDL_Render VSync
 	//Check if the settings contain the option
 	bool vsync;
-	if (settings.getBool ( "window" , "vsync" , &vsync))
+	if (this->content->Settings()->getBool ( "window" , "vsync" , &vsync))
 	{
 		//Evaluate if the option is set on
 		if (vsync)
@@ -255,7 +198,7 @@ int GameWindow::init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_F
 	}
 
 	int FRAME_LIMIT = display_mode.refresh_rate;
-	if (settings.getInt ( "window" , "framelimit" , &FRAME_LIMIT))
+	if (this->content->Settings()->getInt ( "window" , "framelimit" , &FRAME_LIMIT))
 	{
 		std::cout << FRAME_LIMIT << std::endl;
 		if (FRAME_LIMIT > 0)
@@ -415,16 +358,16 @@ void GameWindow::start(void)
  */
 void GameWindow::load()
 {
-	if (this->has_battery && this->settings.exists("battery"))
+	if (this->has_battery && this->content->Settings()->exists("battery"))
 	{
 		//Load Battery Settings
-		this->settings.load_section( "battery" , IO::SETTINGS_DUPLICATES_INGORED );
+		this->content->Settings()->load_section( "battery" , IO::SETTINGS_DUPLICATES_INGORED );
 
 		//Set the warning level
-		if ( this->settings.exists("battery" , "warn") )
+		if ( this->content->Settings()->exists("battery" , "warn") )
 		{
 			std::string warn_amount;
-			this->settings.get("battery" , "warn" , &warn_amount);
+			this->content->Settings()->get("battery" , "warn" , &warn_amount);
 
 			//If it is a percentage
 			if (etc::endswith(warn_amount , "%"))
@@ -442,45 +385,29 @@ void GameWindow::load()
 		}
 
 		//Set the check interval
-		if ( this->settings.exists("battery" , "interval") )
+		if ( this->content->Settings()->exists("battery" , "interval") )
 		{
 			std::string warn_interval;
-			this->settings.get("battery" , "interval" , &warn_interval);
+			this->content->Settings()->get("battery" , "interval" , &warn_interval);
 			etc::batterySetCheckInterval( etc::timeToInt( warn_interval ) );
 		}
 
 		//Check if this feature is wanted to be enabled
-		if ( this->settings.exists("battery" , "enable") )
+		if ( this->content->Settings()->exists("battery" , "enable") )
 		{
 			bool enable_bat = false;
-			this->settings.getBool( "battery" , "enable" , &enable_bat );
+			this->content->Settings()->getBool( "battery" , "enable" , &enable_bat );
 			//If the settings say disable, the battery check in GameWindow is disabled
 			this->has_battery = enable_bat;
 		}
 
 	}
 
-	etc::printSystemInfo();
-
-	//INPUT
-	input.load( INPUT_SETTINGS_FILE , IO::SETTINGS_DUPLICATES_INGORED , IO::SETTING_LOAD_ON_REQUEST);
-	input.add_provider("kb" , new input::KBProvider() );
-
-	if (this->settings.exists("Controller" , "ps3.enable"))
-	{
-		bool enable = false;
-		this->settings.getBool( "Controller" , "ps3.enable" , &enable );
-		if (enable)
-		{
-			input.add_provider("ps3" , new input::PS3Provider() );
-		}
-	}
-
 	//GAME STATES
-	this->gamestate.add_state( "menu" ,  new MenuState(&(this->gamestate) , (this)) );
-	this->gamestate.set_state( "menu" );
+	this->content->Gamestate()->add_state( "menu" ,  new MenuState( this->content->Gamestate()  , (this)  , this->content ) );
+	this->content->Gamestate()->set_state( "menu" );
 
-	audio.load_settings( &(this->settings) );
+	etc::printSystemInfo();
 }
 
 /**
@@ -488,12 +415,7 @@ void GameWindow::load()
  */
 void GameWindow::unload()
 {
-	if (this->gamestate.current != nullptr)
-	{
-		this->gamestate.current->unload();
-	}
-
-	this->audio.unloadall();
+    //TODO : Unload Textures
 }
 
 /**
@@ -502,9 +424,9 @@ void GameWindow::unload()
  */
 void GameWindow::render(const Ldouble& delta)
 {
-	if (this->gamestate.current != nullptr)
+	if (this->content->Gamestate()->current != nullptr)
 	{
-		this->gamestate.current->render(delta, this->renderer , this->camera);
+		this->content->Gamestate()->current->render(delta, this->renderer , this->camera);
 	}
 }
 
@@ -535,11 +457,11 @@ void GameWindow::update(const Ldouble& delta)
 
 
 	SDL_PumpEvents();
-	this->input.update(delta);
+	this->content->Input()->update(delta);
 
-	if (this->gamestate.current != nullptr)
+	if (this->content->Gamestate()->current != nullptr)
 	{
-		this->gamestate.current->update(delta);
+		this->content->Gamestate()->current->update(delta);
 	}
 
 	SDL_Event event;
@@ -636,24 +558,9 @@ void GameWindow::screenshot()
 
 
 }
-/**
- * @brief Returns a pointer to the Window Settings
- */
-IO::Settings* GameWindow::getSettings ()
-{
-	return &(this->settings);
-}
+
 
 graphics::TextureManager* GameWindow::getTextures()
 {
 	return &(this->textures);
-}
-
-input::InputManager * GameWindow::getInputManager()
-{
-	return &(this->input);
-}
-audio::AudioManager* GameWindow::getAudio()
-{
-	return &(this->audio);
 }
