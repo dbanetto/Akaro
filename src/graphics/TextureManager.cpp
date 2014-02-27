@@ -22,6 +22,7 @@ namespace graphics
 
 	TextureManager::~TextureManager ()
 	{
+	    this->unload();
 	}
 
 	bool TextureManager::load ( std::string file , std::string name )
@@ -41,6 +42,16 @@ namespace graphics
 		{
 			return false;
 		}
+	}
+
+	void TextureManager::unload()
+	{
+	    for (auto tex : this->textures)
+	    {
+	        SDL_DestroyTexture( tex.second.getTexture() );
+	    }
+	    this->textures.clear();
+
 	}
 
 	bool TextureManager::exists (std::string name)

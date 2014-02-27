@@ -80,7 +80,7 @@ namespace IO
 
 			void load_section (std::string header , SettingsDuplicateFlags flag);
 			void unload_section (std::string header);
-
+			void unload();
 			bool exists (std::string header , std::string  key);
 			bool exists (std::string header);
 

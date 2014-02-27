@@ -26,11 +26,7 @@ Content::Content()
 
 Content::~Content()
 {
-	//Shutdown inited services in reverse order of init
-	TTF_Quit();
-	Mix_Quit();
-	IMG_Quit();
-	SDL_Quit();
+
 }
 
 int Content::load()
@@ -116,6 +112,19 @@ int Content::load()
 	return 0;
 }
 
+void Content::unload()
+{
+    this->audio.unloadall();
+    this->gamestate.unload();
+    this->input.unload();
+    this->settings.unload();
+
+    //Shutdown inited services in reverse order of init
+    TTF_Quit();
+    Mix_Quit();
+    IMG_Quit();
+    SDL_Quit();
+}
 /**
  * @brief Returns a pointer to the Window Settings
  */

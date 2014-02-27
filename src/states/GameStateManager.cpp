@@ -14,15 +14,21 @@ GameStateManager::GameStateManager()
 
 GameStateManager::~GameStateManager()
 {
-	// Delete all the GameStates as they were made with new statements
-	for (auto& obj : this->states)
-	{
-		if (obj.second->is_loaded)
-		{
-			obj.second->unload();
-		}
-		delete obj.second;
-	}
+	this->unload();
+}
+
+void GameStateManager::unload()
+{
+    // Delete all the GameStates as they were made with new statements
+    for (auto& obj : this->states)
+    {
+        if (obj.second->is_loaded)
+        {
+            obj.second->unload();
+        }
+        delete obj.second;
+    }
+    this->states.clear();
 }
 
 void GameStateManager::set_state (std::string state_name)

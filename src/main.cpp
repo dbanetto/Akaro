@@ -21,6 +21,8 @@ int main (int argc, char* argv[])
 	{
 		//14 - Start the game already!
 		gm.start();
+
 	}
+	content.unload();
 	return 0;
 }

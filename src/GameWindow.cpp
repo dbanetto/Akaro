@@ -416,6 +416,7 @@ void GameWindow::load()
 void GameWindow::unload()
 {
     //TODO : Unload Textures
+    this->textures.unload();
 }
 
 /**

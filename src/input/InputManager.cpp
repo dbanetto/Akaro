@@ -18,14 +18,20 @@ namespace input
 
 	InputManager::~InputManager ()
 	{
-		for (auto& obj : this->providers)
-		{
-			if (obj.second->is_loaded)
-			{
-				obj.second->unload();
-			}
-			delete obj.second;
-		}
+		this->unload();
+	}
+
+	void InputManager::unload()
+	{
+	    for (auto& obj : this->providers)
+        {
+            if (obj.second->is_loaded)
+            {
+                obj.second->unload();
+            }
+            delete obj.second;
+        }
+	    this->providers.clear();
 	}
 
 	bool InputManager::add_provider (std::string provider_name , InputProvider* provider)

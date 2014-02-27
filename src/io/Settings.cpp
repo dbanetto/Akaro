@@ -34,7 +34,12 @@ Settings::Settings(SettingsLoadFlags flag)
 
 Settings::~Settings()
 {
-	this->stored_settings.clear();
+	this->unload();
+}
+
+void Settings::unload()
+{
+    this->stored_settings.clear();
 }
 
 /**

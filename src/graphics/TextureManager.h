@@ -34,6 +34,8 @@ namespace graphics
 
 			Texture* getTexture (std::string name);
 
+			void unload ();
+
 		private:
 			std::map<std::string,Texture> textures;
 			SDL_Renderer* renderer;

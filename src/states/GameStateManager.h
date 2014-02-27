@@ -22,6 +22,8 @@ class GameStateManager
 
 		bool exists (std::string state_name);
 
+		void unload();
+
 		GameState* current;
 		std::string current_name;
 	private:
