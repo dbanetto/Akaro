@@ -21,12 +21,6 @@
 */doc/man/*
 */doc/latex/*
 
-
-
-#Eclipse Project Files
-.cproject
-.project
-
 #Data Folder (Is anotehr repo)
 /data
 
