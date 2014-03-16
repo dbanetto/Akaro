@@ -1,0 +1,28 @@
+/*
+    Author : David Barnett
+    Date   : 03-10-2013
+    License: MIT License
+*/
+
+#include "GameWindow.h"
+#include "etc/colour.h"
+#include "content.h"
+
+int main (int argc, char* argv[])
+{
+	Content content;
+	//Load base content
+	content.load();
+
+	GameWindow gm = GameWindow (&content);
+
+	//Make sure the window init'ed properly
+	if ( gm.init ( "Akaro" , etc::toColour(4,107,19 , 100) , SDL_WINDOW_OPENGL ) == 0 )
+	{
+		//14 - Start the game already!
+		gm.start();
+
+	}
+	content.unload();
+	return 0;
+}

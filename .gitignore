@@ -17,9 +17,9 @@
 /obj/*
 
 # Doxygen Generated Doc
-/doc/html/*
-/doc/man/*
-/doc/latex/*
+*/doc/html/*
+*/doc/man/*
+*/doc/latex/*
 
 
 

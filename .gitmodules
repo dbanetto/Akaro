@@ -1,0 +1,3 @@
+[submodule "Akaro/data"]
+	path = Akaro/data
+	url = git@192.168.0.164:Akaro-data/.git

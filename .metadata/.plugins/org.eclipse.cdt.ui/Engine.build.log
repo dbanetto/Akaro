@@ -1,0 +1,6 @@
+14:58:14 **** Incremental Build of configuration Release for project Engine ****
+Info: Internal Builder is used for build
+g++ -shared -o libEngine.dll "src\\ui\\Label.o" "src\\ui\\Button.o" "src\\states\\MenuState.o" "src\\states\\GameStateManager.o" "src\\states\\GameState.o" "src\\maths\\vector.o" "src\\maths\\rect.o" "src\\maths\\dist\\triangular.o" "src\\maths\\dist\\normal.o" "src\\maths\\area.o" "src\\maths\\Point.o" "src\\map\\MapTile.o" "src\\map\\Map.o" "src\\io\\file.o" "src\\io\\Settings.o" "src\\input\\PS3Provider.o" "src\\input\\KBProvider.o" "src\\input\\InputProvider.o" "src\\input\\InputManager.o" "src\\graphics\\drawable.o" "src\\graphics\\TextureManager.o" "src\\graphics\\Texture.o" "src\\graphics\\Sprite.o" "src\\etc\\string.o" "src\\etc\\env.o" "src\\etc\\colour.o" "src\\etc\\battery.o" "src\\etc\\Timer.o" "src\\etc\\Camera.o" "src\\etc\\AreaMap.o" "src\\content.o" "src\\audio\\AudioManager.o" "src\\GameWindow.o" -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_net -lSDL2_mixer 
+
+14:58:14 Build Finished (took 412ms)
+
