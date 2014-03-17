@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_workspace_file>
+	<Workspace title="Akaro">
+		<Project filename="Engine/Engine.cbp" />
+		<Project filename="Akaro/Akaro.cbp">
+			<Depends filename="Engine/Engine.cbp" />
+		</Project>
+	</Workspace>
+</CodeBlocks_workspace_file>
