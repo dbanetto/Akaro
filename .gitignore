@@ -2,6 +2,7 @@
 *.slo
 *.lo
 *.o
+*.mk
 
 # Compiled Dynamic libraries
 *.so
@@ -11,22 +12,22 @@
 *.lai
 *.la
 *.a
-/Debug/*
-/Release/*
-/bin/*
-/obj/*
+*/Debug/*
+*/Release/*
+*/bin/*
+*/obj/*
 
 # Doxygen Generated Doc
 */doc/html/*
 */doc/man/*
 */doc/latex/*
 
-#Data Folder (Is anotehr repo)
-/data
-
 #Code Blocks
 *.depend
 *.layout
+
+#Eclipse Workspace metadata
+.metadata/*
 
 #Sublime Text Files
 *.sublime*
