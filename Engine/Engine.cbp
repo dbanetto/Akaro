@@ -6,20 +6,53 @@
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
-			<Target title="Debug">
-				<Option output="bin/Debug/Engine" prefix_auto="1" extension_auto="1" />
+			<Target title="Debug Win">
+				<Option platforms="Windows;" />
+				<Option output="bin/Debug/Engine" imp_lib="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).a" def_file="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).def" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
-				<Option type="1" />
+				<Option type="3" />
 				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>
 			</Target>
-			<Target title="Release">
-				<Option output="bin/Release/Engine" prefix_auto="1" extension_auto="1" />
+			<Target title="Release Win">
+				<Option platforms="Windows;" />
+				<Option output="bin/Release/Engine" imp_lib="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).a" def_file="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).def" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
-				<Option type="1" />
+				<Option type="3" />
 				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+			<Target title="Debug Unix">
+				<Option platforms="Unix;Mac;" />
+				<Option output="bin/Debug/Engine" imp_lib="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).a" def_file="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).def" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release Unix">
+				<Option platforms="Unix;Mac;" />
+				<Option output="bin/Release/Engine" imp_lib="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).a" def_file="$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).def" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
 				<Compiler>
 					<Add option="-O2" />
 				</Compiler>
@@ -28,9 +61,88 @@
 				</Linker>
 			</Target>
 		</Build>
+		<VirtualTargets>
+			<Add alias="Debug x64" targets="Debug Win;" />
+		</VirtualTargets>
 		<Compiler>
+			<Add option="-std=c++11" />
 			<Add option="-Wall" />
+			<Add option="-fPIC" />
 		</Compiler>
+		<Linker>
+			<Add library="SDL2" />
+			<Add library="SDL2_mixer" />
+			<Add library="SDL2_ttf" />
+			<Add library="SDL2_image" />
+			<Add library="SDL2_net" />
+		</Linker>
+		<Unit filename="src/GameWindow.cpp" />
+		<Unit filename="src/GameWindow.h" />
+		<Unit filename="src/audio/AudioManager.cpp" />
+		<Unit filename="src/audio/AudioManager.h" />
+		<Unit filename="src/content.cpp" />
+		<Unit filename="src/content.h" />
+		<Unit filename="src/etc/AreaMap.cpp" />
+		<Unit filename="src/etc/AreaMap.h" />
+		<Unit filename="src/etc/Camera.cpp" />
+		<Unit filename="src/etc/Camera.h" />
+		<Unit filename="src/etc/Timer.cpp" />
+		<Unit filename="src/etc/Timer.h" />
+		<Unit filename="src/etc/battery.cpp" />
+		<Unit filename="src/etc/battery.h" />
+		<Unit filename="src/etc/colour.cpp" />
+		<Unit filename="src/etc/colour.h" />
+		<Unit filename="src/etc/define.h" />
+		<Unit filename="src/etc/env.cpp" />
+		<Unit filename="src/etc/env.h" />
+		<Unit filename="src/etc/string.cpp" />
+		<Unit filename="src/etc/string.h" />
+		<Unit filename="src/graphics/Sprite.cpp" />
+		<Unit filename="src/graphics/Sprite.h" />
+		<Unit filename="src/graphics/Texture.cpp" />
+		<Unit filename="src/graphics/Texture.h" />
+		<Unit filename="src/graphics/TextureManager.cpp" />
+		<Unit filename="src/graphics/TextureManager.h" />
+		<Unit filename="src/graphics/drawable.cpp" />
+		<Unit filename="src/graphics/drawable.h" />
+		<Unit filename="src/input/InputManager.cpp" />
+		<Unit filename="src/input/InputManager.h" />
+		<Unit filename="src/input/InputProvider.cpp" />
+		<Unit filename="src/input/InputProvider.h" />
+		<Unit filename="src/input/KBProvider.cpp" />
+		<Unit filename="src/input/KBProvider.h" />
+		<Unit filename="src/input/PS3Provider.cpp" />
+		<Unit filename="src/input/PS3Provider.h" />
+		<Unit filename="src/io/Settings.cpp" />
+		<Unit filename="src/io/Settings.h" />
+		<Unit filename="src/io/file.cpp" />
+		<Unit filename="src/io/file.h" />
+		<Unit filename="src/map/Map.cpp" />
+		<Unit filename="src/map/Map.h" />
+		<Unit filename="src/map/MapTile.cpp" />
+		<Unit filename="src/map/MapTile.h" />
+		<Unit filename="src/maths/Point.cpp" />
+		<Unit filename="src/maths/Point.h" />
+		<Unit filename="src/maths/area.cpp" />
+		<Unit filename="src/maths/area.h" />
+		<Unit filename="src/maths/dist/normal.cpp" />
+		<Unit filename="src/maths/dist/normal.h" />
+		<Unit filename="src/maths/dist/triangular.cpp" />
+		<Unit filename="src/maths/dist/triangular.h" />
+		<Unit filename="src/maths/rect.cpp" />
+		<Unit filename="src/maths/rect.h" />
+		<Unit filename="src/maths/vector.cpp" />
+		<Unit filename="src/maths/vector.h" />
+		<Unit filename="src/states/GameState.cpp" />
+		<Unit filename="src/states/GameState.h" />
+		<Unit filename="src/states/GameStateManager.cpp" />
+		<Unit filename="src/states/GameStateManager.h" />
+		<Unit filename="src/states/MenuState.cpp" />
+		<Unit filename="src/states/MenuState.h" />
+		<Unit filename="src/ui/Button.cpp" />
+		<Unit filename="src/ui/Button.h" />
+		<Unit filename="src/ui/Label.cpp" />
+		<Unit filename="src/ui/Label.h" />
 		<Extensions>
 			<envvars />
 			<code_completion />
