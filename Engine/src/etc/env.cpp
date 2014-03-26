@@ -1,3 +1,4 @@
+
 /*
  * env.cpp
  *
@@ -24,9 +25,15 @@ namespace etc
 	void printSystemInfo()
 	{
 		//Render Devices
+
+		//Version
 		SDL_version ver;
 		SDL_GetVersion( &ver );
-		std::cout << "SDL Version : " << (int)(ver.major) << "." << (int)(ver.minor) << "." << (int)(ver.patch) << std::endl;
+		std::cout << "SDL Running Version : " << (int)(ver.major) << "." << (int)(ver.minor) << "." << (int)(ver.patch) << std::endl;
+		//Linked Version
+		SDL_VERSION( &ver );
+		std::cout << "SDL Build Version : " << (int)(ver.major) << "." << (int)(ver.minor) << "." << (int)(ver.patch) << std::endl;
+
 		std::cout << "Platform : " << SDL_GetPlatform() << std::endl;
 
 		char* base_path;
@@ -78,7 +85,7 @@ namespace etc
 		std::cout << "Has Alti Vec : " << ( SDL_HasAltiVec()  == 1 ? "true" : "false" ) << std::endl;
 		std::cout << "Has MMX : " << ( SDL_HasMMX() == 1 ? "true" : "false" ) << std::endl;
 		std::cout << "Has RDTSC : " << ( SDL_HasRDTSC() == 1 ? "true" : "false" ) << std::endl;
-
+		std::cout << "Has AVX : "  <<  ( SDL_HasAVX() == 1 ? "true" : "false") << std::endl;
 		std::cout << std::endl;
 
 		//SSE Check
@@ -196,6 +203,19 @@ namespace etc
 		}
 
 		std::cout << std::endl;
+
+		//Touch Device
+		std::cout << "Number of Touch Devices : " << SDL_GetNumTouchDevices() << std::endl;
+        for (int i = 0; i < SDL_GetNumTouchDevices(); i++)
+		{
+			SDL_TouchID touch = SDL_GetTouchDevice(i);
+			std::cout << "Number of Touch fingers : " << SDL_GetNumTouchFingers(touch) << std::endl;
+			std::cout << std::endl;
+
+		}
+
+		std::cout << std::endl;
+
 
 		//Audio Drivers
 		std::cout << "Audio Drivers" << std::endl;
