@@ -7,6 +7,7 @@ Core
 * ~~Add saving to Settings class~~
 * Area map class to sort items by area of which they are in
 * Proper error management
+* Logging (info, error, warning)
 * Move from Eclipse project to make files (partial)
 
 Graphics
@@ -36,6 +37,7 @@ Input
 
 * Mouse support
 * Game pad/Controller support (mainly PS3 and Xbox 360 controller)
+* Basic touch support
 * Input schemes (base work complete)
 * Input unification (Base work completed)
 
@@ -58,6 +60,7 @@ Tools
 * In-game console
 * Map editor
 * sprite texture generator
+* Quest creater suite
 
 Other
 -----
@@ -67,6 +70,7 @@ Other
 * "Game States", such as : menu, battle, etc. (partially completed)
 * Battery Management (partial)
 * Have pure stream based loaders then file/network wrappers
+* Quest system that can split and join at any point
 
 Documentation
 -------------

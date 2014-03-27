@@ -346,6 +346,7 @@ void GameWindow::start(void)
 			if (error != "")
 			{
 				std::cout << "SDL Error : "<< error << std::endl;
+				SDL_ClearError();
 			}
 		}
 	}
@@ -485,11 +486,11 @@ void GameWindow::event (SDL_Event e , const double& delta)
 			this->quit = true;
 			break;
 		case (SDL_KEYDOWN):
-			if (e.key.keysym.sym == SDLK_ESCAPE)
+			if (this->content->Input()->checkInput("core", "qquit"))
 			{
 				this->quit = true;
 			}
-			if (e.key.keysym.sym == SDLK_F12)
+			if (this->content->Input()->checkInput("core", "screenshot"))
 			{
 				this->screenshot();
 			}
@@ -497,6 +498,7 @@ void GameWindow::event (SDL_Event e , const double& delta)
 		case (SDL_MOUSEBUTTONDOWN):
 			//Fire Click Event
 			break;
+		//Keep the camera up to date
 		case (SDL_WINDOWEVENT):
 			int w = 0, h = 0;
 			SDL_GetWindowSize(this->window, &w, &h);
