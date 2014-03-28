@@ -12,10 +12,13 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
+					<Add library="mingw32" />
+					<Add library="SDL2main" />
 					<Add directory="../Engine/bin/Debug" />
 				</Linker>
 			</Target>
@@ -25,11 +28,14 @@
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-O2" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add library="mingw32" />
+					<Add library="SDL2main" />
 					<Add directory="../Engine/bin/Release" />
 				</Linker>
 			</Target>

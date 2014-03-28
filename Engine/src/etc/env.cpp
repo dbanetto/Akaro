@@ -52,8 +52,11 @@ namespace etc
 		//CPU and RAM
 		std::cout << "CPU Cache Size : " << SDL_GetCPUCacheLineSize() << std::endl;
 		std::cout << "CPU Count : " << SDL_GetCPUCount() << std::endl;
+		#if SDL_VERSION_ATLEAST(2,0,1)
 		std::cout << "RAM : " << SDL_GetSystemRAM() << "MiB" << std::endl;
-
+		#else
+		#pragma SDL2 Link library not up to date. SDL 2.0.1 required for some features
+		#endif
 		std::cout << std::endl;
 
 		//Power
@@ -85,7 +88,11 @@ namespace etc
 		std::cout << "Has Alti Vec : " << ( SDL_HasAltiVec()  == 1 ? "true" : "false" ) << std::endl;
 		std::cout << "Has MMX : " << ( SDL_HasMMX() == 1 ? "true" : "false" ) << std::endl;
 		std::cout << "Has RDTSC : " << ( SDL_HasRDTSC() == 1 ? "true" : "false" ) << std::endl;
+		#if SDL_VERSION_ATLEAST(2,0,3)
 		std::cout << "Has AVX : "  <<  ( SDL_HasAVX() == 1 ? "true" : "false") << std::endl;
+		#else
+		#warning SDL2 Link library not up to date. SDL 2.0.3 required for some features
+		#endif
 		std::cout << std::endl;
 
 		//SSE Check
