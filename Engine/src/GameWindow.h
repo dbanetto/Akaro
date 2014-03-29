@@ -45,36 +45,40 @@ class GameWindow
 		int CURRENT_FPS;
 
 		graphics::TextureManager* getTextures();
+
+		void virtual render(const Ldouble& delta);
+		void virtual update(const Ldouble& delta);
+		void virtual event (SDL_Event e , const double& delta);
+
+		void virtual load();
+		void virtual unload();
+
 	protected:
-		void render(const Ldouble& delta);
-		void update(const Ldouble& delta);
-		void event (SDL_Event e , const double& delta);
 
-		void load();
-		void unload();
-
-		//util functions
-		void screenshot();
-	private:
+		bool quit;
 
 
-		//Private variables
-		SDL_Renderer* renderer;
-		SDL_Window*   window;
-		bool inited, quit;
+		//background colour
+		SDL_Color background;
 
 		//Content and Graphics
 		Content* content;
 		etc::Camera camera;
 		graphics::TextureManager textures;
 
+		//util functions
+		void screenshot();
+	private:
+
+		//Private variables
+		SDL_Renderer* renderer;
+		SDL_Window*   window;
+		bool inited;
+
 		//GAME TIME
 		double GAMETIME_MULTIPLIER;
 		int FRAME_LIMIT;
 		bool CAP_FRAMES;
-
-		//background colour
-		SDL_Color background;
 
 		//Battery
 		bool has_battery;

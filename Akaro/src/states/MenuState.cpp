@@ -6,12 +6,12 @@
  */
 
 #include "MenuState.h"
-#include "../etc/env.h"
-#include "../etc/string.h"
-#include "../io/file.h"
+#include "Engine/src/etc/env.h"
+#include "Engine/src/etc/string.h"
+#include "Engine/src/io/file.h"
 #include <iostream>
-#include "../etc/colour.h"
-#include "../etc/Camera.h"
+#include "Engine/src/etc/colour.h"
+#include "Engine/src/etc/Camera.h"
 
 
 
@@ -144,6 +144,8 @@ void MenuState::load ()
 	this->window->getTextures()->load("data/texture/grass.png" , "grass" , 2 , 2);
 	this->map.init(this->window->getTextures());
 	this->map.loadMap("data/map.pam");
+
+	std::cout << "Menu State Loaded" << std::endl;
 }
 
 void MenuState::unload ()

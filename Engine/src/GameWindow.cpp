@@ -9,17 +9,14 @@
 #include <string>
 #include <stdlib.h>
 #include <sstream>
-#include "etc/env.h"
+#include <iomanip>
+#include <ctime>
+#include <cmath>
+
 #include "io/file.h"
 #include "GameWindow.h"
 #include "etc/string.h"
 #include "etc/colour.h"
-#include <iomanip>
-#include <ctime>
-#include "states/MenuState.h"
-#include "input/KBProvider.h"
-#include "input/PS3Provider.h"
-#include <cmath>
 
 /**
  * @brief Initializes a new instance of the GameWindow class.
@@ -401,14 +398,7 @@ void GameWindow::load()
 			//If the settings say disable, the battery check in GameWindow is disabled
 			this->has_battery = enable_bat;
 		}
-
 	}
-
-	//GAME STATES
-	this->content->Gamestate()->add_state( "menu" ,  new MenuState( this->content->Gamestate()  , (this)  , this->content ) );
-	this->content->Gamestate()->set_state( "menu" );
-
-	etc::printSystemInfo();
 }
 
 /**

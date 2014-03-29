@@ -8,11 +8,11 @@
 #ifndef MENUSTATE_H_
 #define MENUSTATE_H_
 
-#include "GameState.h"
-#include "GameStateManager.h"
-#include "../GameWindow.h"
-#include "../graphics/Sprite.h"
-#include "../map/Map.h"
+#include "Engine/src/states/GameState.h"
+#include "Engine/src/states/GameStateManager.h"
+#include "Engine/src/GameWindow.h"
+#include "Engine/src/graphics/Sprite.h"
+#include "Engine/src/map/Map.h"
 
 class MenuState : public GameState
 {

@@ -70,7 +70,7 @@
 		<Compiler>
 			<Add option="-std=c++11" />
 			<Add option="-Wall" />
-			<Add directory="../Engine/src" />
+			<Add directory="../" />
 		</Compiler>
 		<Linker>
 			<Add library="SDL2" />
@@ -81,7 +81,11 @@
 			<Add library="Engine" />
 			<Add directory="../Engine/bin" />
 		</Linker>
+		<Unit filename="src/AkaroWindow.cpp" />
+		<Unit filename="src/AkaroWindow.h" />
 		<Unit filename="src/main.cpp" />
+		<Unit filename="src/states/MenuState.cpp" />
+		<Unit filename="src/states/MenuState.h" />
 		<Extensions>
 			<envvars />
 			<code_completion />

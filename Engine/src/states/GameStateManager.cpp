@@ -33,7 +33,7 @@ void GameStateManager::unload()
 
 void GameStateManager::set_state (std::string state_name)
 {
-	if (this->exists( state_name) == false)
+	if (this->exists(state_name) == false)
 	{
 		return;
 	}
