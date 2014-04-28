@@ -4,8 +4,7 @@
     License: MIT License
 */
 #include "AkaroWindow.h"
-
-#include "Engine/src/states/MenuState.h"
+#include "states/MenuState.h"
 
 
 AkaroWindow::AkaroWindow(Content* content)

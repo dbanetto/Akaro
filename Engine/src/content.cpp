@@ -1,22 +1,21 @@
 #include "content.h"
 
-
-#include <iostream>
 #include "etc/Timer.h"
-#include <string>
-#include <stdlib.h>
-#include <sstream>
 #include "etc/env.h"
 #include "io/file.h"
 #include "GameWindow.h"
 #include "etc/string.h"
 #include "etc/colour.h"
-#include <iomanip>
-#include <ctime>
-#include "states/MenuState.h"
 #include "input/KBProvider.h"
 #include "input/PS3Provider.h"
+
+#include <string>
+#include <stdlib.h>
+#include <sstream>
 #include <cmath>
+#include <iostream>
+#include <iomanip>
+#include <ctime>
 
 Content::Content()
 {
