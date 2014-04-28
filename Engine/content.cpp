@@ -26,7 +26,7 @@ Content::~Content()
 
 }
 
-int Content::load()
+int Content::init()
 {
 	if ( IO::fileExists( SETTINGS_PATH ) == false )
 	{
@@ -77,16 +77,20 @@ int Content::load()
 		std::cerr << SDL_GetError() << std::endl;
 		return 6;
 	}
-
 	std::cout << "All sub systems loaded." << std::endl;
-
-	//audio.load_settings( &(this->settings) );
-
 	return 0;
+}
+
+void Content::load(SDL_Renderer* renderer)
+{
+	//audio.load_settings( &(this->settings) );
+	this->textures = graphics::TextureManager(renderer);
+	this->maps = map::MapManager( &this->textures );
 }
 
 void Content::unload()
 {
+	this->maps.unloadAll();
 	this->fonts.unloadAll();
 	this->audio.unloadall();
 	this->gamestate.unload();
@@ -123,4 +127,14 @@ GameStateManager* Content::Gamestate()
 ui::FontManager* Content::Fonts()
 {
 	return &( this->fonts );
+}
+
+map::MapManager* Content::Maps()
+{
+	return &(this->maps);
+}
+
+graphics::TextureManager* Content::Textures()
+{
+	return &(this->textures);
 }

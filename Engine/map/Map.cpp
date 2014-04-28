@@ -35,8 +35,6 @@ namespace map
 
 	Map::Map( graphics::TextureManager* textures )
 	{
-		this->inited = false;
-		this->textures = nullptr;
 		this->init( textures );
 	}
 
@@ -46,7 +44,6 @@ namespace map
 		this->map = etc::AreaMap();
 
 		this->inited = true;
-
 		return this->inited;
 	}
 
@@ -54,11 +51,12 @@ namespace map
 	 * @brief Load Map file
 	 * @parm file File path to map
 	 */
-	void Map::loadMap( std::string file )
+	bool Map::loadMap( std::string file )
 	{
 		if ( !IO::fileExists( file ) )
 		{
 			std::cout << "ERROR " << file << " does not exits!" << std::endl;
+			return false;
 		}
 
 		std::fstream fs;
@@ -126,6 +124,7 @@ namespace map
 		}
 
 		fs.close();
+		return true;
 	}
 
 	void Map::unloadMap()
@@ -153,6 +152,11 @@ namespace map
 	void Map::update ( const Ldouble& delta )
 	{
 
+	}
+
+	bool Map::isLoaded()
+	{
+		return this->inited;
 	}
 
 } /* namespace map */

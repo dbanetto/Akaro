@@ -29,10 +29,10 @@ namespace map
 			virtual void render ( const Ldouble& delta, SDL_Renderer* renderer , etc::Camera& camera );
 			virtual void update ( const Ldouble& delta );
 
-			void loadMap( std::string file );
 
+			bool isLoaded();
+			bool loadMap( std::string file );
 			void unloadMap();
-
 			void unload();
 		private:
 			etc::AreaMap map;

@@ -229,11 +229,11 @@ int GameWindow::init( const char* TITLE , SDL_Color Background , int SDL_SCREEN_
 	//Check if the System has a battery
 	this->has_battery = etc::has_battery();
 
-	this->textures = graphics::TextureManager( this->renderer );
-
 	//Camera bnounds
 	this->camera.setBounds( WIDTH , HIEGHT );
 	this->camera.setPosition( 0, 0 );
+
+	this->content->load(this->renderer);
 
 	this->inited = true;
 	//All done correctly
@@ -406,8 +406,7 @@ void GameWindow::load()
  */
 void GameWindow::unload()
 {
-	//TODO : Unload Textures
-	this->textures.unload();
+
 }
 
 /**
@@ -546,10 +545,4 @@ void GameWindow::screenshot()
 	SDL_FreeSurface( surface );
 
 
-}
-
-
-graphics::TextureManager* GameWindow::getTextures()
-{
-	return &( this->textures );
 }

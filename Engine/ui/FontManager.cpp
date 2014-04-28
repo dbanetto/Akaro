@@ -32,6 +32,7 @@ void FontManager::unload ( std::string name )
 	if ( this->exists( name ) )
 	{
 		this->fonts[name]->unload();
+		delete this->fonts[name];
 		this->fonts.erase( name );
 	}
 }

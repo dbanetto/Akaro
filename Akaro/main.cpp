@@ -32,7 +32,7 @@ int main ( int argc, char* argv[] )
 
 	Content content;
 	//Load base content
-	content.load();
+	content.init();
 
 	AkaroWindow gm = AkaroWindow ( &content );
 

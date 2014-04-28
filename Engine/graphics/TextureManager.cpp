@@ -25,12 +25,12 @@ namespace graphics
 		this->unload();
 	}
 
-	bool TextureManager::load ( std::string file , std::string name )
+	bool TextureManager::load ( std::string name , std::string file )
 	{
 		return this->load( file, name, 0, 0 );
 	}
 
-	bool TextureManager::load ( std::string file , std::string name , int columns , int rows )
+	bool TextureManager::load ( std::string name , std::string file , int columns , int rows )
 	{
 		this->textures[name] = Texture();
 		Texture* temp = &( this->textures[name] );

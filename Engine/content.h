@@ -23,7 +23,9 @@
 #include "input/InputManager.h"
 #include "states/GameStateManager.h"
 #include "audio/AudioManager.h"
+#include "map/MapManager.h"
 #include "ui/FontManager.h"
+#include "graphics/TextureManager.h"
 
 class Content
 {
@@ -31,7 +33,8 @@ class Content
 		Content();
 		virtual ~Content();
 
-		int load();
+		int init();
+		void load( SDL_Renderer* renderer );
 		void unload();
 
 		//Getters
@@ -40,6 +43,8 @@ class Content
 		audio::AudioManager* Audio();
 		GameStateManager* Gamestate();
 		ui::FontManager* Fonts();
+		map::MapManager* Maps();
+		graphics::TextureManager* Textures();
 	protected:
 	private:
 
@@ -48,7 +53,9 @@ class Content
 		input::InputManager input;
 		audio::AudioManager audio;
 		ui::FontManager fonts;
+		map::MapManager maps;
 		GameStateManager gamestate;
+		graphics::TextureManager textures;
 };
 
 #endif // CONTENT_H

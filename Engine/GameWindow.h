@@ -64,7 +64,6 @@ class GameWindow
 		//Content and Graphics
 		Content* content;
 		etc::Camera camera;
-		graphics::TextureManager textures;
 
 		//util functions
 		void screenshot();

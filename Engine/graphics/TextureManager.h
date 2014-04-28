@@ -27,8 +27,8 @@ namespace graphics
 			TextureManager ();
 			TextureManager ( SDL_Renderer* renderer );
 			virtual ~TextureManager ();
-			bool load ( std::string file , std::string name );
-			bool load ( std::string file , std::string name , int columns , int rows );
+			bool load ( std::string name , std::string file );
+			bool load ( std::string name , std::string file , int columns , int rows );
 
 			bool exists ( std::string name );
 
