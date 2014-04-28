@@ -34,7 +34,7 @@ class Content
 		virtual ~Content();
 
 		int init();
-		void load( SDL_Renderer* renderer );
+		void load();
 		void unload();
 
 		//Getters
@@ -44,7 +44,6 @@ class Content
 		GameStateManager* Gamestate();
 		ui::FontManager* Fonts();
 		map::MapManager* Maps();
-		graphics::TextureManager* Textures();
 	protected:
 	private:
 
@@ -55,7 +54,7 @@ class Content
 		ui::FontManager fonts;
 		map::MapManager maps;
 		GameStateManager gamestate;
-		graphics::TextureManager textures;
+
 };
 
 #endif // CONTENT_H

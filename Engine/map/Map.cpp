@@ -111,7 +111,8 @@ namespace map
 			cor.x = pt.w / 2;
 			cor.y = pt.h / 2;
 
-			tile = new MapTile( this->textures->getTexture( tex )
+			tile = new MapTile( this->textures
+								,tex
 								, pt
 								, tex_index
 								, 0.0
@@ -141,12 +142,13 @@ namespace map
 		unloadMap();
 	}
 
-	void Map::render ( const Ldouble& delta, SDL_Renderer* renderer , etc::Camera& camera )
+	void Map::render ( const Ldouble& delta, graphics::TextureManager* textures , etc::Camera& camera )
 	{
 		auto tiles = this->map.getSpritesFromArea( camera.getViewport() );
-		for ( auto tile : tiles )
+		for ( auto t : tiles )
 		{
-			tile->render( delta , renderer , camera );
+			MapTile* tile = (MapTile*)t;
+			tile->render( delta , textures , camera );
 		}
 	}
 	void Map::update ( const Ldouble& delta )

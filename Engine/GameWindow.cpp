@@ -233,7 +233,9 @@ int GameWindow::init( const char* TITLE , SDL_Color Background , int SDL_SCREEN_
 	this->camera.setBounds( WIDTH , HIEGHT );
 	this->camera.setPosition( 0, 0 );
 
-	this->content->load(this->renderer);
+	this->textures = graphics::TextureManager(this->renderer);
+	this->content->Maps()->init(&(this->textures));
+	this->content->load();
 
 	this->inited = true;
 	//All done correctly
@@ -399,6 +401,8 @@ void GameWindow::load()
 			this->has_battery = enable_bat;
 		}
 	}
+
+
 }
 
 /**
@@ -545,4 +549,9 @@ void GameWindow::screenshot()
 	SDL_FreeSurface( surface );
 
 
+}
+
+graphics::TextureManager* GameWindow::getTextures()
+{
+	return &(this->textures);
 }

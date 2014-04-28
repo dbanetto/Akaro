@@ -73,6 +73,7 @@ class GameWindow
 		SDL_Renderer* renderer;
 		SDL_Window*   window;
 		bool inited;
+		graphics::TextureManager textures;
 
 		//GAME TIME
 		double GAMETIME_MULTIPLIER;

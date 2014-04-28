@@ -12,8 +12,8 @@ namespace map
 	{
 		public:
 			MapManager();
-			MapManager(graphics::TextureManager* Textures);
 			virtual ~MapManager();
+			void init (graphics::TextureManager* Textures);
 
 			bool exists( std::string name );
 			bool load( std::string name, std::string mapPath );

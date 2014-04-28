@@ -16,22 +16,36 @@ namespace map
 
 	}
 
-	MapTile::MapTile ( graphics::Texture* texture , SDL_Rect Position, int SpriteMapIndex , double Rotation , SDL_Point CenterofRotation, SDL_RendererFlip flip )
-		: graphics::Sprite( texture , Position , SpriteMapIndex , Rotation, CenterofRotation , flip )
-	{
+	MapTile::MapTile ( graphics::TextureManager* textures
+					  , std::string textureName
+					  , SDL_Point Position ) :
+			graphics::Sprite(textures->getTexture(textureName) , Position)
+	  {
+		this->texture_name = textureName;
+	  }
+	MapTile::MapTile ( graphics::TextureManager* textures
+					  , std::string textureName
+					  , SDL_Rect Position
+					  , int SpriteMapIndex
+					  , double Rotation
+					  , SDL_Point CenterofRotation
+					  , SDL_RendererFlip flip ) :
+		graphics::Sprite(textures->getTexture(textureName), Position, SpriteMapIndex, Rotation, CenterofRotation, flip)
+	  {
+		this->texture_name = textureName;
+	  }
 
-	}
+
 
 	MapTile::~MapTile()
 	{
 		// TODO Auto-generated destructor stub
 	}
-	/**
-	 * @brief Load from string config
-	 */
-	void MapTile::load( std::string config )
+
+	void MapTile::render(const Ldouble& delta, graphics::TextureManager* textures , etc::Camera& camera )
 	{
-		// Example x:y:::
+		this->setTexture( textures->getTexture( this->texture_name ) );
+		Sprite::render(delta , textures->getRenderer(), camera);
 	}
 
 } /* namespace map */

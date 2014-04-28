@@ -125,14 +125,15 @@ namespace audio
 			if ( have.samples != want.samples ) // we let this one thing change.
 				std::cout << "Samples changed to " << have.samples << std::endl;
 		}
-
+		//Close the Audio Device that was created to get the have's settings
 		SDL_CloseAudioDevice(device_id);
+
 		if (Mix_OpenAudio( freq , have.format , channels , chuncksize ) == -1)
 		{
 			std::cout << "Failed to open audio " << SDL_GetError() << std::endl;
 		}
-
-		Mix_VolumeMusic( this->volume );
+		std::cout << "Volume " << this->volume << std::endl;
+		Mix_VolumeMusic(this->volume );
 	}
 
 	void AudioManager::setPath ( std::string Path )

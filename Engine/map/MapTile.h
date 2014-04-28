@@ -9,6 +9,8 @@
 #define MAPTILE_H_
 
 #include "../graphics/Sprite.h"
+#include "../graphics/TextureManager.h"
+
 #include <string>
 
 namespace map
@@ -18,9 +20,11 @@ namespace map
 	{
 		public:
 			MapTile();
-			MapTile ( graphics::Texture* texture
+			MapTile ( graphics::TextureManager* textures
+					  , std::string textureName
 					  , SDL_Point Position );
-			MapTile ( graphics::Texture* texture
+			MapTile ( graphics::TextureManager* textures
+					  , std::string textureName
 					  , SDL_Rect Position
 					  , int SpriteMapIndex
 					  , double Rotation
@@ -29,7 +33,9 @@ namespace map
 
 			virtual ~MapTile();
 
-			void load( std::string config );
+			void render(const Ldouble& delta, graphics::TextureManager* textures , etc::Camera& camera );
+		private:
+			std::string texture_name;
 	};
 
 } /* namespace map */

@@ -29,11 +29,11 @@ namespace graphics
 			virtual ~TextureManager ();
 			bool load ( std::string name , std::string file );
 			bool load ( std::string name , std::string file , int columns , int rows );
-
+			bool loadList (std::string path);
 			bool exists ( std::string name );
 
 			Texture* getTexture ( std::string name );
-
+			SDL_Renderer* getRenderer();
 			void unload ();
 
 		private:

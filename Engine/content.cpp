@@ -81,11 +81,9 @@ int Content::init()
 	return 0;
 }
 
-void Content::load(SDL_Renderer* renderer)
+void Content::load()
 {
 	this->audio.load_settings( &(this->settings) );
-	this->textures = graphics::TextureManager(renderer);
-	this->maps = map::MapManager( &this->textures );
 }
 
 void Content::unload()
@@ -132,9 +130,4 @@ ui::FontManager* Content::Fonts()
 map::MapManager* Content::Maps()
 {
 	return &(this->maps);
-}
-
-graphics::TextureManager* Content::Textures()
-{
-	return &(this->textures);
 }

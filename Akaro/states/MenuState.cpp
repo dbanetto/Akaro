@@ -31,7 +31,7 @@ MenuState::~MenuState()
 //Each frame
 void MenuState::render ( const Ldouble& delta, SDL_Renderer* renderer , etc::Camera& camera )
 {
-
+	this->content->Maps()->get("demo")->render( delta , this->window->getTextures() , camera);
 }
 
 void MenuState::update ( const Ldouble& delta )
@@ -58,11 +58,9 @@ void MenuState::load ()
 		}
 	}
 
-	if (this->content->Audio()->load( "theme" , "ogg/abstract_anxiety.ogg" ))
-	{
-		this->content->Audio()->play("theme");
-	}
-
+	this->window->getTextures()->loadList("data/texture/textures.txt");
+	this->content->Maps()->load( "demo" , "data/map.pam" );
+	std::cout << "Map Loaded" << std::endl;
 
 	std::cout << "Menu State Loaded" << std::endl;
 }

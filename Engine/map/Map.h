@@ -26,7 +26,7 @@ namespace map
 
 			bool init ( graphics::TextureManager* textures );
 
-			virtual void render ( const Ldouble& delta, SDL_Renderer* renderer , etc::Camera& camera );
+			virtual void render ( const Ldouble& delta, graphics::TextureManager* textures , etc::Camera& camera );
 			virtual void update ( const Ldouble& delta );
 
 

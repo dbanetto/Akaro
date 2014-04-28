@@ -9,14 +9,14 @@ MapManager::MapManager()
 	this->textures = nullptr;
 }
 
-MapManager::MapManager(graphics::TextureManager* Textures)
-{
-	this->textures = Textures;
-}
-
 MapManager::~MapManager()
 {
 
+}
+
+void MapManager::init (graphics::TextureManager* Textures)
+{
+	this->textures = Textures;
 }
 
 void MapManager::unloadAll()
