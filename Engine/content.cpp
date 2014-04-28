@@ -43,6 +43,11 @@ int Content::init()
 	}
 
 	settings.load( SETTINGS_PATH , IO::SETTINGS_DUPLICATES_INGORED );
+	std::string ver = "";
+	if (settings.get("info" , "version" , &ver))
+	{
+		std::cout << "Version " << ver << std::endl;
+	}
 	std::cout << SETTINGS_PATH << " loaded." << std::endl;
 	//Start SDL and Others
 

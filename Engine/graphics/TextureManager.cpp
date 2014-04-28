@@ -120,7 +120,9 @@ namespace graphics
 
 			//Rows
 			row = atoi( seg[3].c_str() );
-
+#ifdef LOADING_VERBOSE
+			std::cout << "Loading " << name << "@" << path << " (" << col << "," << row << ")" << std::endl;
+#endif
 			this->load(name , path , col , row);
 		}
 

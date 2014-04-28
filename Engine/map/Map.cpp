@@ -121,7 +121,9 @@ namespace map
 			tile->setAdjustCamera( true );
 			this->maptiles.push_back( tile );
 			this->map.insert( tile );
-			//std::cout << "Loaded " << line << std::endl;
+#ifdef LOADING_VERBOSE
+			std::cout << "Loaded " << line << std::endl;
+#endif
 		}
 
 		fs.close();

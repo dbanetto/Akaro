@@ -15,7 +15,7 @@
 #include <string>
 
 //A static path to the file
-#define SETTINGS_PATH "settings.ini"
+#define SETTINGS_PATH "data/settings.ini"
 
 namespace IO
 {

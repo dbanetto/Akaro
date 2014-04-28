@@ -47,6 +47,8 @@ Map* MapManager::get( std::string name )
 	if ( this->exists( name ) )
 	{
 		return this->maps[name];
+	} else {
+		return nullptr;
 	}
 }
 

@@ -34,6 +34,8 @@ class MenuState : public GameState
 		GameStateManager* manager;
 		Content* content;
 		GameWindow* window;
+
+		map::Map* cur_map;
 };
 
 #endif /* MENUSTATE_H_ */

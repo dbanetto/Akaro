@@ -39,7 +39,7 @@ namespace audio
 
 		int freq = 44100;
 		int channels = 2;
-		int chuncksize = 4096;
+		int chunksize = 4096;
 		std::string device;
 		//Load Battery Settings
 		settings->load_section( "audio" , IO::SETTINGS_DUPLICATES_INGORED );
@@ -49,9 +49,9 @@ namespace audio
 			settings->getInt( "audio" , "channels" , &channels );
 		}
 
-		if ( settings->exists( "audio" , "chuncksize" ) )
+		if ( settings->exists( "audio" , "chunksize" ) )
 		{
-			settings->getInt( "audio" , "chuncksize" , &channels );
+			settings->getInt( "audio" , "chunksize" , &chunksize );
 		}
 
 		if ( settings->exists( "audio" , "volume" ) )
@@ -98,7 +98,7 @@ namespace audio
 		want.freq = freq;
 		want.format = AUDIO_S16;
 		want.channels = channels;
-		want.samples = chuncksize;
+		want.samples = chunksize;
 		want.callback = music_callback;  // you wrote this function elsewhere.
 
 		device_id = SDL_OpenAudioDevice( device.c_str()
@@ -114,25 +114,25 @@ namespace audio
 		{
 			if (std::string(SDL_GetError()) != "")
 			{
-				std::cout << "Warning from creating Audio Device" << SDL_GetError() << std::endl;
+				std::cout << "Warning from creating an Audio Device" << SDL_GetError() << std::endl;
 			}
 			if ( have.format != want.format ) // we let this one thing change.
-				std::cout << "Format changed to " << have.format << std::endl;
+				std::cout << "Format changed to " << have.format << " from " << want.format << std::endl;
 
 			if ( have.channels != want.channels ) // we let this one thing change.
-				std::cout << "Channels changed to " << have.channels << std::endl;
+				std::cout << "Channels changed to " << etc::convInt( have.channels )<< " from " << etc::convInt( want.channels ) << std::endl;
 
 			if ( have.samples != want.samples ) // we let this one thing change.
-				std::cout << "Samples changed to " << have.samples << std::endl;
+				std::cout << "Samples changed to " << etc::convInt( have.samples ) << " from " << etc::convInt( want.samples ) << std::endl;
 		}
 		//Close the Audio Device that was created to get the have's settings
 		SDL_CloseAudioDevice(device_id);
 
-		if (Mix_OpenAudio( freq , have.format , channels , chuncksize ) == -1)
+		if (Mix_OpenAudio( have.freq , have.format , have.channels , have.samples ) == -1)
 		{
 			std::cout << "Failed to open audio " << SDL_GetError() << std::endl;
 		}
-		std::cout << "Volume " << this->volume << std::endl;
+
 		Mix_VolumeMusic(this->volume );
 	}
 

@@ -11,7 +11,7 @@
 #include "InputProvider.h"
 #include "../io/Settings.h"
 
-#define INPUT_SETTINGS_FILE "input.ini"
+#define INPUT_SETTINGS_FILE "data/input.ini"
 
 namespace input
 {
