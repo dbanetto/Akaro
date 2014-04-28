@@ -16,7 +16,7 @@ namespace audio
 	AudioManager::AudioManager ()
 	{
 		this->device_id = 0;
-		this->volume = 100;
+		this->volume =  100;
 	}
 
 	AudioManager::AudioManager ( IO::Settings* audio )
@@ -112,7 +112,10 @@ namespace audio
 		}
 		else
 		{
-			std::cout << SDL_GetError() << std::endl;
+			if (std::string(SDL_GetError()) != "")
+			{
+				std::cout << "Warning from creating Audio Device" << SDL_GetError() << std::endl;
+			}
 			if ( have.format != want.format ) // we let this one thing change.
 				std::cout << "Format changed to " << have.format << std::endl;
 
@@ -123,7 +126,11 @@ namespace audio
 				std::cout << "Samples changed to " << have.samples << std::endl;
 		}
 
-		Mix_OpenAudio( freq , have.format , channels , chuncksize );
+		SDL_CloseAudioDevice(device_id);
+		if (Mix_OpenAudio( freq , have.format , channels , chuncksize ) == -1)
+		{
+			std::cout << "Failed to open audio " << SDL_GetError() << std::endl;
+		}
 
 		Mix_VolumeMusic( this->volume );
 	}

@@ -63,7 +63,7 @@ int Content::init()
 	}
 
 	//Start SDL_mixer
-	if ( Mix_Init( MIX_INIT_MP3 | MIX_INIT_OGG ) == 0 )
+	if ( Mix_Init( MIX_INIT_FLAC | MIX_INIT_OGG ) == 0 )
 	{
 		std::cout << "An error has occurred in starting SDL2_mixer" << std::endl << SDL_GetError() << std::endl;
 		std::cerr << SDL_GetError() << std::endl;
@@ -83,7 +83,7 @@ int Content::init()
 
 void Content::load(SDL_Renderer* renderer)
 {
-	//audio.load_settings( &(this->settings) );
+	this->audio.load_settings( &(this->settings) );
 	this->textures = graphics::TextureManager(renderer);
 	this->maps = map::MapManager( &this->textures );
 }

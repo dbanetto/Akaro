@@ -48,7 +48,7 @@ void MenuState::event ( SDL_Event e , const Ldouble& delta )
 //Inital un/Load Assests
 void MenuState::load ()
 {
-	std::cout << "Menu State Loaded" << std::endl;
+
 	std::string path = "";
 	if ( this->content->Settings()->get( "ui" , "font" , &path ) )
 	{
@@ -57,6 +57,14 @@ void MenuState::load ()
 			std::cout << "Font loaded" << std::endl;
 		}
 	}
+
+	if (this->content->Audio()->load( "theme" , "ogg/abstract_anxiety.ogg" ))
+	{
+		this->content->Audio()->play("theme");
+	}
+
+
+	std::cout << "Menu State Loaded" << std::endl;
 }
 
 void MenuState::unload ()
