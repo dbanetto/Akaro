@@ -213,7 +213,7 @@ int GameWindow::init(const char* TITLE , SDL_Color Background , int SDL_SCREEN_F
 	}
 
 	//Create Renderer
-	this->renderer = SDL_CreateRenderer (this->window , -1 , render_flags );
+	this->renderer = SDL_CreateRenderer (this->window , 1 , render_flags );
 
 	//Make sure it was created correctly
 	if (this->renderer == nullptr)

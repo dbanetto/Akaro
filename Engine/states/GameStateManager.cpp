@@ -7,6 +7,8 @@
 
 #include "GameStateManager.h"
 
+#include <iostream>
+
 GameStateManager::GameStateManager()
 {
 	current = nullptr;
@@ -35,6 +37,7 @@ void GameStateManager::set_state (std::string state_name)
 {
 	if (this->exists(state_name) == false)
 	{
+		std::cout << "WARNING Trying to set state to " << state_name << " which does not exist" << std::endl;
 		return;
 	}
 

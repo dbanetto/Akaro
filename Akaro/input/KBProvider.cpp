@@ -6,7 +6,7 @@
  */
 
 #include "KBProvider.h"
-#include "../etc/string.h"
+#include "Engine/etc/string.h"
 #include <iostream>
 
 namespace input

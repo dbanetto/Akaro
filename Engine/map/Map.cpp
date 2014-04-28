@@ -9,6 +9,7 @@
 #include <fstream>
 #include <iostream>
 #include "../etc/string.h"
+#include "../io/file.h"
 
 #if __GNUC__
 #include <SDL2/SDL.h>
@@ -55,6 +56,10 @@ namespace map
 	 */
 	void Map::loadMap(std::string file)
 	{
+		if ( !IO::fileExists(file) ){
+			std::cout << "ERROR " << file << " does not exits!" << std::endl;
+		}
+
 		std::fstream fs;
 		fs.open(file.c_str());
 

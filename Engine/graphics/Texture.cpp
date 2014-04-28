@@ -101,14 +101,16 @@ namespace graphics
 			map.h = surf->h;
 			this->sprite_map.push_back(map);
 		}
+
 		this->texture = SDL_CreateTextureFromSurface ( renderer, surf );
+
 		if (this->texture == nullptr)
 		{
 			std::cout << file << " failed to convert to texture. " << SDL_GetError() << std::endl;
 			return false;
 		}
-		SDL_FreeSurface(surf);
 
+		SDL_FreeSurface(surf);
 		this->is_loaded = true;
 		return true;
 	}

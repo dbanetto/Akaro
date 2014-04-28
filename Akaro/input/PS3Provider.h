@@ -8,7 +8,7 @@
 #ifndef PS3PROVIDER_H_
 #define PS3PROVIDER_H_
 
-#include "InputProvider.h"
+#include "Engine/input/InputProvider.h"
 
 #if __GNUC__
 #include <SDL2/SDL.h>

@@ -8,7 +8,7 @@
 #ifndef KBPROVIDER_H_
 #define KBPROVIDER_H_
 
-#include "InputProvider.h"
+#include "Engine/input/InputProvider.h"
 
 #if __GNUC__
 #include <SDL2/SDL.h>

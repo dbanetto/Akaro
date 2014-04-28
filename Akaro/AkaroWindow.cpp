@@ -5,7 +5,10 @@
 */
 #include "AkaroWindow.h"
 #include "states/MenuState.h"
+#include "input/KBProvider.h"
+#include "input/PS3Provider.h"
 
+#include <iostream>
 
 AkaroWindow::AkaroWindow(Content* content)
 	: GameWindow(content)
@@ -47,10 +50,30 @@ void AkaroWindow::load()
 {
 	GameWindow::load();
 
+	this->content->Input()->load( INPUT_SETTINGS_FILE , IO::SETTINGS_DUPLICATES_INGORED , IO::SETTING_LOAD_ON_REQUEST);
+	if (this->content->Settings()->exists("Controller" , "ps3.enable"))
+	{
+		bool enable = false;
+		this->content->Settings()->getBool( "Controller" , "ps3.enable" , &enable );
+		if (enable)
+		{
+			if (this->content->Input()->add_provider("ps3" , new input::PS3Provider() ) == false)
+			{
+				std::cout << "Failed to load Playstation 3 Controller" << std::endl;
+			}
+		}
+	}
+
+	if (this->content->Input()->add_provider("kb" , new input::KBProvider() ) == false )
+	{
+		std::cout << "Failed to load Keyboard" << std::endl;
+	}
+
+	std::cout << "Input loaded" << std::endl;
+
 	//GAME STATES
 	this->content->Gamestate()->add_state( "menu" ,  new MenuState( this->content->Gamestate()  , (this)  , this->content ) );
 	this->content->Gamestate()->set_state( "menu" );
-	this->content->Gamestate()->current->load();
 }
 
 /**

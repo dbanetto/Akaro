@@ -21,6 +21,7 @@ namespace graphics
 	{
 		public:
 			Sprite ();
+			Sprite (Texture* texture ,SDL_Point Position);
 			Sprite (Texture* texture ,SDL_Rect Position, int SpriteMapIndex , double Rotation , SDL_Point CenterofRotation, SDL_RendererFlip flip);
 			virtual ~Sprite ();
 

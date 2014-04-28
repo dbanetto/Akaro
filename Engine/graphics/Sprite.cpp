@@ -20,6 +20,27 @@ namespace graphics
 		this->flip = SDL_FLIP_NONE;
 	}
 
+	Sprite::Sprite (Texture* texture ,SDL_Point Position)
+	{
+		this->area = SDL_Rect();
+		this->area.w = texture->getSprite(0)->w;
+		this->area.h = texture->getSprite(0)->h;
+		this->area.x = Position.x;
+		this->area.y = Position.y;
+
+		this->pos.x = Position.x;
+		this->pos.y = Position.y;
+
+		this->tex = texture;
+
+		this->sprite_map_index = 0;
+		this->rot = 0;
+		this->flip = SDL_FLIP_NONE;
+
+		this->cor = SDL_Point();
+		this->cor.x = 0; this->cor.y = 0;
+	}
+
 	Sprite::Sprite (Texture* texture ,SDL_Rect Position, int SpriteMapIndex , double Rotation , SDL_Point CenterofRotation, SDL_RendererFlip flip)
 	{
 		this->area = Position;
