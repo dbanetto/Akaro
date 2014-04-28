@@ -9,7 +9,7 @@
 #ifndef AKAROWINDOW_H_
 #define AKAROWINDOW_H_
 
-#include "Engine/src/GameWindow.h"
+#include "Engine/GameWindow.h"
 
 class AkaroWindow : GameWindow
 {

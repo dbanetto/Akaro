@@ -44,7 +44,7 @@ namespace graphics
 			temp = camera.subCamPos(this->area);
 		}
 		SDL_Texture* texture = this->tex->getTexture();
-		SDL_RenderCopyEx(renderer , texture , this->tex->getSprite(this->sprite_map_index) ,  &(temp) , this->rot , &(this->cor) , this->flip );
+		SDL_RenderCopyEx(renderer, texture, this->tex->getSprite(this->sprite_map_index), &(temp), this->rot, &(this->cor), this->flip );
 	}
 
 	void Sprite::update (const Ldouble& delta)

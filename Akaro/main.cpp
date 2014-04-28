@@ -5,8 +5,8 @@
 */
 
 #include "AkaroWindow.h"
-#include "Engine/src/etc/colour.h"
-#include "Engine/src/content.h"
+#include "Engine/etc/colour.h"
+#include "Engine/content.h"
 
 #include <iostream>
 #if __GNUC__

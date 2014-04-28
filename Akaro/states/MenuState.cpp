@@ -6,14 +6,13 @@
  */
 
 #include "MenuState.h"
-#include "Engine/src/etc/env.h"
-#include "Engine/src/etc/string.h"
-#include "Engine/src/io/file.h"
+#include "Engine/etc/env.h"
+#include "Engine/etc/string.h"
+#include "Engine/io/file.h"
+#include "Engine/etc/colour.h"
+#include "Engine/etc/Camera.h"
+
 #include <iostream>
-#include "Engine/src/etc/colour.h"
-#include "Engine/src/etc/Camera.h"
-
-
 
 MenuState::MenuState(GameStateManager* Manager, GameWindow* Window, Content* ccontent)
 	: GameState()
