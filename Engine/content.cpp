@@ -87,6 +87,7 @@ int Content::load()
 
 void Content::unload()
 {
+    this->fonts.unloadAll();
     this->audio.unloadall();
     this->gamestate.unload();
     this->input.unload();
@@ -117,4 +118,9 @@ audio::AudioManager* Content::Audio()
 GameStateManager* Content::Gamestate()
 {
 	return &(this->gamestate);
+}
+
+ui::FontManager* Content::Fonts()
+{
+	return &(this->fonts);
 }

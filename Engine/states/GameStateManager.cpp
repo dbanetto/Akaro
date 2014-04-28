@@ -65,12 +65,5 @@ bool GameStateManager::add_state (std::string state_name , GameState* state)
 
 bool GameStateManager::exists (std::string state_name)
 {
-	if (this->states.find(state_name) == this->states.end())
-	{
-		return false;
-	}
-	else
-	{
-		return true;
-	}
+	return (this->states.find(state_name) != this->states.end());
 }

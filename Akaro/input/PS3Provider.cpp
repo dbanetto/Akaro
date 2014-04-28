@@ -54,6 +54,8 @@ namespace input
 
 		return out;
 	}
+
+	//Not Implemented
 	std::string PS3BindtoString (ps3bind bind)
 	{
 		std::string out;
@@ -72,18 +74,18 @@ namespace input
 	{
 	}
 
-	void PS3Provider::load   (IO::Settings* input_settings)
+	void PS3Provider::load (IO::Settings* input_settings)
 	{
 		this->controller = SDL_GameControllerOpen(0);
 		std::cout << "Loaded " << SDL_GameControllerName(this->controller) << " map:" << SDL_GameControllerMapping(this->controller) << std::endl;
 
-		std::map<std::string,IO::INISection>* settings_data =  input_settings->getStoredSettings() ;
+		std::map<std::string,IO::INISection>* settings_data =  input_settings->getStoredSettings();
 
 		for (auto& header : *settings_data )
 		{
 			for ( auto& lower : header.second.properties )
 			{
-				//Check if it is a key
+				//Check if the key is a PS3 key
 				if ( etc::endswith (lower.first , this->settings_postfix ) )
 				{
 					if (this->states[header.first][lower.first] != nullptr)
@@ -163,6 +165,7 @@ namespace input
 	}
 	bool PS3Provider::setInputState (std::string& header , std::string& name, void*& data)
 	{
+		//Not Implemented
 		return false;
 	}
 

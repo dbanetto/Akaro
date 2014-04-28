@@ -485,10 +485,6 @@ void GameWindow::event (SDL_Event e , const double& delta)
 				this->screenshot();
 			}
 			break;
-		case (SDL_MOUSEBUTTONDOWN):
-			//Fire Click Event
-			break;
-		//Keep the camera up to date
 		case (SDL_WINDOWEVENT):
 			int w = 0, h = 0;
 			SDL_GetWindowSize(this->window, &w, &h);

@@ -18,10 +18,12 @@
 #include "ui/Label.h"
 #include "ui/Button.h"
 #include "io/Settings.h"
-#include "input/InputManager.h"
 #include "etc/battery.h"
+
+#include "input/InputManager.h"
 #include "states/GameStateManager.h"
 #include "audio/AudioManager.h"
+#include "ui/FontManager.h"
 
 class Content
 {
@@ -37,6 +39,7 @@ class Content
 		input::InputManager * Input();
 		audio::AudioManager* Audio();
 		GameStateManager* Gamestate();
+		ui::FontManager* Fonts();
 	protected:
 	private:
 
@@ -44,6 +47,7 @@ class Content
 		IO::Settings settings;
 		input::InputManager input;
 		audio::AudioManager audio;
+		ui::FontManager fonts;
 		GameStateManager gamestate;
 };
 

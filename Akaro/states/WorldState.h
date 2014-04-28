@@ -1,12 +1,5 @@
-/*
- * MenuState.h
- *
- *  Created on: Nov 6, 2013
- *      Author: drb
- */
-
-#ifndef MENUSTATE_H_
-#define MENUSTATE_H_
+#ifndef WORLDSTATE_H
+#define WORLDSTATE_H
 
 #include "Engine/states/GameState.h"
 #include "Engine/states/GameStateManager.h"
@@ -14,12 +7,14 @@
 #include "Engine/graphics/Sprite.h"
 #include "Engine/map/Map.h"
 
-class MenuState : public GameState
+
+class WorldState : public GameState
 {
 	public:
-		MenuState(GameStateManager* Manager, GameWindow* gamewindow , Content* content);
-		virtual
-		~MenuState();
+		/** Default constructor */
+		WorldState(GameStateManager* Manager, GameWindow* gamewindow , Content* content);
+		/** Default destructor */
+		virtual ~WorldState();
 
 		//Each frame
 		void render (const Ldouble& delta, SDL_Renderer* renderer , etc::Camera &camera);
@@ -29,11 +24,11 @@ class MenuState : public GameState
 		//Inital un/Load Assests
 		void load   ();
 		void unload ();
-
+	protected:
 	private:
 		GameStateManager* manager;
 		Content* content;
 		GameWindow* window;
 };
 
-#endif /* MENUSTATE_H_ */
+#endif // WORLDSTATE_H

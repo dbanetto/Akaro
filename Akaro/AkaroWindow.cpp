@@ -5,6 +5,7 @@
 */
 #include "AkaroWindow.h"
 #include "states/MenuState.h"
+#include "states/WorldState.h"
 #include "input/KBProvider.h"
 #include "input/PS3Provider.h"
 
@@ -72,8 +73,10 @@ void AkaroWindow::load()
 	std::cout << "Input loaded" << std::endl;
 
 	//GAME STATES
-	this->content->Gamestate()->add_state( "menu" ,  new MenuState( this->content->Gamestate()  , (this)  , this->content ) );
-	this->content->Gamestate()->set_state( "menu" );
+	this->content->Gamestate()->add_state( "menu" ,   new MenuState( this->content->Gamestate(), this, this->content ) );
+	this->content->Gamestate()->add_state( "world" , new WorldState( this->content->Gamestate(), this, this->content ) );
+
+	this->content->Gamestate()->set_state("menu");
 }
 
 /**

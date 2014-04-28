@@ -25,6 +25,7 @@ namespace input
 
 			bool load (std::string settigs_path , IO::SettingsDuplicateFlags dupflags , IO::SettingsLoadFlags loadflags);
 			void unload();
+
 			//Provider Management
 			bool add_provider (std::string provider_name , InputProvider* provider);
 			bool remove_provider (std::string provider_name);
