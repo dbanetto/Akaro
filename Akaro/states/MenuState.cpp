@@ -71,6 +71,7 @@ void MenuState::load ()
 			std::cout << "Texture List Loaded" << std::endl;
 			if (this->content->Maps()->load( "demo" , "data/map.pam" ))
 			{
+				this->content->Maps()->setCurrentMap("demo");
 				std::cout << "Map Loaded" << std::endl;
 			}
 		}
@@ -87,5 +88,6 @@ void MenuState::load ()
 
 void MenuState::unload ()
 {
+	this->content->Audio()->stop("theme");
 	this->is_loaded = false;
 }

@@ -29,6 +29,10 @@ class WorldState : public GameState
 		GameStateManager* manager;
 		Content* content;
 		GameWindow* window;
+
+		map::Map* cur_map;
+
+		bool is_loaded;
 };
 
 #endif // WORLDSTATE_H

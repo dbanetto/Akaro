@@ -85,3 +85,23 @@ bool MapManager::load ( std::string name, std::string mapPath )
 		return false;
 	}
 }
+
+bool MapManager::setCurrentMap(std::string name)
+{
+	if (this->exists(name))
+	{
+		this->current_map = name;
+#ifdef VERBOOSE_MAP_CHANGE
+		std::cout << "WARNING Current map changed to " << this->current_map << std::endl;
+#endif
+		return true;
+	} else {
+		std::cout << "WARNING The Map " << name << " failed to be set as current map." << std::endl;
+		return false;
+	}
+}
+
+std::string MapManager::getCurrentMapName()
+{
+	return this->current_map;
+}

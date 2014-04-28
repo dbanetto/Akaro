@@ -46,6 +46,7 @@ class Content
 		map::MapManager* Maps();
 	protected:
 	private:
+		bool inited;
 
 		//Settings and Content managers
 		IO::Settings settings;

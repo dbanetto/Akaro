@@ -19,6 +19,7 @@ Content::Content()
 {
 	//ctor
 	this->settings = IO::Settings( IO::SETTING_LOAD_ON_REQUEST );
+	bool inited = false;
 }
 
 Content::~Content()
@@ -83,16 +84,21 @@ int Content::init()
 		return 6;
 	}
 	std::cout << "All sub systems loaded." << std::endl;
+	inited = true;
 	return 0;
 }
 
 void Content::load()
 {
-	this->audio.load_settings( &(this->settings) );
+	if (inited)
+		this->audio.load_settings( &(this->settings) );
 }
 
 void Content::unload()
 {
+	if(!inited)
+		return;
+
 	this->maps.unloadAll();
 	this->fonts.unloadAll();
 	this->audio.unloadall();
@@ -105,6 +111,8 @@ void Content::unload()
 	Mix_Quit();
 	IMG_Quit();
 	SDL_Quit();
+
+	inited= false;
 }
 /**
  * @brief Returns a pointer to the Window Settings

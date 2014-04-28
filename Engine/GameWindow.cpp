@@ -112,7 +112,9 @@ int GameWindow::init( const char* TITLE , SDL_Color Background , int SDL_SCREEN_
 	SDL_DisplayMode display_mode;
 	if ( SDL_GetDisplayMode( display , 0 , &display_mode ) != 0 )
 	{
+		display = 0;
 		std::cout << "An error has occurred" << std::endl << SDL_GetError() << std::endl;
+		std::cout << "Defaulting to display index : " << display << std::endl;
 	}
 
 	int WIDTH = 800;
@@ -123,7 +125,7 @@ int GameWindow::init( const char* TITLE , SDL_Color Background , int SDL_SCREEN_
 		{
 			if ( native == "native" )
 			{
-				//Set height as native screen height
+				//Set height as native screen width
 				SDL_DisplayMode dm;
 				if ( SDL_GetDesktopDisplayMode( display , &dm ) == 0 )
 				{

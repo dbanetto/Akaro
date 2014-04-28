@@ -19,12 +19,16 @@ namespace map
 			bool load( std::string name, std::string mapPath );
 			Map* get( std::string name );
 
+			bool setCurrentMap(std::string name);
+			std::string getCurrentMapName();
+
 			void unload ( std::string name );
 			void unloadAll();
 		protected:
 		private:
 			std::map<std::string, Map*> maps;
 			graphics::TextureManager* textures;
+			std::string current_map;
 	};
 
 }

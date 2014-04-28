@@ -47,16 +47,25 @@ namespace audio
 		if ( settings->exists( "audio" , "channels" ) )
 		{
 			settings->getInt( "audio" , "channels" , &channels );
+		}  else {
+			std::cout << "WARNING : No Audio channels is set" << std::endl;
+			std::cout << "Using default " << channels << std::endl;
 		}
 
 		if ( settings->exists( "audio" , "chunksize" ) )
 		{
 			settings->getInt( "audio" , "chunksize" , &chunksize );
+		} else {
+			std::cout << "WARNING : No Audio chunk size is set" << std::endl;
+			std::cout << "Using default " << chunksize << std::endl;
 		}
 
 		if ( settings->exists( "audio" , "volume" ) )
 		{
 			settings->getInt( "audio" , "volume" , &this->volume );
+		} else {
+			std::cout << "WARNING : No Audio volume is set" << std::endl;
+			std::cout << "Using default " << this->volume << std::endl;
 		}
 
 		if ( settings->exists( "audio" , "device" ) )
@@ -74,6 +83,8 @@ namespace audio
 		else
 		{
 			device = SDL_GetAudioDeviceName( 0 , 0 );
+			std::cout << "WARNING : No Audio Device is set" << std::endl;
+			std::cout << "Using default " << SDL_GetAudioDeviceName( 0 , 0 ) << std::endl;
 		}
 
 		//Base Path for all audio files
@@ -89,7 +100,9 @@ namespace audio
 		}
 		else
 		{
+			path = "data/audio/";
 			std::cout << "WARNING : Audio path is not set" << std::endl;
+			std::cout << "Using default " << path << std::endl;
 		}
 
 		SDL_AudioSpec want, have;
@@ -117,13 +130,13 @@ namespace audio
 				std::cout << "Warning from creating an Audio Device" << SDL_GetError() << std::endl;
 			}
 			if ( have.format != want.format ) // we let this one thing change.
-				std::cout << "Format changed to " << have.format << " from " << want.format << std::endl;
+				std::cout << "Audio Format changed to " << have.format << " from " << want.format << std::endl;
 
 			if ( have.channels != want.channels ) // we let this one thing change.
-				std::cout << "Channels changed to " << etc::convInt( have.channels )<< " from " << etc::convInt( want.channels ) << std::endl;
+				std::cout << "Audio Channels changed to " << etc::convInt( have.channels )<< " from " << etc::convInt( want.channels ) << std::endl;
 
 			if ( have.samples != want.samples ) // we let this one thing change.
-				std::cout << "Samples changed to " << etc::convInt( have.samples ) << " from " << etc::convInt( want.samples ) << std::endl;
+				std::cout << "Audio Samples changed to " << etc::convInt( have.samples ) << " from " << etc::convInt( want.samples ) << std::endl;
 		}
 		//Close the Audio Device that was created to get the have's settings
 		SDL_CloseAudioDevice(device_id);
@@ -144,6 +157,12 @@ namespace audio
 	void AudioManager::play ( std::string name )
 	{
 		Mix_PlayMusic( this->sounds[name] , 1 );
+	}
+
+	void AudioManager::stop ( std::string name )
+	{
+		Mix_PauseMusic();
+		Mix_RewindMusic();
 	}
 
 	bool AudioManager::load ( std::string name , std::string file )
