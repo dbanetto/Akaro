@@ -25,18 +25,18 @@ namespace graphics
 	{
 		public:
 			Texture ();
-			Texture (SDL_Renderer* renderer,std::string file);
-			Texture (const Texture& tex);
+			Texture ( SDL_Renderer* renderer, std::string file );
+			Texture ( const Texture& tex );
 
 			virtual ~Texture ();
 
-			bool load (SDL_Renderer* renderer,std::string file);
-			bool load (SDL_Renderer* renderer,  std::string file, int columns, int rows);
-			bool load (SDL_Renderer* renderer, std::string file, std::vector<SDL_Rect> sprite_map);
+			bool load ( SDL_Renderer* renderer, std::string file );
+			bool load ( SDL_Renderer* renderer,  std::string file, int columns, int rows );
+			bool load ( SDL_Renderer* renderer, std::string file, std::vector<SDL_Rect> sprite_map );
 
 			SDL_Texture* getTexture();
-			SDL_Rect* getSprite(int column, int row);
-			SDL_Rect* getSprite(int index);
+			SDL_Rect* getSprite( int column, int row );
+			SDL_Rect* getSprite( int index );
 
 		private:
 			SDL_Texture* texture;

@@ -27,7 +27,7 @@
 
 namespace IO
 {
-	bool fileExists(const std::string& filename);
+	bool fileExists( const std::string& filename );
 };
 
 #endif

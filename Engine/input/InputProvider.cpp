@@ -19,7 +19,7 @@ namespace input
 	{
 	}
 
-	void InputProvider::load   (IO::Settings* input_settings)
+	void InputProvider::load   ( IO::Settings* input_settings )
 	{
 
 	}
@@ -28,16 +28,16 @@ namespace input
 
 	}
 
-	void InputProvider::update(const double& delta)
+	void InputProvider::update( const double& delta )
 	{
 
 	}
 
-	bool InputProvider::checkInputState (std::string& header , std::string& name)
+	bool InputProvider::checkInputState ( std::string& header , std::string& name )
 	{
 		return false;
 	}
-	bool InputProvider::setInputState (std::string& header , std::string& name, void*& data)
+	bool InputProvider::setInputState ( std::string& header , std::string& name, void*& data )
 	{
 		return false;
 	}

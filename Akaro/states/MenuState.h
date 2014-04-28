@@ -17,14 +17,14 @@
 class MenuState : public GameState
 {
 	public:
-		MenuState(GameStateManager* Manager, GameWindow* gamewindow , Content* content);
+		MenuState( GameStateManager* Manager, GameWindow* gamewindow , Content* content );
 		virtual
 		~MenuState();
 
 		//Each frame
-		void render (const Ldouble& delta, SDL_Renderer* renderer , etc::Camera &camera);
-		void update (const Ldouble& delta);
-		void event (SDL_Event e , const Ldouble& delta);
+		void render ( const Ldouble& delta, SDL_Renderer* renderer , etc::Camera& camera );
+		void update ( const Ldouble& delta );
+		void event ( SDL_Event e , const Ldouble& delta );
 
 		//Inital un/Load Assests
 		void load   ();

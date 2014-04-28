@@ -17,7 +17,7 @@ namespace etc
 		//Minimum percentage left to warn
 		int warning_percent = 20;
 		//Minimum time left to warn (in seconds)
-		int warning_time = 30*60;
+		int warning_time = 30 * 60;
 		//Time between checks
 		int check_interval = 60000;
 
@@ -32,35 +32,35 @@ namespace etc
 	bool has_battery()
 	{
 		int secs  = 0, pct = 0;
-		SDL_PowerState state = SDL_GetPowerInfo(&secs , &pct);
+		SDL_PowerState state = SDL_GetPowerInfo( &secs , &pct );
 
-		switch (state)
+		switch ( state )
 		{
-			case (SDL_POWERSTATE_ON_BATTERY):
-			case (SDL_POWERSTATE_CHARGING):
-			case (SDL_POWERSTATE_CHARGED):
+			case ( SDL_POWERSTATE_ON_BATTERY ):
+			case ( SDL_POWERSTATE_CHARGING ):
+			case ( SDL_POWERSTATE_CHARGED ):
 
 				return true;
 
 
-			case (SDL_POWERSTATE_NO_BATTERY):
-			case (SDL_POWERSTATE_UNKNOWN):
+			case ( SDL_POWERSTATE_NO_BATTERY ):
+			case ( SDL_POWERSTATE_UNKNOWN ):
 			default: //better to be safe than sorry
 				return false;
 		}
 	}
 
-	void batterySetWarningPercent (int per)
+	void batterySetWarningPercent ( int per )
 	{
 		BATTERY_SETTINGS.warning_percent = per;
 	}
 
-	void batterySetWarningTime (int time)
+	void batterySetWarningTime ( int time )
 	{
 		BATTERY_SETTINGS.warning_time = time;
 	}
 
-	void batterySetCheckInterval (int time)
+	void batterySetCheckInterval ( int time )
 	{
 		BATTERY_SETTINGS.check_interval = time;
 	}
@@ -79,31 +79,31 @@ namespace etc
 	{
 
 		int secs  = 0, pct = 0;
-		SDL_PowerState state = SDL_GetPowerInfo(&secs , &pct);
+		SDL_PowerState state = SDL_GetPowerInfo( &secs , &pct );
 		BATTERY_SETTINGS.current_state = state;
 
 		//Check if the Battery is charging or charged
-		switch (state)
+		switch ( state )
 		{
-			case (SDL_POWERSTATE_CHARGING):
-			case (SDL_POWERSTATE_CHARGED):
+			case ( SDL_POWERSTATE_CHARGING ):
+			case ( SDL_POWERSTATE_CHARGED ):
 				return BATTERY_NORMAL;
 			default:
 				break;
 		}
 
 		//Seconds left are unknown, skip
-		if (secs != -1)
+		if ( secs != -1 )
 		{
-			if (secs <= BATTERY_SETTINGS.warning_time)
+			if ( secs <= BATTERY_SETTINGS.warning_time )
 			{
 				return BATTERY_WARNING;
 			}
 		}
 		//percent is unknown, skip
-		if (pct != -1)
+		if ( pct != -1 )
 		{
-			if (secs <= BATTERY_SETTINGS.warning_percent)
+			if ( secs <= BATTERY_SETTINGS.warning_percent )
 			{
 				return BATTERY_WARNING;
 			}

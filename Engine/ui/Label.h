@@ -27,14 +27,14 @@ namespace ui
 
 		public:
 			Label();
-			Label(std::string label, TTF_Font* font , SDL_Point pos);
+			Label( std::string label, TTF_Font* font , SDL_Point pos );
 			virtual ~Label();
 
-			void render (const Ldouble& delta , SDL_Renderer* renderer , etc::Camera& camera );
-			void update (const Ldouble& delta );
+			void render ( const Ldouble& delta , SDL_Renderer* renderer , etc::Camera& camera );
+			void update ( const Ldouble& delta );
 
 
-			void setText (std::string text);
+			void setText ( std::string text );
 
 			bool RENDER_TEXTURE;
 			bool UPDATE_POSITION;
@@ -49,7 +49,7 @@ namespace ui
 //Other Label related Functions
 	SDL_Texture* generateLabelTexture ( std::string text , SDL_Renderer* renderer , TTF_Font* font , SDL_Color fg , SDL_Rect* size );
 	SDL_Texture* generateLabelTexture ( std::string text , SDL_Renderer* renderer , TTF_Font* font , SDL_Color fg );
-	void centerLabel (SDL_Rect area , Label* label);
+	void centerLabel ( SDL_Rect area , Label* label );
 
 } /* namespace ui */
 

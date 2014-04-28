@@ -23,20 +23,20 @@ namespace input
 
 	void InputManager::unload()
 	{
-	    for (auto& obj : this->providers)
-        {
-            if (obj.second->is_loaded)
-            {
-                obj.second->unload();
-            }
-            delete obj.second;
-        }
-	    this->providers.clear();
+		for ( auto& obj : this->providers )
+		{
+			if ( obj.second->is_loaded )
+			{
+				obj.second->unload();
+			}
+			delete obj.second;
+		}
+		this->providers.clear();
 	}
 
-	bool InputManager::add_provider (std::string provider_name , InputProvider* provider)
+	bool InputManager::add_provider ( std::string provider_name , InputProvider* provider )
 	{
-		if (this->exists(provider_name) == false)
+		if ( this->exists( provider_name ) == false )
 		{
 			this->providers[provider_name] = provider;
 			this->providers[provider_name]->load( &this->input );
@@ -47,11 +47,11 @@ namespace input
 			return false;
 		}
 	}
-	bool InputManager::remove_provider (std::string provider)
+	bool InputManager::remove_provider ( std::string provider )
 	{
-		if (this->exists(provider) == true)
+		if ( this->exists( provider ) == true )
 		{
-			this->providers.erase(provider);
+			this->providers.erase( provider );
 			return true;
 		}
 		else
@@ -59,9 +59,9 @@ namespace input
 			return false;
 		}
 	}
-	bool InputManager::exists (std::string provider_name)
+	bool InputManager::exists ( std::string provider_name )
 	{
-		if (this->providers.find(provider_name) == this->providers.end())
+		if ( this->providers.find( provider_name ) == this->providers.end() )
 		{
 			return false;
 		}
@@ -71,19 +71,19 @@ namespace input
 		}
 	}
 
-	bool InputManager::checkInput (std::string header , std::string name)
+	bool InputManager::checkInput ( std::string header , std::string name )
 	{
-		if (this->input.exists(header) == false)
+		if ( this->input.exists( header ) == false )
 		{
 			std::cout << header << " does not exist" << std::endl;
 			return false;
 		}
 
-		for (auto pro : this->providers)
+		for ( auto pro : this->providers )
 		{
-			if (pro.second != nullptr)
+			if ( pro.second != nullptr )
 			{
-				if (pro.second->checkInputState(header , name) == true)
+				if ( pro.second->checkInputState( header , name ) == true )
 				{
 					return true;
 				}
@@ -92,11 +92,11 @@ namespace input
 		return false;
 	}
 
-	bool InputManager::checkInput (std::string provider_name , std::string header , std::string name)
+	bool InputManager::checkInput ( std::string provider_name , std::string header , std::string name )
 	{
-		if (this->exists(provider_name) && this->providers[provider_name] != nullptr)
+		if ( this->exists( provider_name ) && this->providers[provider_name] != nullptr )
 		{
-			return this->providers[provider_name]->checkInputState(header , name);
+			return this->providers[provider_name]->checkInputState( header , name );
 		}
 		else
 		{
@@ -104,11 +104,11 @@ namespace input
 		}
 	}
 
-	bool InputManager::setInput (std::string provider_name ,std::string header , std::string name , void* data)
+	bool InputManager::setInput ( std::string provider_name , std::string header , std::string name , void* data )
 	{
-		if (this->exists(provider_name))
+		if ( this->exists( provider_name ) )
 		{
-			return this->providers[provider_name]->setInputState( header , name , data);
+			return this->providers[provider_name]->setInputState( header , name , data );
 		}
 		else
 		{
@@ -116,23 +116,23 @@ namespace input
 		}
 	}
 
-	bool InputManager::load (std::string settigs_path , IO::SettingsDuplicateFlags dupflags , IO::SettingsLoadFlags loadflags)
+	bool InputManager::load ( std::string settigs_path , IO::SettingsDuplicateFlags dupflags , IO::SettingsLoadFlags loadflags )
 	{
-		this->input = IO::Settings(loadflags);
+		this->input = IO::Settings( loadflags );
 		this->input.load( settigs_path , dupflags );
 
-		for (auto& header : *this->input.getStoredSettings() )
+		for ( auto& header : *this->input.getStoredSettings() )
 		{
-			this->input.load_section(header.first , dupflags);
+			this->input.load_section( header.first , dupflags );
 		}
 		return true;
 	}
 
-	void InputManager::update(const double& delta)
+	void InputManager::update( const double& delta )
 	{
-		for (auto& pro : this->providers)
+		for ( auto& pro : this->providers )
 		{
-			pro.second->update(delta);
+			pro.second->update( delta );
 		}
 	}
 } /* namespace input */

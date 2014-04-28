@@ -33,14 +33,14 @@ namespace map
 		unload();
 	}
 
-	Map::Map(graphics::TextureManager* textures)
+	Map::Map( graphics::TextureManager* textures )
 	{
 		this->inited = false;
 		this->textures = nullptr;
-		this->init(textures);
+		this->init( textures );
 	}
 
-	bool Map::init (graphics::TextureManager* textures)
+	bool Map::init ( graphics::TextureManager* textures )
 	{
 		this->textures = textures;
 		this->map = etc::AreaMap();
@@ -54,30 +54,31 @@ namespace map
 	 * @brief Load Map file
 	 * @parm file File path to map
 	 */
-	void Map::loadMap(std::string file)
+	void Map::loadMap( std::string file )
 	{
-		if ( !IO::fileExists(file) ){
+		if ( !IO::fileExists( file ) )
+		{
 			std::cout << "ERROR " << file << " does not exits!" << std::endl;
 		}
 
 		std::fstream fs;
-		fs.open(file.c_str());
+		fs.open( file.c_str() );
 
 		while ( ! fs.eof() )
 		{
 			std::string line;
 			std::getline( fs , line );
-			line = etc::trim(line);
+			line = etc::trim( line );
 
 			//Skip empty lines
-			if (line == "")
+			if ( line == "" )
 				continue;
 
 			// # are comments
-			if (etc::startswith( line , "#" ) )
+			if ( etc::startswith( line , "#" ) )
 				continue;
 
-			auto seg = etc::split(line, ",");
+			auto seg = etc::split( line, "," );
 
 			SDL_Rect pt;
 			std::string tex;
@@ -92,7 +93,7 @@ namespace map
 			tex_index = atoi( seg[3].c_str() );
 
 			//Texture flip
-			flip = (SDL_RendererFlip)atoi( seg[4].c_str() );
+			flip = ( SDL_RendererFlip )atoi( seg[4].c_str() );
 
 			//Position
 			//X
@@ -101,7 +102,7 @@ namespace map
 			//Y
 			pt.y = atoi( seg[1].c_str() );
 
-			SDL_Rect* size = this->textures->getTexture(tex)->getSprite(tex_index);
+			SDL_Rect* size = this->textures->getTexture( tex )->getSprite( tex_index );
 			pt.w = size->w;
 			pt.h = size->h;
 
@@ -109,18 +110,18 @@ namespace map
 
 			MapTile* tile;
 			SDL_Point cor; //center of rotation
-			cor.x = pt.w/2;
-			cor.y = pt.h/2;
+			cor.x = pt.w / 2;
+			cor.y = pt.h / 2;
 
-			tile = new MapTile( this->textures->getTexture(tex)
+			tile = new MapTile( this->textures->getTexture( tex )
 								, pt
 								, tex_index
 								, 0.0
 								, cor
 								, flip );
-			tile->setAdjustCamera(true);
-			this->maptiles.push_back(tile);
-			this->map.insert(tile);
+			tile->setAdjustCamera( true );
+			this->maptiles.push_back( tile );
+			this->map.insert( tile );
 			//std::cout << "Loaded " << line << std::endl;
 		}
 
@@ -129,7 +130,7 @@ namespace map
 
 	void Map::unloadMap()
 	{
-		for (auto tile : this->maptiles)
+		for ( auto tile : this->maptiles )
 		{
 			delete tile;
 		}
@@ -141,15 +142,15 @@ namespace map
 		unloadMap();
 	}
 
-	void Map::render (const Ldouble& delta, SDL_Renderer* renderer , etc::Camera& camera)
+	void Map::render ( const Ldouble& delta, SDL_Renderer* renderer , etc::Camera& camera )
 	{
-		auto tiles = this->map.getSpritesFromArea(camera.getViewport());
-		for (auto tile : tiles)
+		auto tiles = this->map.getSpritesFromArea( camera.getViewport() );
+		for ( auto tile : tiles )
 		{
-			tile->render(delta , renderer , camera);
+			tile->render( delta , renderer , camera );
 		}
 	}
-	void Map::update (const Ldouble& delta)
+	void Map::update ( const Ldouble& delta )
 	{
 
 	}

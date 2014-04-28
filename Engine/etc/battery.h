@@ -22,10 +22,10 @@ namespace etc
 
 	bool has_battery ();
 
-	void batterySetWarningPercent (int per);
-	void batterySetWarningTime (int time);
+	void batterySetWarningPercent ( int per );
+	void batterySetWarningTime ( int time );
 
-	void batterySetCheckInterval (int time);
+	void batterySetCheckInterval ( int time );
 	int batteryGetCheckInterval ();
 
 	int batteryStatus ();

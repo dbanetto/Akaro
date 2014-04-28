@@ -19,7 +19,7 @@ namespace ui
 		this->UPDATE_POSITION = false;
 	}
 
-	Label::Label(std::string label, TTF_Font* font , SDL_Point pos)
+	Label::Label( std::string label, TTF_Font* font , SDL_Point pos )
 	{
 		this->font = font;
 		this->text = label;
@@ -41,39 +41,39 @@ namespace ui
 
 	Label::~Label()
 	{
-		if (this->texture != nullptr)
+		if ( this->texture != nullptr )
 		{
 			SDL_DestroyTexture( this->texture );
 		}
 	}
 
-	void Label::render (const Ldouble& delta , SDL_Renderer* renderer , etc::Camera& camera )
+	void Label::render ( const Ldouble& delta , SDL_Renderer* renderer , etc::Camera& camera )
 	{
 		//Check if the text needs to be rendered
-		if (this->RENDER_TEXTURE)
+		if ( this->RENDER_TEXTURE )
 		{
 			//If the Label has a texture destroy it FOR SAFETY!
-			if (this->texture != nullptr)
+			if ( this->texture != nullptr )
 			{
-				SDL_DestroyTexture(this->texture);
+				SDL_DestroyTexture( this->texture );
 			}
-			this->texture = generateLabelTexture( this->text , renderer , this->font , this->fg, &(this->area));
+			this->texture = generateLabelTexture( this->text , renderer , this->font , this->fg, &( this->area ) );
 			this->RENDER_TEXTURE = false;
 			this->UPDATE_POSITION = true;
 		}
 
 		SDL_Rect temp = this->area;
-		if (this->adjust_camera)
+		if ( this->adjust_camera )
 		{
-			temp = camera.subCamPos(this->area);
+			temp = camera.subCamPos( this->area );
 		}
-		SDL_RenderCopy( renderer , this->texture , NULL , &(temp) );
+		SDL_RenderCopy( renderer , this->texture , NULL , &( temp ) );
 	}
 
-	void Label::update (const Ldouble& delta )
+	void Label::update ( const Ldouble& delta )
 	{
 		//Update the Font
-		if (this->UPDATE_POSITION)
+		if ( this->UPDATE_POSITION )
 		{
 			this->pos.x = area.x;
 			this->pos.y = area.y;
@@ -81,10 +81,10 @@ namespace ui
 		}
 	}
 
-	void Label::setText (std::string Text)
+	void Label::setText ( std::string Text )
 	{
 		//No change in text save a render
-		if (this->text == Text)
+		if ( this->text == Text )
 			return;
 
 		this->text = Text;
@@ -103,7 +103,7 @@ namespace ui
 
 		//Return width and height of rendered text
 		//Only if the rect is not null
-		if (size != nullptr)
+		if ( size != nullptr )
 		{
 			size->w = sf->w;
 			size->h = sf->h;
@@ -120,22 +120,22 @@ namespace ui
 	}
 	SDL_Texture* generateLabelTexture ( std::string text , SDL_Renderer* renderer , TTF_Font* font , SDL_Color fg )
 	{
-		return generateLabelTexture (text , renderer , font , fg , nullptr);
+		return generateLabelTexture ( text , renderer , font , fg , nullptr );
 	}
 
-	void centerLabel (SDL_Rect area , Label* label)
+	void centerLabel ( SDL_Rect area , Label* label )
 	{
 		//Get the center of the area
-		int area_center_x = area.x + area.w/2;
-		int area_center_y = area.y + area.h/2;
+		int area_center_x = area.x + area.w / 2;
+		int area_center_y = area.y + area.h / 2;
 		SDL_Rect lb = label->getRect();
 		//Subtract half of the width and height of the label
 		// So it is off setted to be the correct position
-		area_center_x -= lb.w/2;
-		area_center_y -= lb.h/2;
+		area_center_x -= lb.w / 2;
+		area_center_y -= lb.h / 2;
 
 		//Set the label to the new position
-		label->setPosition(area_center_x , area_center_y);
+		label->setPosition( area_center_x , area_center_y );
 	}
 
 } /* namespace ui */

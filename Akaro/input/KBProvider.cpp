@@ -11,26 +11,26 @@
 
 namespace input
 {
-	Key stringToKeys (std::string keys)
+	Key stringToKeys ( std::string keys )
 	{
 		Key out;
 
 		// #C++11 bitches
-		std::vector<std::string> codes = etc::split(keys , "+");
+		std::vector<std::string> codes = etc::split( keys , "+" );
 
 		out.keymod = KMOD_NONE;
-		for (auto& code : codes)
+		for ( auto& code : codes )
 		{
 			//Check if the code starts with K but not only a K
-			if (code[0] == 'K' && code != "K")
+			if ( code[0] == 'K' && code != "K" )
 			{
 				//Pretty sure it is a K-mod now
-				code.erase(code.begin());
-				out.keymod = (SDL_Keymod)( atoi ( code.c_str() ));
+				code.erase( code.begin() );
+				out.keymod = ( SDL_Keymod )( atoi ( code.c_str() ) );
 				continue;
 			}
 			SDL_Scancode sc = SDL_GetScancodeFromName( code.c_str() );
-			if (sc == SDL_SCANCODE_UNKNOWN)
+			if ( sc == SDL_SCANCODE_UNKNOWN )
 			{
 				std::cout << code << " is an incorrect SDL_SCANCODE." << std::endl;
 			}
@@ -41,20 +41,20 @@ namespace input
 		}
 		return out;
 	}
-	std::string keysToString (Key key)
+	std::string keysToString ( Key key )
 	{
 		std::string out;
 
-		for (auto& code : key.scan_codes)
+		for ( auto& code : key.scan_codes )
 		{
-			out += std::string(SDL_GetScancodeName(code));
+			out += std::string( SDL_GetScancodeName( code ) );
 		}
 
 
-		if ((int)(key.keymod) != 0)
+		if ( ( int )( key.keymod ) != 0 )
 		{
 			out += "+";
-			out += "K" + etc::convInt(key.keymod);
+			out += "K" + etc::convInt( key.keymod );
 		}
 
 		return out;
@@ -71,28 +71,28 @@ namespace input
 		unload ();
 	}
 
-	void KBProvider::update(const double& delta )
+	void KBProvider::update( const double& delta )
 	{
-		this->key_states = SDL_GetKeyboardState(NULL);
+		this->key_states = SDL_GetKeyboardState( NULL );
 	}
 
-	void KBProvider::load   (IO::Settings* input_settings)
+	void KBProvider::load   ( IO::Settings* input_settings )
 	{
-		std::map<std::string,IO::INISection>* settings_data =  input_settings->getStoredSettings() ;
+		std::map<std::string, IO::INISection>* settings_data =  input_settings->getStoredSettings() ;
 
-		for (auto& header : *settings_data )
+		for ( auto& header : *settings_data )
 		{
 			for ( auto& lower : header.second.properties )
 			{
 				//Check if it is a key
-				if ( etc::endswith (lower.first , this->settings_postfix ) )
+				if ( etc::endswith ( lower.first , this->settings_postfix ) )
 				{
-					if (this->keys[header.first][lower.first] != nullptr)
+					if ( this->keys[header.first][lower.first] != nullptr )
 						continue;
 
 					//Add the Key to the local
 					Key* out = new Key;
-					Key k = stringToKeys(lower.second);
+					Key k = stringToKeys( lower.second );
 					out->keymod = k.keymod;
 					out->scan_codes = k.scan_codes;
 
@@ -105,7 +105,7 @@ namespace input
 
 	void KBProvider::unload ()
 	{
-		for (auto& header : this->keys )
+		for ( auto& header : this->keys )
 		{
 			for ( auto& lower : header.second )
 			{
@@ -116,27 +116,27 @@ namespace input
 		this->keys.clear();
 	}
 
-	bool  KBProvider::checkInputState (std::string& header , std::string& name)
+	bool  KBProvider::checkInputState ( std::string& header , std::string& name )
 	{
-		Key* k = this->keys[header][name+this->settings_postfix];
+		Key* k = this->keys[header][name + this->settings_postfix];
 
-		if (k->keymod != KMOD_NONE)
+		if ( k->keymod != KMOD_NONE )
 		{
-			if ( (k->keymod & SDL_GetModState()) == false)
+			if ( ( k->keymod & SDL_GetModState() ) == false )
 			{
 				return false;
 			}
 		}
 
-		if (k->scan_codes.size() < 1)
+		if ( k->scan_codes.size() < 1 )
 		{
 			std::cout << "ERROR : No Scan codes" << std::endl;
 			return false;
 		}
 
-		for (auto code : k->scan_codes)
+		for ( auto code : k->scan_codes )
 		{
-			if (this->key_states[code] == false)
+			if ( this->key_states[code] == false )
 			{
 				return false;
 			}
@@ -145,7 +145,7 @@ namespace input
 
 	}
 
-	bool  KBProvider::setInputState (std::string& header , std::string& name, void*& data)
+	bool  KBProvider::setInputState ( std::string& header , std::string& name, void*& data )
 	{
 		return false;
 	}

@@ -26,8 +26,8 @@ namespace input
 		std::map<SDL_GameControllerAxis, bool>   axis;
 	};
 
-	ps3bind toPS3Bind (std::string raw);
-	std::string PS3BindtoString (ps3bind bind);
+	ps3bind toPS3Bind ( std::string raw );
+	std::string PS3BindtoString ( ps3bind bind );
 
 	class PS3Provider : public input::InputProvider
 	{
@@ -36,14 +36,14 @@ namespace input
 			virtual ~PS3Provider ();
 
 			//Loading and unloading
-			virtual void load   (IO::Settings* input_settings);
+			virtual void load   ( IO::Settings* input_settings );
 			virtual void unload ();
 
 			//Check input state, if true then it is active
-			virtual bool checkInputState (std::string& header , std::string& name);
+			virtual bool checkInputState ( std::string& header , std::string& name );
 			//Change the needed input state
-			virtual bool setInputState (std::string& header , std::string& name, void*& data);
-			virtual void update(const double& delta);
+			virtual bool setInputState ( std::string& header , std::string& name, void*& data );
+			virtual void update( const double& delta );
 			bool is_loaded;
 		protected:
 			const std::string settings_postfix = ".ps3";

@@ -26,16 +26,16 @@ namespace graphics
 		this->columns = 0;
 	}
 
-	Texture::Texture (SDL_Renderer* renderer,std::string file)
+	Texture::Texture ( SDL_Renderer* renderer, std::string file )
 	{
 		this->texture = nullptr;
 		this->is_loaded = false;
 		this->rows = 0;
 		this->columns = 0;
-		this->load(renderer,file);
+		this->load( renderer, file );
 	}
 
-	Texture::Texture (const Texture& tex)
+	Texture::Texture ( const Texture& tex )
 	{
 		this->is_loaded = false;
 		this->texture = nullptr;
@@ -46,78 +46,78 @@ namespace graphics
 	Texture::~Texture ()
 	{
 
-		if (this->texture != nullptr)
+		if ( this->texture != nullptr )
 		{
-			SDL_DestroyTexture(this->texture);
+			SDL_DestroyTexture( this->texture );
 		}
 	}
 
-	bool Texture::load (SDL_Renderer* renderer, std::string file)
+	bool Texture::load ( SDL_Renderer* renderer, std::string file )
 	{
-		return this->load(renderer,file,0,0);
+		return this->load( renderer, file, 0, 0 );
 	}
 
-	bool Texture::load (SDL_Renderer* renderer, std::string file, int columns, int rows)
+	bool Texture::load ( SDL_Renderer* renderer, std::string file, int columns, int rows )
 	{
-		SDL_Surface* surf = IMG_Load(file.c_str());
-		if (surf == nullptr)
+		SDL_Surface* surf = IMG_Load( file.c_str() );
+		if ( surf == nullptr )
 		{
 			std::cout << file << " failed to load. " << SDL_GetError() << std::endl;
 			return false;
 		}
 
 		//Can only create if both columns
-		if (columns > 0 && rows > 0)
+		if ( columns > 0 && rows > 0 )
 		{
 			//Create rects
 			this->sprite_map.clear();
-			this->sprite_map.reserve(columns*rows);
+			this->sprite_map.reserve( columns * rows );
 			int width = surf->w / columns;
 			int hieght = surf->h / rows;
 			this->columns = columns;
 			this->rows = rows;
-			for (int y = 0; y < columns; y++ )
+			for ( int y = 0; y < columns; y++ )
 			{
-				for (int x = 0; x < rows; x++ )
+				for ( int x = 0; x < rows; x++ )
 				{
 					SDL_Rect map;
-					map.x = x*width;
-					map.y = y*hieght;
+					map.x = x * width;
+					map.y = y * hieght;
 					map.w = width;
 					map.h = hieght;
 
-					this->sprite_map.push_back(map);
+					this->sprite_map.push_back( map );
 				}
 			}
 		}
 		else
 		{
 			this->sprite_map.clear();
-			this->sprite_map.reserve(1);
+			this->sprite_map.reserve( 1 );
 			SDL_Rect map;
 			map.x = 0;
 			map.y = 0;
 			map.w = surf->w;
 			map.h = surf->h;
-			this->sprite_map.push_back(map);
+			this->sprite_map.push_back( map );
 		}
 
 		this->texture = SDL_CreateTextureFromSurface ( renderer, surf );
 
-		if (this->texture == nullptr)
+		if ( this->texture == nullptr )
 		{
 			std::cout << file << " failed to convert to texture. " << SDL_GetError() << std::endl;
 			return false;
 		}
 
-		SDL_FreeSurface(surf);
+		SDL_FreeSurface( surf );
 		this->is_loaded = true;
 		return true;
 	}
 
-	bool Texture::load (SDL_Renderer* renderer,std::string file , std::vector<SDL_Rect> sprite_map)
+	bool Texture::load ( SDL_Renderer* renderer, std::string file , std::vector<SDL_Rect> sprite_map )
 	{
-		if (this->load(renderer,file,0,0) == true)
+		if ( this->load( renderer, file, 0, 0 ) == true )
 		{
 			this->sprite_map = sprite_map;
 			return true;
@@ -133,14 +133,14 @@ namespace graphics
 		return this->texture;
 	}
 
-	SDL_Rect* Texture::getSprite(int column, int row)
+	SDL_Rect* Texture::getSprite( int column, int row )
 	{
-		return &(this->sprite_map[column*rows + row]);
+		return &( this->sprite_map[column * rows + row] );
 	}
 
-	SDL_Rect* Texture::getSprite(int index)
+	SDL_Rect* Texture::getSprite( int index )
 	{
-		return &(this->sprite_map[index]);
+		return &( this->sprite_map[index] );
 	}
 
 } /* namespace graphics */

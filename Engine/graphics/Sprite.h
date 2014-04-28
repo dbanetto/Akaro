@@ -21,18 +21,18 @@ namespace graphics
 	{
 		public:
 			Sprite ();
-			Sprite (Texture* texture ,SDL_Point Position);
-			Sprite (Texture* texture ,SDL_Rect Position, int SpriteMapIndex , double Rotation , SDL_Point CenterofRotation, SDL_RendererFlip flip);
+			Sprite ( Texture* texture , SDL_Point Position );
+			Sprite ( Texture* texture , SDL_Rect Position, int SpriteMapIndex , double Rotation , SDL_Point CenterofRotation, SDL_RendererFlip flip );
 			virtual ~Sprite ();
 
-			virtual void render (const Ldouble& delta, SDL_Renderer* renderer , etc::Camera& camera);
-			virtual void update (const Ldouble& delta);
+			virtual void render ( const Ldouble& delta, SDL_Renderer* renderer , etc::Camera& camera );
+			virtual void update ( const Ldouble& delta );
 
-			void setTexture (Texture* texture);
-			void setFlip (SDL_RendererFlip flip);
-			void setCenterOfRotation (SDL_Point pt);
-			void setRotation (double rot);
-			void setSpriteMapIndex (int sprite_map_index);
+			void setTexture ( Texture* texture );
+			void setFlip ( SDL_RendererFlip flip );
+			void setCenterOfRotation ( SDL_Point pt );
+			void setRotation ( double rot );
+			void setSpriteMapIndex ( int sprite_map_index );
 
 			Texture* getTexture();
 			SDL_RendererFlip getFlip();

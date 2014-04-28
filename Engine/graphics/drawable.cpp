@@ -24,7 +24,7 @@ namespace graphics
 		this->adjust_camera = false;
 	}
 
-	void drawable::setPosition (SDL_Point pos)
+	void drawable::setPosition ( SDL_Point pos )
 	{
 		this->pos.x = pos.x;
 		this->pos.y = pos.y;
@@ -33,29 +33,29 @@ namespace graphics
 		this->area.y = pos.y;
 	}
 
-	void drawable::setPosition (maths::Point pos)
+	void drawable::setPosition ( maths::Point pos )
 	{
 		this->pos.x = pos.x;
 		this->pos.y = pos.y;
 
-		this->area.x = (int)pos.x;
-		this->area.y = (int)pos.y;
+		this->area.x = ( int )pos.x;
+		this->area.y = ( int )pos.y;
 	}
-	void drawable::changePosition (Ldouble x , Ldouble y)
+	void drawable::changePosition ( Ldouble x , Ldouble y )
 	{
 		this->pos.x += x;
 		this->pos.y += y;
 
-		this->area.x = (int)pos.x;
-		this->area.y = (int)pos.y;
+		this->area.x = ( int )pos.x;
+		this->area.y = ( int )pos.y;
 	}
-	void drawable::setPosition (Ldouble x , Ldouble y)
+	void drawable::setPosition ( Ldouble x , Ldouble y )
 	{
 		this->pos.x = x;
 		this->pos.y = y;
 
-		this->area.x = (int)pos.x;
-		this->area.y = (int)pos.y;
+		this->area.x = ( int )pos.x;
+		this->area.y = ( int )pos.y;
 	}
 
 	SDL_Rect drawable::getRect ()
@@ -68,7 +68,7 @@ namespace graphics
 		return this->pos;
 	}
 
-	void drawable::setAdjustCamera(bool var)
+	void drawable::setAdjustCamera( bool var )
 	{
 		this->adjust_camera = var;
 	}

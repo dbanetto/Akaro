@@ -27,19 +27,19 @@ namespace audio
 	{
 		public:
 			AudioManager ();
-			AudioManager (IO::Settings* audio_settings);
+			AudioManager ( IO::Settings* audio_settings );
 			virtual  ~AudioManager ();
 
-			void load_settings(IO::Settings* audio_settings);
+			void load_settings( IO::Settings* audio_settings );
 
-			void play (std::string name);
+			void play ( std::string name );
 			bool load ( std::string name , std::string file );
-			bool load ( std::string name , std::string file , bool use_base_path);
-			void unload (std::string name);
+			bool load ( std::string name , std::string file , bool use_base_path );
+			void unload ( std::string name );
 			void unloadall ();
-			bool exist (std::string name);
+			bool exist ( std::string name );
 
-			void setPath (std::string path);
+			void setPath ( std::string path );
 		private:
 			SDL_AudioDeviceID device_id;
 			std::string path;

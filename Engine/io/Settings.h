@@ -26,7 +26,7 @@ namespace IO
 	enum SettingsDuplicateFlags
 	{
 		SETTINGS_DUPLICATES_INGORED = 0
-									  ,SETTINGS_DUPLICATES_OVERRIDE = 1
+									  , SETTINGS_DUPLICATES_OVERRIDE = 1
 	};
 
 	/**
@@ -41,7 +41,7 @@ namespace IO
 							   /**
 							    * @brief Do load properties when it is not loaded and requested
 							    */
-							   ,SETTING_LOAD_ON_REQUEST = 1//!< SETTING_LOAD_ON_REQUEST
+							   , SETTING_LOAD_ON_REQUEST = 1 //!< SETTING_LOAD_ON_REQUEST
 	};
 
 // SettingsList which is a map of string, string
@@ -69,35 +69,35 @@ namespace IO
 	{
 		public:
 			Settings();
-			Settings(SettingsLoadFlags flag);
+			Settings( SettingsLoadFlags flag );
 			virtual ~Settings();
 
 			//Clear stored settings
 			void clear();
 
 			// Load all the settings in the file
-			void load ( std::string  file , SettingsDuplicateFlags flag);
+			void load ( std::string  file , SettingsDuplicateFlags flag );
 
-			void load_section (std::string header , SettingsDuplicateFlags flag);
-			void unload_section (std::string header);
+			void load_section ( std::string header , SettingsDuplicateFlags flag );
+			void unload_section ( std::string header );
 			void unload();
-			bool exists (std::string header , std::string  key);
-			bool exists (std::string header);
+			bool exists ( std::string header , std::string  key );
+			bool exists ( std::string header );
 
-			bool get (std::string header , std::string  key , std::string* out);
+			bool get ( std::string header , std::string  key , std::string* out );
 
-			bool getBool (std::string header ,  std::string  key , bool* out);
+			bool getBool ( std::string header ,  std::string  key , bool* out );
 
-			bool getInt (std::string header , std::string  key , int* out);
+			bool getInt ( std::string header , std::string  key , int* out );
 
-			virtual bool add (std::string header , std::string key , std::string value);
+			virtual bool add ( std::string header , std::string key , std::string value );
 
 			//Implies overriding is OK
-			virtual bool set (std::string header , std::string key , std::string value);
+			virtual bool set ( std::string header , std::string key , std::string value );
 
 			bool save ();
 
-			std::map<std::string,INISection>* getStoredSettings ();
+			std::map<std::string, INISection>* getStoredSettings ();
 
 		private:
 			std::map<std::string , INISection > stored_settings;

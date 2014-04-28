@@ -12,14 +12,14 @@ class WorldState : public GameState
 {
 	public:
 		/** Default constructor */
-		WorldState(GameStateManager* Manager, GameWindow* gamewindow , Content* content);
+		WorldState( GameStateManager* Manager, GameWindow* gamewindow , Content* content );
 		/** Default destructor */
 		virtual ~WorldState();
 
 		//Each frame
-		void render (const Ldouble& delta, SDL_Renderer* renderer , etc::Camera &camera);
-		void update (const Ldouble& delta);
-		void event (SDL_Event e , const Ldouble& delta);
+		void render ( const Ldouble& delta, SDL_Renderer* renderer , etc::Camera& camera );
+		void update ( const Ldouble& delta );
+		void event ( SDL_Event e , const Ldouble& delta );
 
 		//Inital un/Load Assests
 		void load   ();

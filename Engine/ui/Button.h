@@ -29,22 +29,22 @@ namespace ui
 			 * @brief Call back function for when the mouse clicks on the button
 			 * @param btn Button that is calling back
 			 */
-			typedef void (*ButtonClickedCallBack)  (Button* btn);
+			typedef void ( *ButtonClickedCallBack )  ( Button* btn );
 			/**
 			 * @brief Call back function for when the mouse stops clicking on the button
 			 * @param btn Button that is calling back
 			 */
-			typedef void (*ButtonUnclickedCallBack)(Button* btn);
+			typedef void ( *ButtonUnclickedCallBack )( Button* btn );
 			/**
 			 * @brief Call back function for when the mouse starts to hover over the button
 			 * @param btn Button that is calling back
 			 */
-			typedef void (*ButtonHoverCallBack)    (Button* btn);
+			typedef void ( *ButtonHoverCallBack )    ( Button* btn );
 			/**
 			 * @brief Call back function for when the mouse stops hovering over the button
 			 * @param btn Button that is calling back
 			 */
-			typedef void (*ButtonUnhoverCallBack)  (Button* btn);
+			typedef void ( *ButtonUnhoverCallBack )  ( Button* btn );
 
 // A struct will all the required callback functions
 			/**
@@ -75,8 +75,8 @@ namespace ui
 			Button( SDL_Rect pos , SDL_Color fg, SDL_Color border , int border_width , ButtonCallBacks callbacks , ui::Label label );
 			virtual ~Button();
 
-			void render (const Ldouble& delta , SDL_Renderer* renderer , etc::Camera& camera );
-			void update (const Ldouble& delta );
+			void render ( const Ldouble& delta , SDL_Renderer* renderer , etc::Camera& camera );
+			void update ( const Ldouble& delta );
 
 			//Flags for updating rendered texture or position
 			bool RENDER_TEXTURE;

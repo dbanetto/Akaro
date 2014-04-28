@@ -19,21 +19,21 @@ namespace maths
 	{
 		public:
 			Point();
-			Point(const Point& p);
-			Point(double xy);
-			Point(double x, double y);
+			Point( const Point& p );
+			Point( double xy );
+			Point( double x, double y );
 
 			virtual ~Point();
 
 			//Operators
 
-			Point operator+(const Point&) const;
-			Point operator-(const Point&) const;
+			Point operator+( const Point& ) const;
+			Point operator-( const Point& ) const;
 
 
 			//To String Function
 			std::string str();
-			std::string str(char prefix, char mid , char postfix);
+			std::string str( char prefix, char mid , char postfix );
 
 			Ldouble x , y;
 	};

@@ -18,18 +18,18 @@ namespace map
 	{
 		public:
 			MapTile();
-			MapTile (graphics::Texture* texture
-					 ,SDL_Point Position);
-			MapTile (graphics::Texture* texture
-					 ,SDL_Rect Position
-					 ,int SpriteMapIndex
-					 ,double Rotation
-					 ,SDL_Point CenterofRotation
-					 ,SDL_RendererFlip flip);
+			MapTile ( graphics::Texture* texture
+					  , SDL_Point Position );
+			MapTile ( graphics::Texture* texture
+					  , SDL_Rect Position
+					  , int SpriteMapIndex
+					  , double Rotation
+					  , SDL_Point CenterofRotation
+					  , SDL_RendererFlip flip );
 
 			virtual ~MapTile();
 
-			void load(std::string config);
+			void load( std::string config );
 	};
 
 } /* namespace map */

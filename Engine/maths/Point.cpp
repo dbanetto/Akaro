@@ -17,19 +17,19 @@ namespace maths
 		this->y = 0;
 	}
 
-	Point::Point(const Point& p)
+	Point::Point( const Point& p )
 	{
 		this->x = p.x;
 		this->y = p.y;
 	}
 
-	Point::Point(double xy)
+	Point::Point( double xy )
 	{
 		this->x = xy;
 		this->y = xy;
 	}
 
-	Point::Point(double x , double y)
+	Point::Point( double x , double y )
 	{
 		this->x = x;
 		this->y = y;
@@ -40,7 +40,7 @@ namespace maths
 	 * @param in Value to added
 	 * @return sum of two points
 	 */
-	Point Point::operator+(const Point& in) const
+	Point Point::operator+( const Point& in ) const
 	{
 		Point result;
 		result.x = this->x + in.x;
@@ -53,10 +53,10 @@ namespace maths
 	 * @param in Value to minus
 	 * @return subtraction of two Points
 	 */
-	Point Point::operator-(const Point& in) const
+	Point Point::operator-( const Point& in ) const
 	{
 		Point result;
-		result.x = this->x -in.x;
+		result.x = this->x - in.x;
 		result.y = this->y - in.y;
 		return result;
 	}
@@ -68,7 +68,7 @@ namespace maths
 	std::string Point::str()
 	{
 		//Default string setting
-		return str('(',',',')');
+		return str( '(', ',', ')' );
 	}
 
 	/**
@@ -77,7 +77,7 @@ namespace maths
 	 * @param postfix - the character at the end of the string
 	 * @return
 	 */
-	std::string Point::str(char prefix, char mid , char postfix)
+	std::string Point::str( char prefix, char mid , char postfix )
 	{
 		return prefix + etc::convInt( this->x ) + mid + etc::convInt( this->y ) + postfix;
 	}

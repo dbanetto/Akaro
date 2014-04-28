@@ -26,13 +26,13 @@ namespace etc
 		return this->view;
 	}
 
-	void Camera::setBounds (int w, int h)
+	void Camera::setBounds ( int w, int h )
 	{
 		this->view.w = w;
 		this->view.h = h;
 	}
 
-	void Camera::setPosition (int x, int y)
+	void Camera::setPosition ( int x, int y )
 	{
 		this->view.x = x;
 		this->view.y = y;
@@ -46,7 +46,7 @@ namespace etc
 		return pt;
 	}
 
-	void Camera::changePosition (int deltax, int deltay)
+	void Camera::changePosition ( int deltax, int deltay )
 	{
 		this->view.x += deltax;
 		this->view.y += deltay;

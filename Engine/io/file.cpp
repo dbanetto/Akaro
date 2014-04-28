@@ -10,10 +10,10 @@
 
 using namespace IO;
 
-bool IO::fileExists(const std::string& filename)
+bool IO::fileExists( const std::string& filename )
 {
 	struct stat buf;
-	if (stat(filename.c_str(), &buf) != -1)
+	if ( stat( filename.c_str(), &buf ) != -1 )
 	{
 		return true;
 	}

@@ -36,7 +36,7 @@ class Content
 
 		//Getters
 		IO::Settings* Settings();
-		input::InputManager * Input();
+		input::InputManager* Input();
 		audio::AudioManager* Audio();
 		GameStateManager* Gamestate();
 		ui::FontManager* Fonts();

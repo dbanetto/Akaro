@@ -15,7 +15,7 @@
 
 #include <iostream>
 
-MenuState::MenuState(GameStateManager* Manager, GameWindow* Window , Content* Content)
+MenuState::MenuState( GameStateManager* Manager, GameWindow* Window , Content* Content )
 	: GameState()
 {
 	this->manager = Manager;
@@ -29,17 +29,17 @@ MenuState::~MenuState()
 }
 
 //Each frame
-void MenuState::render (const Ldouble& delta, SDL_Renderer* renderer , etc::Camera &camera )
+void MenuState::render ( const Ldouble& delta, SDL_Renderer* renderer , etc::Camera& camera )
 {
 
 }
 
-void MenuState::update (const Ldouble& delta)
+void MenuState::update ( const Ldouble& delta )
 {
 
 }
 
-void MenuState::event (SDL_Event e , const Ldouble& delta)
+void MenuState::event ( SDL_Event e , const Ldouble& delta )
 {
 
 
@@ -50,9 +50,9 @@ void MenuState::load ()
 {
 	std::cout << "Menu State Loaded" << std::endl;
 	std::string path = "";
-	if ( this->content->Settings()->get( "ui" , "font" , &path) )
+	if ( this->content->Settings()->get( "ui" , "font" , &path ) )
 	{
-		if (this->content->Fonts()->load("ui.font" , path))
+		if ( this->content->Fonts()->load( "ui.font" , path ) )
 		{
 			std::cout << "Font loaded" << std::endl;
 		}

@@ -25,19 +25,19 @@ namespace graphics
 	{
 		public:
 			TextureManager ();
-			TextureManager (SDL_Renderer* renderer);
+			TextureManager ( SDL_Renderer* renderer );
 			virtual ~TextureManager ();
 			bool load ( std::string file , std::string name );
-			bool load ( std::string file , std::string name , int columns , int rows);
+			bool load ( std::string file , std::string name , int columns , int rows );
 
-			bool exists (std::string name);
+			bool exists ( std::string name );
 
-			Texture* getTexture (std::string name);
+			Texture* getTexture ( std::string name );
 
 			void unload ();
 
 		private:
-			std::map<std::string,Texture> textures;
+			std::map<std::string, Texture> textures;
 			SDL_Renderer* renderer;
 	};
 

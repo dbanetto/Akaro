@@ -15,15 +15,15 @@
 #include "SDL_version.h"
 #endif
 
-int main (int argc, char* argv[])
+int main ( int argc, char* argv[] )
 {
 	{
 		SDL_version running;
-		SDL_GetVersion(&running);
+		SDL_GetVersion( &running );
 		SDL_version linked;
-		SDL_VERSION(&linked);
+		SDL_VERSION( &linked );
 
-		if (running.patch < linked.patch && running.minor < linked.minor)
+		if ( running.patch < linked.patch && running.minor < linked.minor )
 		{
 			std::cout << "You are running an out of date version of SDL2" << std::endl;
 			std::cout << "You can the new version from http://libsdl.org" << std::endl;
@@ -34,10 +34,10 @@ int main (int argc, char* argv[])
 	//Load base content
 	content.load();
 
-	AkaroWindow gm = AkaroWindow (&content);
+	AkaroWindow gm = AkaroWindow ( &content );
 
 	//Make sure the window init'ed properly
-	if ( gm.init ( "Akaro" , etc::toColour(4,107,19 , 100) , SDL_WINDOW_OPENGL ) == 0 )
+	if ( gm.init ( "Akaro" , etc::toColour( 4, 107, 19 , 100 ) , SDL_WINDOW_OPENGL ) == 0 )
 	{
 		//14 - Start the game already!
 		gm.start();

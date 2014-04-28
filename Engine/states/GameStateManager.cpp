@@ -21,27 +21,27 @@ GameStateManager::~GameStateManager()
 
 void GameStateManager::unload()
 {
-    // Delete all the GameStates as they were made with new statements
-    for (auto& obj : this->states)
-    {
-        if (obj.second->is_loaded)
-        {
-            obj.second->unload();
-        }
-        delete obj.second;
-    }
-    this->states.clear();
+	// Delete all the GameStates as they were made with new statements
+	for ( auto& obj : this->states )
+	{
+		if ( obj.second->is_loaded )
+		{
+			obj.second->unload();
+		}
+		delete obj.second;
+	}
+	this->states.clear();
 }
 
-void GameStateManager::set_state (std::string state_name)
+void GameStateManager::set_state ( std::string state_name )
 {
-	if (this->exists(state_name) == false)
+	if ( this->exists( state_name ) == false )
 	{
 		std::cout << "WARNING Trying to set state to " << state_name << " which does not exist" << std::endl;
 		return;
 	}
 
-	if (this->current != nullptr)
+	if ( this->current != nullptr )
 	{
 		this->current->unload();
 	}
@@ -50,9 +50,9 @@ void GameStateManager::set_state (std::string state_name)
 	this->current->load();
 }
 
-bool GameStateManager::add_state (std::string state_name , GameState* state)
+bool GameStateManager::add_state ( std::string state_name , GameState* state )
 {
-	if (this->exists(state_name) == false)
+	if ( this->exists( state_name ) == false )
 	{
 		this->states[state_name] = state;
 		return true;
@@ -63,7 +63,7 @@ bool GameStateManager::add_state (std::string state_name , GameState* state)
 	}
 }
 
-bool GameStateManager::exists (std::string state_name)
+bool GameStateManager::exists ( std::string state_name )
 {
-	return (this->states.find(state_name) != this->states.end());
+	return ( this->states.find( state_name ) != this->states.end() );
 }

@@ -1,6 +1,6 @@
 #include "WorldState.h"
 
-WorldState::WorldState(GameStateManager* Manager, GameWindow* Window, Content* Content)
+WorldState::WorldState( GameStateManager* Manager, GameWindow* Window, Content* Content )
 {
 	//ctor
 	this->manager = Manager;
@@ -13,17 +13,17 @@ WorldState::~WorldState()
 	//dtor
 }
 
-void WorldState::render (const Ldouble& delta, SDL_Renderer* renderer , etc::Camera &camera)
+void WorldState::render ( const Ldouble& delta, SDL_Renderer* renderer , etc::Camera& camera )
 {
 
 }
 
-void WorldState::update (const Ldouble& delta)
+void WorldState::update ( const Ldouble& delta )
 {
 
 }
 
-void WorldState::event (SDL_Event e , const Ldouble& delta)
+void WorldState::event ( SDL_Event e , const Ldouble& delta )
 {
 
 }

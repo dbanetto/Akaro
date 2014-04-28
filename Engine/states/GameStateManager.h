@@ -16,11 +16,11 @@ class GameStateManager
 	public:
 		GameStateManager();
 		virtual ~GameStateManager();
-		void set_state (std::string state_name);
+		void set_state ( std::string state_name );
 
-		bool add_state (std::string state_name , GameState* state);
+		bool add_state ( std::string state_name , GameState* state );
 
-		bool exists (std::string state_name);
+		bool exists ( std::string state_name );
 
 		void unload();
 

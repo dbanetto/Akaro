@@ -20,11 +20,11 @@ namespace graphics
 		this->flip = SDL_FLIP_NONE;
 	}
 
-	Sprite::Sprite (Texture* texture ,SDL_Point Position)
+	Sprite::Sprite ( Texture* texture , SDL_Point Position )
 	{
 		this->area = SDL_Rect();
-		this->area.w = texture->getSprite(0)->w;
-		this->area.h = texture->getSprite(0)->h;
+		this->area.w = texture->getSprite( 0 )->w;
+		this->area.h = texture->getSprite( 0 )->h;
 		this->area.x = Position.x;
 		this->area.y = Position.y;
 
@@ -38,10 +38,11 @@ namespace graphics
 		this->flip = SDL_FLIP_NONE;
 
 		this->cor = SDL_Point();
-		this->cor.x = 0; this->cor.y = 0;
+		this->cor.x = 0;
+		this->cor.y = 0;
 	}
 
-	Sprite::Sprite (Texture* texture ,SDL_Rect Position, int SpriteMapIndex , double Rotation , SDL_Point CenterofRotation, SDL_RendererFlip flip)
+	Sprite::Sprite ( Texture* texture , SDL_Rect Position, int SpriteMapIndex , double Rotation , SDL_Point CenterofRotation, SDL_RendererFlip flip )
 	{
 		this->area = Position;
 		this->pos.x = this->area.x;
@@ -57,18 +58,18 @@ namespace graphics
 	{
 	}
 
-	void Sprite::render (const Ldouble& delta, SDL_Renderer* renderer , etc::Camera& camera)
+	void Sprite::render ( const Ldouble& delta, SDL_Renderer* renderer , etc::Camera& camera )
 	{
 		SDL_Rect temp = this->area;
-		if (this->adjust_camera)
+		if ( this->adjust_camera )
 		{
-			temp = camera.subCamPos(this->area);
+			temp = camera.subCamPos( this->area );
 		}
 		SDL_Texture* texture = this->tex->getTexture();
-		SDL_RenderCopyEx(renderer, texture, this->tex->getSprite(this->sprite_map_index), &(temp), this->rot, &(this->cor), this->flip );
+		SDL_RenderCopyEx( renderer, texture, this->tex->getSprite( this->sprite_map_index ), &( temp ), this->rot, &( this->cor ), this->flip );
 	}
 
-	void Sprite::update (const Ldouble& delta)
+	void Sprite::update ( const Ldouble& delta )
 	{
 
 	}
@@ -77,35 +78,35 @@ namespace graphics
 	/**
 	 * @brief Set Texture for sprite
 	 */
-	void Sprite::setTexture (Texture* texture)
+	void Sprite::setTexture ( Texture* texture )
 	{
 		this->tex = texture;
 	}
 	/**
 	 * @brief Set Render Flip mode
 	 */
-	void Sprite::setFlip (SDL_RendererFlip flip)
+	void Sprite::setFlip ( SDL_RendererFlip flip )
 	{
 		this->flip = flip;
 	}
 	/**
 	 * @brief Set centre of rotation, in relation to sprite's top left (0,0)
 	 */
-	void Sprite::setCenterOfRotation (SDL_Point pt)
+	void Sprite::setCenterOfRotation ( SDL_Point pt )
 	{
 		this->cor = pt;
 	}
 	/**
 	 * @brief Set Sprite's rotation, in rads
 	 */
-	void Sprite::setRotation (double rot)
+	void Sprite::setRotation ( double rot )
 	{
 		this->rot = rot;
 	}
 	/**
 	 * @brief Set Sprite's texture index, for its sprite map.
 	 */
-	void Sprite::setSpriteMapIndex (int sprite_map_index)
+	void Sprite::setSpriteMapIndex ( int sprite_map_index )
 	{
 		this->sprite_map_index = sprite_map_index;
 	}

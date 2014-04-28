@@ -17,23 +17,25 @@ Font::~Font()
 	unload();
 }
 
-bool Font::load(std::string fontPath)
+bool Font::load( std::string fontPath )
 {
-	if (IO::fileExists(fontPath))
+	if ( IO::fileExists( fontPath ) )
 	{
-		this->font = TTF_OpenFont(fontPath.c_str() , 11);
-		this->loaded = (this->font != 0);
+		this->font = TTF_OpenFont( fontPath.c_str() , 11 );
+		this->loaded = ( this->font != 0 );
 		return this->loaded;
-	} else {
+	}
+	else
+	{
 		return false;
 	}
 }
 
 void Font::unload()
 {
-	if (this->loaded)
+	if ( this->loaded )
 	{
-		TTF_CloseFont(this->font);
+		TTF_CloseFont( this->font );
 		this->font = nullptr;
 	}
 	this->loaded = false;

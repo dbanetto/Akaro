@@ -26,8 +26,8 @@ struct Key
 	SDL_Keymod  keymod;
 };
 
-Key stringToKeys (std::string keys);
-std::string keysToString (Key key);
+Key stringToKeys ( std::string keys );
+std::string keysToString ( Key key );
 
 namespace input
 {
@@ -38,13 +38,13 @@ namespace input
 			KBProvider ();
 			virtual ~KBProvider ();
 
-			void load   (IO::Settings* input_settings);
+			void load   ( IO::Settings* input_settings );
 			void unload ();
 
-			void update(const double& delta );
+			void update( const double& delta );
 
-			bool checkInputState (std::string& header , std::string& name);
-			bool setInputState (std::string& header , std::string& name, void*& data);
+			bool checkInputState ( std::string& header , std::string& name );
+			bool setInputState ( std::string& header , std::string& name, void*& data );
 		protected:
 			const std::string settings_postfix = ".key";
 		private:

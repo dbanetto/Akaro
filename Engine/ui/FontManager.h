@@ -15,11 +15,11 @@ namespace ui
 			FontManager();
 			virtual ~FontManager();
 
-			bool exists(std::string name);
-			bool load(std::string name, std::string fontPath );
-			Font* get(std::string name);
+			bool exists( std::string name );
+			bool load( std::string name, std::string fontPath );
+			Font* get( std::string name );
 
-			void unload (std::string name);
+			void unload ( std::string name );
 			void unloadAll();
 		protected:
 		private:

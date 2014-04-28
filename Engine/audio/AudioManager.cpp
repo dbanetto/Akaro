@@ -11,7 +11,7 @@
 #include "../io/file.h"
 namespace audio
 {
-	void music_callback(void* data, unsigned char* dev, int num);
+	void music_callback( void* data, unsigned char* dev, int num );
 
 	AudioManager::AudioManager ()
 	{
@@ -19,9 +19,9 @@ namespace audio
 		this->volume = 100;
 	}
 
-	AudioManager::AudioManager (IO::Settings* audio)
+	AudioManager::AudioManager ( IO::Settings* audio )
 	{
-		load_settings(audio);
+		load_settings( audio );
 	}
 
 	AudioManager::~AudioManager ()
@@ -34,7 +34,7 @@ namespace audio
 		Mix_Quit();
 	}
 
-	void AudioManager::load_settings(IO::Settings* settings)
+	void AudioManager::load_settings( IO::Settings* settings )
 	{
 
 		int freq = 44100;
@@ -44,42 +44,42 @@ namespace audio
 		//Load Battery Settings
 		settings->load_section( "audio" , IO::SETTINGS_DUPLICATES_INGORED );
 
-		if ( settings->exists("audio" , "channels") )
+		if ( settings->exists( "audio" , "channels" ) )
 		{
-			settings->getInt("audio" , "channels" , &channels);
+			settings->getInt( "audio" , "channels" , &channels );
 		}
 
-		if ( settings->exists("audio" , "chuncksize") )
+		if ( settings->exists( "audio" , "chuncksize" ) )
 		{
-			settings->getInt("audio" , "chuncksize" , &channels);
+			settings->getInt( "audio" , "chuncksize" , &channels );
 		}
 
-		if ( settings->exists("audio" , "volume") )
+		if ( settings->exists( "audio" , "volume" ) )
 		{
-			settings->getInt("audio" , "volume" , &this->volume);
+			settings->getInt( "audio" , "volume" , &this->volume );
 		}
 
-		if ( settings->exists("audio" , "device") )
+		if ( settings->exists( "audio" , "device" ) )
 		{
 			int index;
-			if (settings->getInt("audio" , "device" , &index) == true)
+			if ( settings->getInt( "audio" , "device" , &index ) == true )
 			{
-				device = SDL_GetAudioDeviceName(index , 0);
+				device = SDL_GetAudioDeviceName( index , 0 );
 			}
 			else
 			{
-				settings->get("audio" , "device" , &device);
+				settings->get( "audio" , "device" , &device );
 			}
 		}
 		else
 		{
-			device = SDL_GetAudioDeviceName(0 , 0);
+			device = SDL_GetAudioDeviceName( 0 , 0 );
 		}
 
 		//Base Path for all audio files
-		if ( settings->exists("audio" , "path") )
+		if ( settings->exists( "audio" , "path" ) )
 		{
-			settings->get("audio" , "path" , &(this->path));
+			settings->get( "audio" , "path" , &( this->path ) );
 			//Add a ending separator
 			if ( etc::endswith( path , "/" ) == false && etc::endswith( path , "\\" ) == false )
 			{
@@ -94,68 +94,68 @@ namespace audio
 
 		SDL_AudioSpec want, have;
 
-		SDL_zero(want);
+		SDL_zero( want );
 		want.freq = freq;
 		want.format = AUDIO_S16;
 		want.channels = channels;
 		want.samples = chuncksize;
 		want.callback = music_callback;  // you wrote this function elsewhere.
 
-		device_id = SDL_OpenAudioDevice(device.c_str()
-										, 0
-										, &want
-										, &have
-										, SDL_AUDIO_ALLOW_FORMAT_CHANGE);
-		if (device_id == 0)
+		device_id = SDL_OpenAudioDevice( device.c_str()
+										 , 0
+										 , &want
+										 , &have
+										 , SDL_AUDIO_ALLOW_FORMAT_CHANGE );
+		if ( device_id == 0 )
 		{
 			std::cout << "Failed to open audio: " << device << std::endl;
 		}
 		else
 		{
 			std::cout << SDL_GetError() << std::endl;
-			if (have.format != want.format)  // we let this one thing change.
+			if ( have.format != want.format ) // we let this one thing change.
 				std::cout << "Format changed to " << have.format << std::endl;
 
-			if (have.channels != want.channels)  // we let this one thing change.
+			if ( have.channels != want.channels ) // we let this one thing change.
 				std::cout << "Channels changed to " << have.channels << std::endl;
 
-			if (have.samples != want.samples)  // we let this one thing change.
+			if ( have.samples != want.samples ) // we let this one thing change.
 				std::cout << "Samples changed to " << have.samples << std::endl;
 		}
 
 		Mix_OpenAudio( freq , have.format , channels , chuncksize );
 
-		Mix_VolumeMusic(this->volume);
+		Mix_VolumeMusic( this->volume );
 	}
 
-	void AudioManager::setPath (std::string Path)
+	void AudioManager::setPath ( std::string Path )
 	{
 		this->path = Path;
 	}
 
-	void AudioManager::play (std::string name)
+	void AudioManager::play ( std::string name )
 	{
 		Mix_PlayMusic( this->sounds[name] , 1 );
 	}
 
 	bool AudioManager::load ( std::string name , std::string file )
 	{
-		return this->load (name , file , true);
+		return this->load ( name , file , true );
 	}
 
-	bool AudioManager::load ( std::string name , std::string file , bool use_base_path)
+	bool AudioManager::load ( std::string name , std::string file , bool use_base_path )
 	{
-		if ( this->exist(name) == true)
+		if ( this->exist( name ) == true )
 		{
 			return false;
 		}
-		if (use_base_path)
+		if ( use_base_path )
 		{
 			file = this->path + file;
 		}
 
 		Mix_Music* music = Mix_LoadMUS( file.c_str() );
-		if (music == nullptr)
+		if ( music == nullptr )
 		{
 			return false;
 		}
@@ -165,9 +165,9 @@ namespace audio
 		return true;
 	}
 
-	bool AudioManager::exist (std::string name)
+	bool AudioManager::exist ( std::string name )
 	{
-		if ( this->sounds.find(name) == this->sounds.end() )
+		if ( this->sounds.find( name ) == this->sounds.end() )
 		{
 			return false;
 		}
@@ -177,22 +177,22 @@ namespace audio
 		}
 	}
 
-	void AudioManager::unload (std::string name)
+	void AudioManager::unload ( std::string name )
 	{
-		Mix_FreeMusic (this->sounds[name]);
-		this->sounds.erase(name);
+		Mix_FreeMusic ( this->sounds[name] );
+		this->sounds.erase( name );
 	}
 
 	void AudioManager::unloadall ()
 	{
-		for (const auto sfx : this->sounds)
+		for ( const auto sfx : this->sounds )
 		{
 			Mix_FreeMusic( sfx.second );
 		}
 		this->sounds.clear();
 	}
 
-	void music_callback(void* data, unsigned char* dev, int num)
+	void music_callback( void* data, unsigned char* dev, int num )
 	{
 
 	}

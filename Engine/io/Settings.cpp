@@ -27,7 +27,7 @@ Settings::Settings()
 	this->loading_flag = SETTING_LOAD_NOTHING;
 }
 
-Settings::Settings(SettingsLoadFlags flag)
+Settings::Settings( SettingsLoadFlags flag )
 {
 	this->loading_flag = flag;
 }
@@ -39,7 +39,7 @@ Settings::~Settings()
 
 void Settings::unload()
 {
-    this->stored_settings.clear();
+	this->stored_settings.clear();
 }
 
 /**
@@ -56,14 +56,14 @@ void Settings::clear()
  * @param key name of the setting to be accessed
  * @return true on exists
  */
-bool Settings::exists (std::string header ,std::string  key)
+bool Settings::exists ( std::string header , std::string  key )
 {
-	if (this->exists(header))
+	if ( this->exists( header ) )
 	{
-		INISection* section = &(this->stored_settings[header]);
-		if (section->loaded)
+		INISection* section = &( this->stored_settings[header] );
+		if ( section->loaded )
 		{
-			return section->properties.find(key) != section->properties.end();
+			return section->properties.find( key ) != section->properties.end();
 		}
 		else
 		{
@@ -71,7 +71,7 @@ bool Settings::exists (std::string header ,std::string  key)
 			if ( this->loading_flag == SETTING_LOAD_ON_REQUEST )
 			{
 				this->load_section ( header , SETTINGS_DUPLICATES_INGORED );
-				return this->exists ( header , key);
+				return this->exists ( header , key );
 			}
 			else
 			{
@@ -90,9 +90,9 @@ bool Settings::exists (std::string header ,std::string  key)
  * @param header Name of section
  * @return true on success
  */
-bool Settings::exists (std::string header)
+bool Settings::exists ( std::string header )
 {
-	return this->stored_settings.find(header) != this->stored_settings.end();
+	return this->stored_settings.find( header ) != this->stored_settings.end();
 }
 
 /**
@@ -100,17 +100,17 @@ bool Settings::exists (std::string header)
  * @param file_name
  * @param flag
  */
-void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
+void Settings::load( std::string file_name , SettingsDuplicateFlags flag )
 {
 #ifdef SETTINGS_VERBOSE
 
 	std::cout << "Loading " << file_name << std::endl;
 #endif
 	std::fstream file;
-	file.open(file_name.c_str());
+	file.open( file_name.c_str() );
 	this->file_name = file_name;
 	//Check if the file is open
-	if (!(file.is_open()))
+	if ( !( file.is_open() ) )
 	{
 		return;
 	}
@@ -122,7 +122,7 @@ void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
 	//Calculate the offset from the 1st byte to the 0th element
 	int sys_error = file.tellg();
 	file.seekg( 0, file.end );
-	int file_size = (int)file.tellg();
+	int file_size = ( int )file.tellg();
 	file.seekg( 0, file.beg );
 
 	std::string line;
@@ -138,13 +138,13 @@ void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
 	while ( ! file.eof() )
 	{
 		//Get current position with the sys error offset
-		int start_pos = (int)(file.tellg()) - sys_error;
+		int start_pos = ( int )( file.tellg() ) - sys_error;
 		std::getline( file , line );
 
-		if (line.length() == 0)
+		if ( line.length() == 0 )
 			continue;
 
-		line = etc::trim(line);
+		line = etc::trim( line );
 
 		//Treat lines starting with ; as comments and do not process
 		if ( etc::startswith( line , ";" ) )
@@ -152,10 +152,10 @@ void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
 			continue;
 		}
 		//Check if the line has the beginning of a section
-		if (etc::startswith( line , "[" ) && etc::endswith( line , "]" ))
+		if ( etc::startswith( line , "[" ) && etc::endswith( line , "]" ) )
 		{
 			//Close last section
-			section.end_index = (int)file.tellg();
+			section.end_index = ( int )file.tellg();
 			this->stored_settings[section.header_name] = section;
 #ifdef SETTINGS_VERBOSE
 			std::cout << " E:" << section.end_index << std::endl;
@@ -166,7 +166,7 @@ void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
 			//Remove the brackets
 			section.header_name = line.substr ( 1 , line.size() - 2 );
 
-			if ( this->exists(section.header_name))
+			if ( this->exists( section.header_name ) )
 			{
 				//Warning text
 				std::cout << "ERROR : Another " << this->file_name << "::" << section.header_name << " has been defined!\nSections will be damaged." << std::endl;
@@ -204,19 +204,19 @@ void Settings::load(std::string file_name , SettingsDuplicateFlags flag)
  * @param header Section name
  * @param flag Settings Duplicate Flags
  */
-void Settings::load_section ( std::string header , SettingsDuplicateFlags flag)
+void Settings::load_section ( std::string header , SettingsDuplicateFlags flag )
 {
 	std::fstream file;
 
-	if (this->exists(header) == false)
+	if ( this->exists( header ) == false )
 		return;
 
-	INISection* section = &(this->stored_settings[header]);
+	INISection* section = &( this->stored_settings[header] );
 
 	file.open( this->file_name.c_str() );
 	int file_pos_max = section->end_index;
 	//Check if the file is open
-	if (!(file.is_open()))
+	if ( !( file.is_open() ) )
 	{
 		return;
 	}
@@ -235,7 +235,7 @@ void Settings::load_section ( std::string header , SettingsDuplicateFlags flag)
 		std::getline ( file, line );
 		line = etc::trim ( line );
 
-		if (line == "")
+		if ( line == "" )
 		{
 			continue;
 		}
@@ -244,11 +244,11 @@ void Settings::load_section ( std::string header , SettingsDuplicateFlags flag)
 			continue;
 		}
 		//Check if the line has the beginning of a section
-		if ( etc::startswith( line , "[" ) || etc::endswith( line , "]") )
+		if ( etc::startswith( line , "[" ) || etc::endswith( line , "]" ) )
 		{
 			std::string header_name = line.substr ( 1 , line.size() - 2 );
 			//If another section is in contact, LEAVE NOW
-			if (header_name != section->header_name)
+			if ( header_name != section->header_name )
 			{
 				break;
 			}
@@ -260,15 +260,15 @@ void Settings::load_section ( std::string header , SettingsDuplicateFlags flag)
 			continue;
 		}
 
-		if (start == false)
+		if ( start == false )
 		{
 			continue;
 		}
 
 		//Find the equal part of the line
-		std::size_t equal_pos = line.find_first_of('=', 0);
+		std::size_t equal_pos = line.find_first_of( '=', 0 );
 
-		if (equal_pos == line.npos)
+		if ( equal_pos == line.npos )
 		{
 			continue;
 		}
@@ -276,7 +276,7 @@ void Settings::load_section ( std::string header , SettingsDuplicateFlags flag)
 		std::string key = etc::trim ( line.substr( 0 , equal_pos ) );
 		std::string value = etc::trim ( line.substr( equal_pos + 1  , line.length() - 1 ) );
 
-		if (key == "")
+		if ( key == "" )
 		{
 			continue;
 		}
@@ -284,7 +284,7 @@ void Settings::load_section ( std::string header , SettingsDuplicateFlags flag)
 		if ( section->properties.find( key ) !=  section->properties.end() )
 		{
 			//There is another copy of the key, check if it is OK to override
-			if (flag == SETTINGS_DUPLICATES_OVERRIDE)
+			if ( flag == SETTINGS_DUPLICATES_OVERRIDE )
 			{
 				section->properties[key] = value;
 			}
@@ -308,9 +308,9 @@ void Settings::load_section ( std::string header , SettingsDuplicateFlags flag)
  * @brief Unloads a specified section
  * @param header a section name
  */
-void Settings::unload_section (std::string header)
+void Settings::unload_section ( std::string header )
 {
-	if (this->exists(header))
+	if ( this->exists( header ) )
 	{
 		this->stored_settings[header].properties.clear();
 		this->stored_settings[header].loaded = false;
@@ -324,9 +324,9 @@ void Settings::unload_section (std::string header)
  * @param out A string to be written to
  * @return true on successful copy
  */
-bool Settings::get (std::string header , std::string  key, std::string* out)
+bool Settings::get ( std::string header , std::string  key, std::string* out )
 {
-	if (this->exists(header ,key))
+	if ( this->exists( header , key ) )
 	{
 		*out = this->stored_settings[header].properties[key];
 		return true;
@@ -343,13 +343,13 @@ bool Settings::get (std::string header , std::string  key, std::string* out)
  * @param bol Returns the value
  * @return
  */
-bool Settings::getBool (std::string header , std::string  key , bool* bol)
+bool Settings::getBool ( std::string header , std::string  key , bool* bol )
 {
 	std::string b;
-	if (this->get(header, key , &b) == false)
+	if ( this->get( header, key , &b ) == false )
 		return false;
-	b = etc::toLower(b);
-	if (b != "")
+	b = etc::toLower( b );
+	if ( b != "" )
 	{
 		*bol = ( b == "true" ? true : false );
 		return true;
@@ -360,13 +360,13 @@ bool Settings::getBool (std::string header , std::string  key , bool* bol)
 	}
 }
 
-bool Settings::getInt (std::string header , std::string  key , int* num)
+bool Settings::getInt ( std::string header , std::string  key , int* num )
 {
 	std::string b;
-	if (this->get(header, key , &b) == false)
+	if ( this->get( header, key , &b ) == false )
 		return false;
 
-	if ( etc::is_number(b) )
+	if ( etc::is_number( b ) )
 	{
 		*num = atoi( b.c_str() );
 		return true;
@@ -377,9 +377,9 @@ bool Settings::getInt (std::string header , std::string  key , int* num)
 	}
 }
 
-bool Settings::add (std::string header , std::string key , std::string value)
+bool Settings::add ( std::string header , std::string key , std::string value )
 {
-	if (!this->exists(header , key))
+	if ( !this->exists( header , key ) )
 	{
 		this->stored_settings[header].properties[key] = value;
 		return true;
@@ -390,9 +390,9 @@ bool Settings::add (std::string header , std::string key , std::string value)
 	}
 }
 
-bool Settings::set (std::string header , std::string key , std::string value)
+bool Settings::set ( std::string header , std::string key , std::string value )
 {
-	if (this->exists( header , key ) )
+	if ( this->exists( header , key ) )
 	{
 		this->stored_settings[header].properties[key] = value;
 		return true;
@@ -418,33 +418,33 @@ bool Settings::save ()
 	file_in.open( this->file_name.c_str() );
 
 	//Check for errors
-	if (file_in.is_open() == false)
+	if ( file_in.is_open() == false )
 	{
 		std::cout << "Error input file : " << this->file_name.c_str() << " could not be opened." << std::endl;
 		return false;
 	}
 
 	//Open the output file
-	file_out.open( ("temp~" + this->file_name).c_str() , std::ofstream::out );
+	file_out.open( ( "temp~" + this->file_name ).c_str() , std::ofstream::out );
 
 	//Check for errors
-	if (file_out.is_open() == false)
+	if ( file_out.is_open() == false )
 	{
-		std::cout << "Error output file : " << ("temp~" + this->file_name).c_str() << " could not be opened." << std::endl;
+		std::cout << "Error output file : " << ( "temp~" + this->file_name ).c_str() << " could not be opened." << std::endl;
 		return false;
 	}
 
 	//Go through whole file
-	INISection* current_section = &(this->stored_settings[""]);
+	INISection* current_section = &( this->stored_settings[""] );
 	while ( file_in.eof() == false )
 	{
 		std::string line;
 		std::getline ( file_in , line );
 		line = etc::trim ( line );
 
-		std::size_t equal_pos = line.find_first_of('=', 0);
+		std::size_t equal_pos = line.find_first_of( '=', 0 );
 
-		if (line == "")
+		if ( line == "" )
 		{
 
 		}
@@ -452,23 +452,23 @@ bool Settings::save ()
 		{
 
 		}
-		else if ( etc::startswith( line , "[" ) || etc::endswith( line , "]") )
+		else if ( etc::startswith( line , "[" ) || etc::endswith( line , "]" ) )
 		{
 			//Check if the line has the beginning of a section
 			//Update current_section
-			if (current_section != nullptr)
+			if ( current_section != nullptr )
 			{
 				current_section->end_index = file_out.tellg();
 			}
 
 			current_section = &( this->stored_settings[ line.substr ( 1 , line.size() - 2 )] );
-			current_section->start_index = (int)file_out.tellg() - 1;
+			current_section->start_index = ( int )file_out.tellg() - 1;
 		}
-		else if (equal_pos != line.npos)
+		else if ( equal_pos != line.npos )
 		{
 			std::string key = etc::trim ( line.substr( 0 , equal_pos ) );
 			std::string value = current_section->properties[key];
-			if (value == "")
+			if ( value == "" )
 			{
 				value = etc::trim ( line.substr( equal_pos + 1  , line.length() - 1 ) );
 			}
@@ -494,26 +494,26 @@ bool Settings::save ()
 	file_op = std::remove( this->file_name.c_str() );
 
 	//Check if there was an error
-	if (file_op != 0)
+	if ( file_op != 0 )
 	{
 		std::cout << "Error while removing the file " << this->file_name.c_str() << std::endl;
 		return false;
 	}
 
 	//Rename the temp version to replace the deleted version
-	file_op = std::rename( ("temp~" + this->file_name).c_str()  , this->file_name.c_str() );
+	file_op = std::rename( ( "temp~" + this->file_name ).c_str()  , this->file_name.c_str() );
 
 	//Check if there was an error
-	if (file_op != 0)
+	if ( file_op != 0 )
 	{
-		std::cout << "Error while renaming the file from " << ("temp~" + this->file_name).c_str() << " to " << this->file_name.c_str() << std::endl;
+		std::cout << "Error while renaming the file from " << ( "temp~" + this->file_name ).c_str() << " to " << this->file_name.c_str() << std::endl;
 		return false;
 	}
 
 	return true;
 }
 
-std::map<std::string,INISection>* Settings::getStoredSettings ()
+std::map<std::string, INISection>* Settings::getStoredSettings ()
 {
 	return &this->stored_settings;
 }

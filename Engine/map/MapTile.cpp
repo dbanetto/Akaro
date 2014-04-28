@@ -16,8 +16,8 @@ namespace map
 
 	}
 
-	MapTile::MapTile (graphics::Texture* texture ,SDL_Rect Position, int SpriteMapIndex , double Rotation , SDL_Point CenterofRotation, SDL_RendererFlip flip)
-		: graphics::Sprite(texture , Position , SpriteMapIndex , Rotation, CenterofRotation , flip)
+	MapTile::MapTile ( graphics::Texture* texture , SDL_Rect Position, int SpriteMapIndex , double Rotation , SDL_Point CenterofRotation, SDL_RendererFlip flip )
+		: graphics::Sprite( texture , Position , SpriteMapIndex , Rotation, CenterofRotation , flip )
 	{
 
 	}
@@ -29,7 +29,7 @@ namespace map
 	/**
 	 * @brief Load from string config
 	 */
-	void MapTile::load(std::string config)
+	void MapTile::load( std::string config )
 	{
 		// Example x:y:::
 	}

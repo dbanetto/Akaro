@@ -15,26 +15,26 @@ namespace graphics
 		this->renderer = nullptr;
 	}
 
-	TextureManager::TextureManager (SDL_Renderer* renderer)
+	TextureManager::TextureManager ( SDL_Renderer* renderer )
 	{
 		this->renderer = renderer;
 	}
 
 	TextureManager::~TextureManager ()
 	{
-	    this->unload();
+		this->unload();
 	}
 
 	bool TextureManager::load ( std::string file , std::string name )
 	{
-		return this->load(file,name,0,0);
+		return this->load( file, name, 0, 0 );
 	}
 
-	bool TextureManager::load ( std::string file , std::string name , int columns , int rows)
+	bool TextureManager::load ( std::string file , std::string name , int columns , int rows )
 	{
 		this->textures[name] = Texture();
-		Texture* temp = &(this->textures[name]);
-		if ( temp->load (this->renderer , file , columns , rows) == true)
+		Texture* temp = &( this->textures[name] );
+		if ( temp->load ( this->renderer , file , columns , rows ) == true )
 		{
 			return true;
 		}
@@ -46,17 +46,17 @@ namespace graphics
 
 	void TextureManager::unload()
 	{
-	    for (auto tex : this->textures)
-	    {
-	        SDL_DestroyTexture( tex.second.getTexture() );
-	    }
-	    this->textures.clear();
+		for ( auto tex : this->textures )
+		{
+			SDL_DestroyTexture( tex.second.getTexture() );
+		}
+		this->textures.clear();
 
 	}
 
-	bool TextureManager::exists (std::string name)
+	bool TextureManager::exists ( std::string name )
 	{
-		if (this->textures.find(name) == this->textures.end())
+		if ( this->textures.find( name ) == this->textures.end() )
 		{
 			return false;
 		}
@@ -66,11 +66,11 @@ namespace graphics
 		}
 	}
 
-	Texture* TextureManager::getTexture (std::string name)
+	Texture* TextureManager::getTexture ( std::string name )
 	{
-		if (this->exists(name))
+		if ( this->exists( name ) )
 		{
-			return &(this->textures[name]);
+			return &( this->textures[name] );
 		}
 		else
 		{

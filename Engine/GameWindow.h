@@ -36,19 +36,19 @@
 class GameWindow
 {
 	public:
-		GameWindow(Content* content);
+		GameWindow( Content* content );
 		virtual ~GameWindow();
 
-		int init(const char* TITLE , SDL_Color BACKGROUND_COLOUR ,  int SDL_SCREEN_FLAGS );
+		int init( const char* TITLE , SDL_Color BACKGROUND_COLOUR ,  int SDL_SCREEN_FLAGS );
 
-		void start(void);
+		void start( void );
 		int CURRENT_FPS;
 
 		graphics::TextureManager* getTextures();
 
-		void virtual render(const Ldouble& delta);
-		void virtual update(const Ldouble& delta);
-		void virtual event (SDL_Event e , const double& delta);
+		void virtual render( const Ldouble& delta );
+		void virtual update( const Ldouble& delta );
+		void virtual event ( SDL_Event e , const double& delta );
 
 		void virtual load();
 		void virtual unload();

@@ -18,7 +18,7 @@ namespace ui
 			/** Default destructor */
 			virtual ~Font();
 
-			bool load(std::string fontPath);
+			bool load( std::string fontPath );
 			void unload();
 			TTF_Font* getFont();
 			bool isLoaded();

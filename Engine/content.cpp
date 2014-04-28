@@ -18,7 +18,7 @@
 Content::Content()
 {
 	//ctor
-	this->settings = IO::Settings(IO::SETTING_LOAD_ON_REQUEST);
+	this->settings = IO::Settings( IO::SETTING_LOAD_ON_REQUEST );
 }
 
 Content::~Content()
@@ -28,14 +28,14 @@ Content::~Content()
 
 int Content::load()
 {
-	if (IO::fileExists( SETTINGS_PATH ) == false)
+	if ( IO::fileExists( SETTINGS_PATH ) == false )
 	{
 		std::cout << "Could not initialize due to the settings file "
 				  << SETTINGS_PATH << " does not exist." ;
 		return 1;
 	}
 
-	if (IO::fileExists( INPUT_SETTINGS_FILE ) == false)
+	if ( IO::fileExists( INPUT_SETTINGS_FILE ) == false )
 	{
 		std::cout << "Could not initialize due to the settings file "
 				  << INPUT_SETTINGS_FILE << " does not exist." ;
@@ -47,7 +47,7 @@ int Content::load()
 	//Start SDL and Others
 
 	//Start SDL
-	if ( SDL_Init(SDL_INIT_EVERYTHING) == -1)
+	if ( SDL_Init( SDL_INIT_EVERYTHING ) == -1 )
 	{
 		std::cout << "An error has occurred in starting SDL2" << std::endl << SDL_GetError() << std::endl;
 		std::cerr << SDL_GetError() << std::endl;
@@ -55,7 +55,7 @@ int Content::load()
 	}
 
 	//Start SDL_image
-	if ( IMG_Init(IMG_INIT_PNG|IMG_INIT_JPG) == 0)
+	if ( IMG_Init( IMG_INIT_PNG | IMG_INIT_JPG ) == 0 )
 	{
 		std::cout << "An error has occurred in starting SDL2_image" << std::endl << SDL_GetError() << std::endl;
 		std::cerr << SDL_GetError() << std::endl;
@@ -63,7 +63,7 @@ int Content::load()
 	}
 
 	//Start SDL_mixer
-	if ( Mix_Init(MIX_INIT_MP3|MIX_INIT_OGG) == 0)
+	if ( Mix_Init( MIX_INIT_MP3 | MIX_INIT_OGG ) == 0 )
 	{
 		std::cout << "An error has occurred in starting SDL2_mixer" << std::endl << SDL_GetError() << std::endl;
 		std::cerr << SDL_GetError() << std::endl;
@@ -71,7 +71,7 @@ int Content::load()
 	}
 
 	//Start SDL_ttf
-	if ( TTF_Init() == -1)
+	if ( TTF_Init() == -1 )
 	{
 		std::cout << "An error has occurred in starting SDL2_ttf" << std::endl << SDL_GetError() << std::endl;
 		std::cerr << SDL_GetError() << std::endl;
@@ -87,40 +87,40 @@ int Content::load()
 
 void Content::unload()
 {
-    this->fonts.unloadAll();
-    this->audio.unloadall();
-    this->gamestate.unload();
-    this->input.unload();
-    this->settings.unload();
+	this->fonts.unloadAll();
+	this->audio.unloadall();
+	this->gamestate.unload();
+	this->input.unload();
+	this->settings.unload();
 
-    //Shutdown inited services in reverse order of init
-    TTF_Quit();
-    Mix_Quit();
-    IMG_Quit();
-    SDL_Quit();
+	//Shutdown inited services in reverse order of init
+	TTF_Quit();
+	Mix_Quit();
+	IMG_Quit();
+	SDL_Quit();
 }
 /**
  * @brief Returns a pointer to the Window Settings
  */
 IO::Settings* Content::Settings ()
 {
-	return &(this->settings);
+	return &( this->settings );
 }
 
-input::InputManager * Content::Input()
+input::InputManager* Content::Input()
 {
-	return &(this->input);
+	return &( this->input );
 }
 audio::AudioManager* Content::Audio()
 {
-	return &(this->audio);
+	return &( this->audio );
 }
 GameStateManager* Content::Gamestate()
 {
-	return &(this->gamestate);
+	return &( this->gamestate );
 }
 
 ui::FontManager* Content::Fonts()
 {
-	return &(this->fonts);
+	return &( this->fonts );
 }
