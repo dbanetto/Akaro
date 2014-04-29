@@ -77,6 +77,7 @@ void AkaroWindow::load()
 	this->content->Gamestate()->add_state( "world" ,   new WorldState( this->content->Gamestate(), this, this->content ) );
 
 	this->content->Gamestate()->set_state( "menu" );
+	this->content->Gamestate()->set_state( "world" );
 }
 
 /**

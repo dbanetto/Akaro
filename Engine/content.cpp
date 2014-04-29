@@ -19,7 +19,7 @@ Content::Content()
 {
 	//ctor
 	this->settings = IO::Settings( IO::SETTING_LOAD_ON_REQUEST );
-	bool inited = false;
+	this->inited = false;
 }
 
 Content::~Content()

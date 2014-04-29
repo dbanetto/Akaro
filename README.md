@@ -14,7 +14,7 @@ All the game resources are contained in the data folder.
 All original content, that is not code such as textures or, created by me (David Barnett) are to be licensed under the Creative Commons license
 and any other work is protected by their own respective licenses which is included with the given content.
 
-The fonts are used can be found at http://openfontlibrary.org
+The fonts that are used can be found at http://openfontlibrary.org
 
 Tools
 -----

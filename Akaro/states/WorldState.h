@@ -7,6 +7,7 @@
 #include "Engine/graphics/Sprite.h"
 #include "Engine/map/Map.h"
 
+#include "Engine/ui/Label.h"
 
 class WorldState : public GameState
 {
@@ -31,7 +32,7 @@ class WorldState : public GameState
 		GameWindow* window;
 
 		map::Map* cur_map;
-
+		ui::Label fps;
 		bool is_loaded;
 };
 

@@ -57,7 +57,7 @@ void MenuState::load ()
 	std::string path = "";
 	{
 	if ( this->content->Settings()->get( "ui" , "font" , &path ) )
-		if ( this->content->Fonts()->load( "ui.font" , path ) )
+		if ( this->content->Fonts()->load( "ui" , path ) )
 		{
 			std::cout << "Font loaded" << std::endl;
 		}

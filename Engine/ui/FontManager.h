@@ -5,7 +5,7 @@
 
 #include <string>
 #include <map>
-
+#include <vector>
 namespace ui
 {
 
@@ -17,13 +17,15 @@ namespace ui
 
 			bool exists( std::string name );
 			bool load( std::string name, std::string fontPath );
-			Font* get( std::string name );
+			Font* get( std::string name , int size);
 
+			void unloadAll ( );
 			void unload ( std::string name );
-			void unloadAll();
+
 		protected:
 		private:
-			std::map<std::string , Font*> fonts;
+			std::map<std::string , std::string> fonts;
+			std::map<std::string , std::vector<Font*>> created_fonts;
 	};
 
 }

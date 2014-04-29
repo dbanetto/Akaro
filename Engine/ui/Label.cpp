@@ -13,13 +13,12 @@ namespace ui
 
 	Label::Label()
 	{
-		this->font = nullptr;
 		this->texture = nullptr;
 		this->RENDER_TEXTURE = false;
 		this->UPDATE_POSITION = false;
 	}
 
-	Label::Label( std::string label, TTF_Font* font , SDL_Point pos )
+	Label::Label( std::string label, Font* font , SDL_Point pos )
 	{
 		this->font = font;
 		this->text = label;
@@ -57,7 +56,7 @@ namespace ui
 			{
 				SDL_DestroyTexture( this->texture );
 			}
-			this->texture = generateLabelTexture( this->text , renderer , this->font , this->fg, &( this->area ) );
+			this->texture = generateLabelTexture( this->text , renderer , this->font->getFont() , this->fg, &( this->area ) );
 			this->RENDER_TEXTURE = false;
 			this->UPDATE_POSITION = true;
 		}

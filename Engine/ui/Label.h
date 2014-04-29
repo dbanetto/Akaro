@@ -18,6 +18,7 @@
 
 #include <string>
 #include "../graphics/drawable.h"
+#include "Font.h"
 
 namespace ui
 {
@@ -27,7 +28,7 @@ namespace ui
 
 		public:
 			Label();
-			Label( std::string label, TTF_Font* font , SDL_Point pos );
+			Label( std::string label, Font* font , SDL_Point pos );
 			virtual ~Label();
 
 			void render ( const Ldouble& delta , SDL_Renderer* renderer , etc::Camera& camera );
@@ -39,7 +40,7 @@ namespace ui
 			bool RENDER_TEXTURE;
 			bool UPDATE_POSITION;
 		private:
-			TTF_Font* font;
+			Font* font;
 			SDL_Texture* texture;
 			std::string text;
 			SDL_Color fg;
