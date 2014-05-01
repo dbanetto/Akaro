@@ -26,6 +26,7 @@
 #include "map/MapManager.h"
 #include "ui/FontManager.h"
 #include "graphics/TextureManager.h"
+#include "map/TileTypeManager.h"
 
 class Content
 {
@@ -44,6 +45,7 @@ class Content
 		GameStateManager* Gamestate();
 		ui::FontManager* Fonts();
 		map::MapManager* Maps();
+		map::TileTypeManager* TileTypes();
 	protected:
 	private:
 		bool inited;
@@ -54,6 +56,7 @@ class Content
 		audio::AudioManager audio;
 		ui::FontManager fonts;
 		map::MapManager maps;
+		map::TileTypeManager tiletypes;
 		GameStateManager gamestate;
 
 };

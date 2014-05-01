@@ -68,11 +68,19 @@ void MenuState::load ()
 	{
 		if ( this->window->getTextures()->loadList( tpath ) )
 		{
-			std::cout << "Texture List Loaded" << std::endl;
-			if (this->content->Maps()->load( "demo" , "data/map.pam" ))
+			auto *tile = new map::MapTile::TileType();
+			tile->name = "grass";
+			tile->texture_name = "grass";
+
+			if (this->content->TileTypes()->add ( "grass" , tile ))
 			{
-				this->content->Maps()->setCurrentMap("demo");
-				std::cout << "Map Loaded" << std::endl;
+				std::cout << "Texture List Loaded" << std::endl;
+				if (this->content->Maps()->load( "demo" , "data/map.pam" ))
+				{
+
+						this->content->Maps()->setCurrentMap("demo");
+						std::cout << "Map Loaded" << std::endl;
+				}
 			}
 		}
 	} else {

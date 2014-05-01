@@ -20,12 +20,13 @@ namespace etc
 	{
 		public:
 			AreaMap();
+			AreaMap( SDL_Rect Area );
 			AreaMap( AreaMap* Parent , SDL_Rect Area );
 			virtual ~AreaMap();
 
 			void insert( graphics::drawable* sp );
 
-			std::vector<graphics::drawable*> getSpritesFromArea ( SDL_Rect Area );
+			void getSpritesFromArea ( SDL_Rect Area , std::vector<graphics::drawable*>* out );
 
 			bool remove ( graphics::drawable* sp );
 

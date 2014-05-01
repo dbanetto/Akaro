@@ -51,7 +51,7 @@ namespace map
 	 * @brief Load Map file
 	 * @parm file File path to map
 	 */
-	bool Map::loadMap( std::string file )
+	bool Map::loadMap( std::string file , map::TileTypeManager* tiletypes )
 	{
 		if ( !IO::fileExists( file ) )
 		{
@@ -87,6 +87,14 @@ namespace map
 			//Texture name
 			tex = seg[2];
 
+			auto type =  tiletypes->get(tex);
+
+			if (type == nullptr)
+			{
+				std::cout << "Error " << tex << " is not a defined Tile Type" << std::endl;
+				continue;
+			}
+
 			//Texture Map index
 			tex_index = atoi( seg[3].c_str() );
 
@@ -111,14 +119,16 @@ namespace map
 			cor.x = pt.w / 2;
 			cor.y = pt.h / 2;
 
+
 			tile = new MapTile( this->textures
-								,tex
+								, type
 								, pt
 								, tex_index
 								, 0.0
 								, cor
 								, flip );
 			tile->setAdjustCamera( true );
+
 			this->maptiles.push_back( tile );
 			this->map.insert( tile );
 #ifdef LOADING_VERBOSE
@@ -146,7 +156,8 @@ namespace map
 
 	void Map::render ( const Ldouble& delta, graphics::TextureManager* textures , etc::Camera& camera )
 	{
-		auto tiles = this->map.getSpritesFromArea( camera.getViewport() );
+		std::vector<graphics::drawable*> tiles;
+		this->map.getSpritesFromArea( camera.getViewport() , &tiles );
 		for ( auto t : tiles )
 		{
 			MapTile* tile = (MapTile*)t;
@@ -161,6 +172,11 @@ namespace map
 	bool Map::isLoaded()
 	{
 		return this->inited;
+	}
+
+	etc::AreaMap* Map::getAreaMap()
+	{
+		return &(this->map);
 	}
 
 } /* namespace map */

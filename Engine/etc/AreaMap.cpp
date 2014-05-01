@@ -33,6 +33,19 @@ AreaMap::AreaMap()
 	this->depth = 0;
 }
 
+AreaMap::AreaMap( SDL_Rect Area )
+{
+	// TODO Auto-generated constructor stub
+	this->parent = nullptr;
+	//Most even spread of all area over the axis
+	this->area = Area;
+
+	children.reserve( 4 );
+	sprites.reserve ( 10 );
+	this->depth = 0;
+}
+
+
 AreaMap::~AreaMap()
 {
 	// TODO Auto-generated destructor stub
@@ -69,14 +82,14 @@ void AreaMap::insert( graphics::drawable* sp )
 	//Gives up on passing onto the children and keeps it
 	this->sprites.push_back( sp );
 }
-std::vector<graphics::drawable*> AreaMap::getSpritesFromArea ( SDL_Rect Area )
+
+void AreaMap::getSpritesFromArea ( SDL_Rect Area , std::vector<graphics::drawable*>* out )
 {
-	std::vector<graphics::drawable*> output;
 	for ( unsigned int i = 0; i < this->sprites.size(); i++ )
 	{
 		if ( maths::isRectTouching( this->sprites[i]->getRect() , Area ) )
 		{
-			output.push_back( this->sprites[i] );
+			out->push_back( this->sprites[i] );
 		}
 	}
 	for ( unsigned int n = 0; n < this->children.size(); n++ )
@@ -84,11 +97,9 @@ std::vector<graphics::drawable*> AreaMap::getSpritesFromArea ( SDL_Rect Area )
 		//Make sure the child has a chance of having the area
 		if ( maths::isRectTouching( this->children[n].getArea() , Area ) )
 		{
-			std::vector<graphics::drawable*> sp = this->children[n].getSpritesFromArea( Area );
-			output.insert( output.end(), sp.begin(), sp.end() );
+			this->children[n].getSpritesFromArea( Area , out );
 		}
 	}
-	return output;
 }
 
 SDL_Rect AreaMap::getArea()

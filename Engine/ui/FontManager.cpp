@@ -67,6 +67,7 @@ Font* FontManager::get( std::string name , int size)
 		created_fonts[name].push_back(out);
 		return out;
 	}
+	return nullptr;
 }
 
 bool FontManager::exists( std::string name )

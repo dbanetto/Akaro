@@ -7,6 +7,7 @@ using namespace map;
 MapManager::MapManager()
 {
 	this->textures = nullptr;
+	this->tiletypes = nullptr;
 }
 
 MapManager::~MapManager()
@@ -14,9 +15,10 @@ MapManager::~MapManager()
 
 }
 
-void MapManager::init (graphics::TextureManager* Textures)
+void MapManager::init (graphics::TextureManager* Textures , map::TileTypeManager* Tiletypes)
 {
 	this->textures = Textures;
+	this->tiletypes = Tiletypes;
 }
 
 void MapManager::unloadAll()
@@ -54,7 +56,7 @@ Map* MapManager::get( std::string name )
 
 bool MapManager::exists( std::string name )
 {
-	return ( this->maps.find( name ) != this->maps.end() && textures != nullptr);
+	return ( textures != nullptr && tiletypes != nullptr && this->maps.find( name ) != this->maps.end() );
 }
 
 bool MapManager::load ( std::string name, std::string mapPath )
@@ -69,7 +71,7 @@ bool MapManager::load ( std::string name, std::string mapPath )
 	if ( !this->exists( name ) )
 	{
 		Map* mp = new Map(textures);
-		bool out = mp->loadMap( mapPath);
+		bool out = mp->loadMap( mapPath , this->tiletypes );
 
 		if ( out )
 		{

@@ -49,7 +49,6 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
-					<Add directory="states" />
 				</Compiler>
 				<Linker>
 					<Add directory="../Engine/bin/Debug" />
@@ -63,7 +62,6 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
-					<Add directory="states" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -83,7 +81,6 @@
 			<Add library="SDL2_net" />
 			<Add library="SDL2_ttf" />
 			<Add library="Engine" />
-			<Add directory="../Engine/bin" />
 		</Linker>
 		<Unit filename="AkaroWindow.cpp" />
 		<Unit filename="AkaroWindow.h" />

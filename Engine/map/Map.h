@@ -13,6 +13,7 @@
 #include <string>
 #include <vector>
 #include "../graphics/TextureManager.h"
+#include "TileTypeManager.h"
 
 namespace map
 {
@@ -29,15 +30,17 @@ namespace map
 			virtual void render ( const Ldouble& delta, graphics::TextureManager* textures , etc::Camera& camera );
 			virtual void update ( const Ldouble& delta );
 
+			etc::AreaMap* getAreaMap();
 
 			bool isLoaded();
-			bool loadMap( std::string file );
+			bool loadMap( std::string file , map::TileTypeManager* tiletypes );
 			void unloadMap();
 			void unload();
 		private:
 			etc::AreaMap map;
 			std::vector<MapTile*> maptiles;
 			graphics::TextureManager* textures;
+
 			bool inited;
 	};
 

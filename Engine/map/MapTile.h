@@ -16,15 +16,32 @@
 namespace map
 {
 
-	class MapTile: public graphics::Sprite
+
+	class MapTile : public graphics::Sprite
 	{
 		public:
+			//Tile Events/Callbacks
+			typedef void ( *TileOnTouch )( MapTile* maptile, graphics::Sprite* );
+			typedef void ( *TileOnUpdate )(MapTile* maptile, Ldouble& );
+			struct TileType
+			{
+				std::string name = "";
+				std::string texture_name = "";
+
+				bool collidable = false;
+
+				TileOnTouch onTouch = nullptr;
+				TileOnUpdate update = nullptr;
+			};
+
+
+
 			MapTile();
 			MapTile ( graphics::TextureManager* textures
-					  , std::string textureName
+					  , TileType* tiletype
 					  , SDL_Point Position );
 			MapTile ( graphics::TextureManager* textures
-					  , std::string textureName
+					  , TileType* tiletype
 					  , SDL_Rect Position
 					  , int SpriteMapIndex
 					  , double Rotation
@@ -32,10 +49,11 @@ namespace map
 					  , SDL_RendererFlip flip );
 
 			virtual ~MapTile();
-
+			TileType* getTileType();
 			void render(const Ldouble& delta, graphics::TextureManager* textures , etc::Camera& camera );
 		private:
-			std::string texture_name;
+			TileType* tiletype;
+
 	};
 
 } /* namespace map */

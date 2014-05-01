@@ -105,6 +105,7 @@ void Content::unload()
 	this->gamestate.unload();
 	this->input.unload();
 	this->settings.unload();
+	this->tiletypes.unloadAll();
 
 	//Shutdown inited services in reverse order of init
 	TTF_Quit();
@@ -143,4 +144,9 @@ ui::FontManager* Content::Fonts()
 map::MapManager* Content::Maps()
 {
 	return &(this->maps);
+}
+
+map::TileTypeManager* Content::TileTypes()
+{
+	return &(this->tiletypes);
 }
