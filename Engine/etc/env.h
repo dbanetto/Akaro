@@ -28,7 +28,7 @@
 
 namespace etc
 {
-
+	void printSystemInfo(bool fullinfo);
 	void printSystemInfo();
 
 }

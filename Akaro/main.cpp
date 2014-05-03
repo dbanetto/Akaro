@@ -7,8 +7,11 @@
 #include "AkaroWindow.h"
 #include "Engine/etc/colour.h"
 #include "Engine/content.h"
+#include "Engine/etc/env.h"
 
 #include <iostream>
+#include <string>
+
 #if __GNUC__
 #include <SDL2/SDL_version.h>
 #else
@@ -33,6 +36,26 @@ int main ( int argc, char* argv[] )
 	Content content;
 	//Load base content
 	content.init();
+
+	if (content.Settings()->exists("info" , "printinfo"))
+	{
+		bool print = false;
+		if ( content.Settings()->getBool("info" , "printinfo" , &print ) )
+		{
+			if (print)
+			{
+				etc::printSystemInfo();
+			}
+		} else {
+			std::string option;
+			content.Settings()->get("info" , "printinfo" , &option);
+			std::cout << option << std::endl;
+			if (option == "full")
+			{
+				etc::printSystemInfo(true);
+			}
+		}
+	}
 
 	AkaroWindow gm = AkaroWindow ( &content );
 

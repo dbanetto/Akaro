@@ -5,7 +5,6 @@
 */
 
 #include <iostream>
-#include "etc/Timer.h"
 #include <string>
 #include <stdlib.h>
 #include <sstream>
@@ -17,6 +16,7 @@
 #include "GameWindow.h"
 #include "etc/string.h"
 #include "etc/colour.h"
+#include "etc/Timer.h"
 
 /**
  * @brief Initializes a new instance of the GameWindow class.
@@ -214,8 +214,18 @@ int GameWindow::init( const char* TITLE , SDL_Color Background , int SDL_SCREEN_
 		this->FRAME_LIMIT = FRAME_LIMIT;
 	}
 
+
+	bool windowborder = false;
+	if ( this->content->Settings()->getBool ( "window" , "borderless" , &windowborder ) )
+	{
+		if ( windowborder )
+		{
+			SDL_SetWindowBordered( this->window ,  SDL_FALSE );
+		}
+	}
+
 	//Create Renderer
-	this->renderer = SDL_CreateRenderer ( this->window , 1 , render_flags );
+	this->renderer = SDL_CreateRenderer ( this->window , -1 , render_flags );
 
 	//Make sure it was created correctly
 	if ( this->renderer == nullptr )
@@ -279,11 +289,12 @@ void GameWindow::start( void )
 		//RENDERS HERE
 		//Change in time in seconds with game-time multiplier to edit game speed
 		Ldouble s_delta = delta.get_ticks() * GAMETIME_MULTIPLIER;
-		this->update( s_delta );
 
+		this->update( s_delta );
 		//Mid frame Check for exit
 		if ( this->quit )
 			break;
+
 
 		//Render delta for post-render
 		SDL_SetRenderDrawColor( this->renderer, this->background.r, this->background.g, this->background.b, this->background.a );
@@ -292,7 +303,6 @@ void GameWindow::start( void )
 		s_delta = delta.get_ticks() * GAMETIME_MULTIPLIER;
 		this->render( s_delta );
 		SDL_RenderPresent( this->renderer );
-
 		//Assess render time
 
 		//Restart Delta
@@ -307,15 +317,6 @@ void GameWindow::start( void )
 			{
 				//Sleep the remaining frame time
 				Uint32 delay = ( Uint32 )( round( ( 1000.0 / this->FRAME_LIMIT ) - ( fps.get_ticks() * 1000 ) ) );
-
-				//Correct the time to sleep so it keeps up where the frame is suppose to be in terms of a second
-				//Uint32 normaliser =  (Uint32)round( counter.get_ticks() ) - (Uint32)round( ( counter_frames / this->FRAME_LIMIT) );
-				//Only Apply it if it is needed
-				//if ( normaliser < delay && normaliser != 0 )
-				//{
-				//	delay -= normaliser;
-				//}
-				//Crash safety net and is less than a second
 				if ( delay > 0 && delay < 1000 )
 				{
 					SDL_Delay(  delay );

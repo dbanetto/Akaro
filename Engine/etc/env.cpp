@@ -20,8 +20,12 @@
 
 namespace etc
 {
-
 	void printSystemInfo()
+	{
+		printSystemInfo(false);
+	}
+
+	void printSystemInfo(bool fullinfo)
 	{
 		//Render Devices
 
@@ -112,53 +116,57 @@ namespace etc
 		for( int i = 0; i < SDL_GetNumVideoDisplays(); i++ )
 		{
 
-			std::cout << "Display Name " << i << " : " << SDL_GetDisplayName( i ) << std::endl;
+			std::cout << "Display Index : " << i << std::endl;
+			std::cout << "Display Name " << " : " << SDL_GetDisplayName( i ) << std::endl;
 
 			SDL_DisplayMode desk;
 			SDL_GetDesktopDisplayMode( i , &desk );
 
 			SDL_Rect rect;
 			SDL_GetDisplayBounds( i , &rect );
-			std::cout << "Desktop Display Position " << i << " : { " << rect.x << " , " << rect.y << " }" << std::endl;
+			std::cout << "Desktop Display Position " << " : { " << rect.x << " , " << rect.y << " }" << std::endl;
 
-			std::cout << "Desktop Display Resolution " << i << " : " << desk.w << 'x' << desk.h << std::endl;
-			std::cout << "Desktop Display Refresh " << i << " : " << desk.refresh_rate << std::endl;
+			std::cout << "Native Display Resolution "  << " : " << desk.w << 'x' << desk.h << std::endl;
+			std::cout << "Native Display Refresh " << " : " << desk.refresh_rate << std::endl;
+			std::cout << "Native Display Format : ";
 			switch ( desk.format )
 			{
 				case ( SDL_PIXELFORMAT_RGB888 ):
-					std::cout << "Desktop Display Format : RGB-888" << std::endl;
+					std::cout << "RGB-888" << std::endl;
 					break;
 				case ( SDL_PIXELFORMAT_RGB565 ):
-					std::cout << "Desktop Display Format : RGB-565" << std::endl;
+					std::cout << "RGB-565" << std::endl;
 					break;
 				default:
-					std::cout << "Desktop Display Format : " << desk.format << std::endl;
+					std::cout << desk.format << std::endl;
 					break;
 			}
 			std::cout << std::endl;
-#ifdef PRINT_ALL_DISPLAY_MODES
-			for ( int n = 0; n < SDL_GetNumDisplayModes( i ); n++ )
+			if (fullinfo)
 			{
-				SDL_DisplayMode dm;
-				SDL_GetDisplayMode( i , n , &dm );
-				std::cout << "Display Mode : " << n << std::endl;
-				std::cout << "Display Resolution : " << dm.w << 'x' << dm.h << std::endl;
-				std::cout << "Display Refresh : " << dm.refresh_rate << std::endl;
-				switch ( dm.format )
+				for ( int n = 0; n < SDL_GetNumDisplayModes( i ); n++ )
 				{
-					case ( SDL_PIXELFORMAT_RGB888 ):
-						std::cout << "Desktop Display Format : RGB-888" << std::endl;
-						break;
-					case ( SDL_PIXELFORMAT_RGB565 ):
-						std::cout << "Desktop Display Format : RGB-565" << std::endl;
-						break;
-					default:
-						std::cout << "Desktop Display Format : " << dm.format << std::endl;
-						break;
+					SDL_DisplayMode dm;
+					SDL_GetDisplayMode( i , n , &dm );
+					std::cout << "Display Mode : " << n << std::endl;
+					std::cout << "Display Resolution : " << dm.w << 'x' << dm.h << std::endl;
+					std::cout << "Display Refresh : " << dm.refresh_rate << std::endl;
+					std::cout << "Display Format : ";
+					switch ( dm.format )
+					{
+						case ( SDL_PIXELFORMAT_RGB888 ):
+							std::cout << "RGB-888" << std::endl;
+							break;
+						case ( SDL_PIXELFORMAT_RGB565 ):
+							std::cout << "RGB-565" << std::endl;
+							break;
+						default:
+							std::cout << desk.format << std::endl;
+							break;
+					}
+					std::cout << std::endl;
 				}
-				std::cout << std::endl;
 			}
-#endif
 			std::cout << std::endl;
 
 		}
@@ -215,7 +223,8 @@ namespace etc
 		for ( int i = 0; i < SDL_GetNumTouchDevices(); i++ )
 		{
 			SDL_TouchID touch = SDL_GetTouchDevice( i );
-			std::cout << "Number of Touch fingers : " << SDL_GetNumTouchFingers( touch ) << std::endl;
+			std::cout << "Touch Device index : " << i << std::endl;
+			std::cout << "Number of Touch \'fingers\' : " << SDL_GetNumTouchFingers( touch ) << std::endl;
 			std::cout << std::endl;
 
 		}
@@ -241,6 +250,8 @@ namespace etc
 		{
 			std::cout << "Audio device " <<  i << " : " << SDL_GetAudioDeviceName( i, 0 ) << std::endl;
 		}
+
+		std::cout << std::endl;
 	}
 
 } /* namespace etc */

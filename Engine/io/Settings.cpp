@@ -341,15 +341,16 @@ bool Settings::get ( std::string header , std::string  key, std::string* out )
  * @brief Gets the value and converts it to a bool
  * @see Settings::get
  * @param bol Returns the value
- * @return
+ * @return Returns true if the value is a boolean
  */
 bool Settings::getBool ( std::string header , std::string  key , bool* bol )
 {
 	std::string b;
 	if ( this->get( header, key , &b ) == false )
 		return false;
+
 	b = etc::toLower( b );
-	if ( b != "" )
+	if ( b == "true" || b == "false" )
 	{
 		*bol = ( b == "true" ? true : false );
 		return true;
