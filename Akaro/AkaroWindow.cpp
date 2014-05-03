@@ -69,9 +69,9 @@ void AkaroWindow::load()
 	{
 		std::cout << "Failed to load Keyboard" << std::endl;
 	}
-
+#ifdef DEBUG
 	std::cout << "Input loaded" << std::endl;
-
+#endif
 	//GAME STATES
 	this->content->Gamestate()->add_state( "menu" ,   new MenuState( this->content->Gamestate(), this, this->content ) );
 	this->content->Gamestate()->add_state( "world" ,   new WorldState( this->content->Gamestate(), this, this->content ) );

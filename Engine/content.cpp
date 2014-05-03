@@ -49,7 +49,10 @@ int Content::init()
 	{
 		std::cout << "Version " << ver << std::endl;
 	}
+	#ifdef DEBUG
 	std::cout << SETTINGS_PATH << " loaded." << std::endl;
+	#endif
+
 	//Start SDL and Others
 
 	//Start SDL
@@ -83,7 +86,9 @@ int Content::init()
 		std::cerr << SDL_GetError() << std::endl;
 		return 6;
 	}
+	#ifdef DEBUG
 	std::cout << "All sub systems loaded." << std::endl;
+	#endif
 	inited = true;
 	return 0;
 }
@@ -127,10 +132,12 @@ input::InputManager* Content::Input()
 {
 	return &( this->input );
 }
+
 audio::AudioManager* Content::Audio()
 {
 	return &( this->audio );
 }
+
 GameStateManager* Content::Gamestate()
 {
 	return &( this->gamestate );

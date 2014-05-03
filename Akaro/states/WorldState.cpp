@@ -55,8 +55,9 @@ void WorldState::load   ()
 	fps = ui::Label( "FPS Counter" , ft , pt );
 
 	cur_map = this->content->Maps()->get(this->content->Maps()->getCurrentMapName() );
-
+#ifdef DEBUG
 	std::cout << "World State Loaded " << this->content->Maps()->getCurrentMapName() << std::endl;
+#endif
 	this->is_loaded = true;
 }
 void WorldState::unload ()

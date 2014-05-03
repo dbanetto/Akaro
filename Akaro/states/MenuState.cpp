@@ -59,7 +59,9 @@ void MenuState::load ()
 	if ( this->content->Settings()->get( "ui" , "font" , &path ) )
 		if ( this->content->Fonts()->load( "ui" , path ) )
 		{
+			#ifdef DEBUG
 			std::cout << "Font loaded" << std::endl;
+			#endif
 		}
 	}
 
@@ -74,12 +76,15 @@ void MenuState::load ()
 
 			if (this->content->TileTypes()->add ( "grass" , tile ))
 			{
+				#ifdef DEBUG
 				std::cout << "Texture List Loaded" << std::endl;
+				#endif
 				if (this->content->Maps()->load( "demo" , "data/map.pam" ))
 				{
-
 						this->content->Maps()->setCurrentMap("demo");
+						#ifdef DEBUG
 						std::cout << "Map Loaded" << std::endl;
+						#endif
 				}
 			}
 		}
@@ -87,15 +92,13 @@ void MenuState::load ()
 		std::cout << "Could not find graphics.texturepack" << tpath << std::endl;
 	}
 
-	this->content->Audio()->load( "theme" , "ogg/abstract_anxiety.ogg" );
-	this->content->Audio()->play("theme");
-
+	#ifdef DEBUG
 	std::cout << "Menu State Loaded" << std::endl;
+	#endif
 	this->is_loaded = true;
 }
 
 void MenuState::unload ()
 {
-	this->content->Audio()->stop("theme");
 	this->is_loaded = false;
 }

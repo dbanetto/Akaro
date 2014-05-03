@@ -17,6 +17,7 @@
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-g" />
+					<Add option="-DDEBUG" />
 				</Compiler>
 				<Linker>
 					<Add library="mingw32" />
@@ -52,6 +53,7 @@
 				<Compiler>
 					<Add option="-g" />
 					<Add option="-fPIC" />
+					<Add option="-DDEBUG" />
 				</Compiler>
 			</Target>
 			<Target title="Release Unix">
@@ -129,7 +131,7 @@
 		<Unit filename="map/MapTile.cpp" />
 		<Unit filename="map/MapTile.h" />
 		<Unit filename="map/TileTypeManager.cpp" />
- 		<Unit filename="map/TileTypeManager.h" />
+		<Unit filename="map/TileTypeManager.h" />
 		<Unit filename="maths/Point.cpp" />
 		<Unit filename="maths/Point.h" />
 		<Unit filename="maths/area.cpp" />
